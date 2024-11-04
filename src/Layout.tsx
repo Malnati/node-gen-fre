@@ -1,3 +1,5 @@
+// src/Layout.tsx
+
 import type { ReactNode } from "react";
 import { Layout as RALayout, CheckForApplicationUpdate } from "react-admin";
 
