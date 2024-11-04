@@ -6,7 +6,6 @@ export const AppCreate = () => (
     <Create>
         <SimpleForm>
             <ReferenceInput source="id" reference="apps" />
-            {/* <TextInput source="id" /> */}
             <TextInput source="app" />
             <TextInput source="host" />
             <NumberInput source="port" />

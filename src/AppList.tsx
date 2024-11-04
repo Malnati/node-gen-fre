@@ -1,9 +1,14 @@
 // src/AppList.tsx
 
-import { Datagrid, List, NumberField, ReferenceField, TextField } from 'react-admin';
+import { Datagrid, List, NumberField, ReferenceField, ReferenceInput, TextField, TextInput } from 'react-admin';
+
+const appsFilters = [
+    <TextInput source="q" label="Search" alwaysOn />,
+    <ReferenceInput source="id" label="App" reference="apps" />,
+];
 
 export const AppList = () => (
-    <List>
+    <List filters={appsFilters}>
         <Datagrid>
             <ReferenceField source="id" reference="apps" link="show" />
             <TextField source="app" />
