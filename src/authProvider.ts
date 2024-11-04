@@ -23,12 +23,25 @@ export const authProvider: AuthProvider = {
   },
 
   checkError: () => Promise.resolve(),
-  checkAuth: () => (localStorage.getItem("user") ? Promise.resolve() : Promise.reject()),
-  getPermissions: () => Promise.resolve(undefined),
+
+  checkAuth: () =>
+    localStorage.getItem("user") ? Promise.resolve() : Promise.reject(),
+
+  getPermissions: () => Promise.resolve(),
+
   getIdentity: () => {
     const persistedUser = localStorage.getItem("user");
     const user = persistedUser ? JSON.parse(persistedUser) : null;
-    return Promise.resolve(user);
+
+    // Adicionando uma verificação de dados e um avatar padrão para exibição no react-admin
+    if (user && user.access_token) {
+      return Promise.resolve({
+        id: user.authuser || "google_user",
+        fullName: "Google User",
+        avatar: `https://lh3.googleusercontent.com/a/default-user-profile.png`, // URL padrão ou personalizada
+      });
+    }
+    return Promise.reject();
   },
 };
 
