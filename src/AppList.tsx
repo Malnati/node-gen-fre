@@ -1,6 +1,6 @@
 // src/AppList.tsx
 
-import { Datagrid, List, NumberField, ReferenceField, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton } from 'react-admin';
+import { Datagrid, List, NumberField, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton } from 'react-admin';
 
 const appsFilters = [
     <TextInput source="q" label="Search" alwaysOn />,
