@@ -1,14 +1,17 @@
 // src/CustomLogin.tsx
+
 import { useGoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom"; // Importa o hook de navegação do React Router
 import { HttpError } from "react-admin";
 
-
 const CustomLogin = () => {
+  const navigate = useNavigate(); // Hook para navegação
 
   const login = useGoogleLogin({
     onSuccess: (response) => {
-      // Salva as informações de autenticação
+      // Salva as informações de autenticação e redireciona
       localStorage.setItem("user", JSON.stringify(response));
+      navigate("/"); // Redireciona para a página principal do Admin
     },
     onError: () => {
       throw new HttpError("Unauthorized", 401, {
