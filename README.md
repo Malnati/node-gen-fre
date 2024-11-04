@@ -1,5 +1,3 @@
-Aqui está uma estrutura para o README que inclui seções principais e o GIF animado que está no diretório public. Esse exemplo é focado em fornecer uma visão geral do projeto e instruções detalhadas de uso:
-
 # Node.js Code Generator - NestJS Back-end
 
 ![Node.js Code Generator](./public/node-gen-fre.gif)
