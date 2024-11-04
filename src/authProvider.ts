@@ -1,3 +1,5 @@
+// src/authProvider.ts
+
 import { AuthProvider, HttpError } from "react-admin";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 
@@ -10,7 +12,12 @@ export const authProvider: AuthProvider = {
           localStorage.setItem("user", JSON.stringify(response));
           resolve();
         },
-        onError: () => reject(new HttpError("Unauthorized", 401, { message: "Failed to authenticate with Google" })),
+        onError: () =>
+          reject(
+            new HttpError("Unauthorized", 401, {
+              message: "Failed to authenticate with Google",
+            })
+          ),
       });
       login();
     });
@@ -29,19 +36,29 @@ export const authProvider: AuthProvider = {
 
   getPermissions: () => Promise.resolve(),
 
-  getIdentity: () => {
+  getIdentity: async () => {
     const persistedUser = localStorage.getItem("user");
     const user = persistedUser ? JSON.parse(persistedUser) : null;
 
-    // Adicionando uma verificação de dados e um avatar padrão para exibição no react-admin
     if (user && user.access_token) {
-      return Promise.resolve({
-        id: user.authuser || "google_user",
-        fullName: "Google User",
-        avatar: `https://lh3.googleusercontent.com/a/default-user-profile.png`, // URL padrão ou personalizada
-      });
+      try {
+        // Fetch Google user info using the access token
+        const response = await fetch(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`
+        );
+        const profile = await response.json();
+
+        return Promise.resolve({
+          id: profile.id,
+          fullName: profile.name || "Google User",
+          avatar: profile.picture || `https://lh3.googleusercontent.com/a/default-user-profile.png`,
+        });
+      } catch (error) {
+        console.error("Erro ao buscar perfil do usuário:", error);
+        return Promise.reject(new HttpError("Failed to fetch user profile", 500));
+      }
     }
-    return Promise.reject();
+    return Promise.reject(new HttpError("No user authenticated", 401));
   },
 };
 
