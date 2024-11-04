@@ -1,7 +1,7 @@
 import fakeRestDataProvider from "ra-data-fakerest";
-import data from "./data.json";
+import data from "./gen.json";
 
-export const dataProvider = fakeRestDataProvider(
+export const genDataProvider = fakeRestDataProvider(
   data,
   process.env.NODE_ENV !== "test",
   300,
