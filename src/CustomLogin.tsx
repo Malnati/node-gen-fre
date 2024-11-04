@@ -1,6 +1,8 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { HttpError } from "react-admin";
+import { Button, Box, Typography, Container, CssBaseline } from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
 
 const CustomLogin = () => {
   const navigate = useNavigate();
@@ -18,30 +20,33 @@ const CustomLogin = () => {
   });
 
   return (
-    <div style={{
-      textAlign: "center",
-      paddingTop: "20%",
-      color: "#FFFFFF", // Texto em branco
-      backgroundColor: "#121212", // Background escuro
-      minHeight: "100vh", // Cobre toda a altura da página
-    }}>
-      <h2 style={{ color: "#BB86FC" }}>Bem-vindo</h2>
-      <p>Para acessar o sistema, faça login com o Google:</p>
-      <button
-        onClick={() => login()}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-          backgroundColor: "#BB86FC", // Botão em roxo escuro
-          color: "#FFFFFF", // Texto do botão branco
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        Login com Google
-      </button>
-    </div>
+        <Typography component="h1" variant="h5">
+          Bem-vindo
+        </Typography>
+        <Typography component="p" variant="body1" sx={{ mt: 2 }}>
+          Para acessar o sistema, faça login com o Google:
+        </Typography>
+        <Button
+          onClick={() => login()}
+          fullWidth
+          variant="contained"
+          startIcon={<GoogleIcon />}
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Login com Google
+        </Button>
+      </Box>
+    </Container>
   );
 };
 
