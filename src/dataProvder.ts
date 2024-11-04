@@ -8,9 +8,8 @@ const LOCAL_STORAGE_KEY = "myAppData";
 const loadData = (resource: string) => {
     const allData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "{}");
 
-    // Inicializa os dados se não existirem
     if (!allData[resource]) {
-        allData[resource] = initialData.apps; // Inicializa a chave "apps" com os dados de gen.json
+        allData[resource] = initialData.apps; 
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allData));
     }
 
@@ -29,14 +28,12 @@ export const dataProvider: DataProvider = {
         const { field, order } = params.sort || { field: "defaultField", order: "ASC" };
         let data = loadData(resource);
 
-        // Ordenação
         data = data.sort((a: any, b: any) => 
             order === "ASC" 
                 ? a[field] > b[field] ? 1 : -1 
                 : a[field] < b[field] ? 1 : -1
         );
 
-        // Paginação
         const paginatedData = data.slice((page - 1) * perPage, page * perPage);
 
         return Promise.resolve({
@@ -48,7 +45,7 @@ export const dataProvider: DataProvider = {
     getOne: (resource, params) => {
         console.log("Requested ID:", params.id);
         const data = loadData(resource);
-        const record = data.find((item: any) => item.app === params.id);
+        const record = data.find((item: any) => item.id === params.id);
         
         if (record) {
             return Promise.resolve({ data: record });
@@ -59,7 +56,7 @@ export const dataProvider: DataProvider = {
     },
 
     getMany: (resource, params) => {
-        const data = loadData(resource).filter((item: any) => params.ids.includes(item.app));
+        const data = loadData(resource).filter((item: any) => params.ids.includes(item.id));
         return Promise.resolve({ data });
     },
 
@@ -69,14 +66,12 @@ export const dataProvider: DataProvider = {
 
         let data = loadData(resource).filter((item: any) => item[params.target] === params.id);
 
-        // Ordenação
         data = data.sort((a: any, b: any) => 
             order === "ASC" 
                 ? a[field] > b[field] ? 1 : -1 
                 : a[field] < b[field] ? 1 : -1
         );
 
-        // Paginação
         const paginatedData = data.slice((page - 1) * perPage, page * perPage);
 
         return Promise.resolve({
@@ -87,7 +82,7 @@ export const dataProvider: DataProvider = {
 
     update: (resource, params) => {
         const data = loadData(resource);
-        const index = data.findIndex((item: any) => item.app === params.id);
+        const index = data.findIndex((item: any) => item.id === params.id);
         if (index === -1) return Promise.reject(new Error("Not found"));
         
         data[index] = { ...data[index], ...params.data };
@@ -99,7 +94,7 @@ export const dataProvider: DataProvider = {
     updateMany: (resource, params) => {
         const data = loadData(resource);
         params.ids.forEach(id => {
-            const index = data.findIndex((item: any) => item.app === id);
+            const index = data.findIndex((item: any) => item.id === id);
             if (index !== -1) data[index] = { ...data[index], ...params.data };
         });
         saveData(resource, data);
@@ -118,8 +113,8 @@ export const dataProvider: DataProvider = {
 
     delete: <RecordType extends RaRecord = any>(resource: string, params: DeleteParams<RecordType>): Promise<DeleteResult<RecordType>> => {
         let data = loadData(resource);
-        const deletedRecord = data.find((item: any) => item.app === params.id) as RecordType;
-        data = data.filter((item: any) => item.app !== params.id);
+        const deletedRecord = data.find((item: any) => item.id === params.id) as RecordType;
+        data = data.filter((item: any) => item.id !== params.id);
         saveData(resource, data);
     
         return Promise.resolve({ data: deletedRecord });
@@ -127,7 +122,7 @@ export const dataProvider: DataProvider = {
 
     deleteMany: (resource, params) => {
         let data = loadData(resource);
-        data = data.filter((item: any) => !params.ids.includes(item.app));
+        data = data.filter((item: any) => !params.ids.includes(item.id));
         saveData(resource, data);
 
         return Promise.resolve({ data: params.ids });
