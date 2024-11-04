@@ -46,9 +46,16 @@ export const dataProvider: DataProvider = {
     },
 
     getOne: (resource, params) => {
+        console.log("Requested ID:", params.id);
         const data = loadData(resource);
         const record = data.find((item: any) => item.app === params.id);
-        return record ? Promise.resolve({ data: record }) : Promise.reject(new Error("Not found"));
+        
+        if (record) {
+            return Promise.resolve({ data: record });
+        } else {
+            console.error("Record not found:", params.id);
+            return Promise.reject(new Error("Not found"));
+        }
     },
 
     getMany: (resource, params) => {
