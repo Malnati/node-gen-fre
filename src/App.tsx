@@ -8,24 +8,25 @@ import {
 import { Layout } from "./Layout";
 import { dataProvider } from "./dataProvider";
 import { authProvider } from "./authProvider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import CustomLogin from "./CustomLogin";
+
+const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
 export const App = () => (
-  <Admin
-    layout={Layout}
-    dataProvider={dataProvider}
-    authProvider={authProvider}
-  >
-    <Resource
-      name="posts"
-      list={ListGuesser}
-      edit={EditGuesser}
-      show={ShowGuesser}
-    />
-    <Resource
-      name="comments"
-      list={ListGuesser}
-      edit={EditGuesser}
-      show={ShowGuesser}
-    />
-  </Admin>
+  <GoogleOAuthProvider clientId={clientId}>
+    <Admin
+      layout={Layout}
+      dataProvider={dataProvider}
+      authProvider={authProvider}
+      loginPage={<CustomLogin />} 
+    >
+      <Resource
+        name="posts"
+        list={ListGuesser}
+        edit={EditGuesser}
+        show={ShowGuesser}
+      />
+    </Admin>
+  </GoogleOAuthProvider>
 );
