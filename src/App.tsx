@@ -2,6 +2,7 @@
 
 import {
   Admin,
+  defaultDarkTheme,
   Resource,
 } from "react-admin";
 import { Layout } from "./Layout";
@@ -27,6 +28,7 @@ export const App = () => (
       authProvider={authProvider}
       loginPage={<CustomLogin />} 
       dashboard={Dashboard}
+      theme={defaultDarkTheme}
     >
       <Resource
         name="apps"

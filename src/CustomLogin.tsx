@@ -1,17 +1,14 @@
-// src/CustomLogin.tsx
-
 import { useGoogleLogin } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom"; // Importa o hook de navegação do React Router
+import { useNavigate } from "react-router-dom";
 import { HttpError } from "react-admin";
 
 const CustomLogin = () => {
-  const navigate = useNavigate(); // Hook para navegação
+  const navigate = useNavigate();
 
   const login = useGoogleLogin({
     onSuccess: (response) => {
-      // Salva as informações de autenticação e redireciona
       localStorage.setItem("user", JSON.stringify(response));
-      navigate("/"); // Redireciona para a página principal do Admin
+      navigate("/");
     },
     onError: () => {
       throw new HttpError("Unauthorized", 401, {
@@ -21,10 +18,27 @@ const CustomLogin = () => {
   });
 
   return (
-    <div style={{ textAlign: "center", paddingTop: "20%" }}>
-      <h2>Bem-vindo</h2>
+    <div style={{
+      textAlign: "center",
+      paddingTop: "20%",
+      color: "#FFFFFF", // Texto em branco
+      backgroundColor: "#121212", // Background escuro
+      minHeight: "100vh", // Cobre toda a altura da página
+    }}>
+      <h2 style={{ color: "#BB86FC" }}>Bem-vindo</h2>
       <p>Para acessar o sistema, faça login com o Google:</p>
-      <button onClick={() => login()} style={{ padding: "10px 20px", fontSize: "16px" }}>
+      <button
+        onClick={() => login()}
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+          backgroundColor: "#BB86FC", // Botão em roxo escuro
+          color: "#FFFFFF", // Texto do botão branco
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
         Login com Google
       </button>
     </div>
