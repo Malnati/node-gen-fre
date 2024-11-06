@@ -9,10 +9,10 @@ import { Layout } from "./Layout";
 import { authProvider } from "./authProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import CustomLogin from "./CustomLogin";
-import { AppList } from "./AppList";
-import { AppShow } from "./AppShow";
-import { AppEdit } from "./AppEdit";
-import { AppCreate } from "./AppCreate";
+import { BackendList } from "./BackendList";
+import { BackendShow } from "./BackendShow";
+import { BackendEdit } from "./BackendEdit";
+import { BackendCreate } from "./BackendCreate";
 import { FrontCreate } from "./FrontCreate";
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import TvIcon from '@mui/icons-material/Tv';
@@ -33,15 +33,15 @@ export const App = () => (
     >
     <Resource
       name="apps"
-      list={AppList}
-      show={AppShow}
-      edit={AppEdit}
-      create={AppCreate}
+      list={BackendList}
+      show={BackendShow}
+      edit={BackendEdit}
+      create={BackendCreate}
       icon={WidgetsIcon}
     />
     <Resource
       name="fronts"
-      list={AppList}
+      list={BackendList}
       create={FrontCreate}
       icon={TvIcon}
     />

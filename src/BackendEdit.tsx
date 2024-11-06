@@ -1,6 +1,8 @@
+// src/BackendEdit.tsx
+
 import { Edit, NumberInput, SimpleForm, TextInput } from 'react-admin';
 
-export const AppEdit = () => (
+export const BackendEdit = () => (
     <Edit>
         <SimpleForm>
             <TextInput source="app" />

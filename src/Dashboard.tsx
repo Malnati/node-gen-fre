@@ -1,3 +1,5 @@
+// src/Dashboard.tsx
+
 import { Card, CardContent, CardHeader, Typography, Button, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CodeIcon from "@mui/icons-material/Code";

@@ -1,3 +1,5 @@
+// src/CustomLogin.tsx
+
 import { useGoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { HttpError } from "react-admin";

@@ -1,8 +1,8 @@
-// src/AppCreate.tsx
+// src/BackendCreate.tsx
 
 import { Create, NumberInput, ReferenceInput, SimpleForm, TextInput } from 'react-admin';
 
-export const AppCreate = () => (
+export const BackendCreate = () => (
     <Create>
         <SimpleForm>
             <ReferenceInput source="id" reference="apps" />

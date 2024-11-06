@@ -1,8 +1,8 @@
-// src/AppShow.tsx
+// src/BackendShow.tsx
 
 import { NumberField, Show, SimpleShowLayout, TextField } from 'react-admin';
 
-export const AppShow = () => (
+export const BackendShow = () => (
     <Show>
         <SimpleShowLayout>
             <TextField source="app" />

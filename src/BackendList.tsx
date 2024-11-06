@@ -1,4 +1,4 @@
-// src/AppList.tsx
+// src/BackendList.tsx
 
 import { Datagrid, List, NumberField, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton } from 'react-admin';
 
@@ -7,7 +7,7 @@ const appsFilters = [
     <ReferenceInput source="id" label="App" reference="apps" />,
 ];
 
-export const AppList = () => (
+export const BackendList = () => (
     <List emptyWhileLoading filters={appsFilters} actions={<ListActions hasCreate />}>
         <Datagrid>
             <TextField source="app" />

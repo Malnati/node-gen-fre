@@ -1,3 +1,5 @@
+// src/FrontCreate.tsx
+
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
@@ -30,7 +32,7 @@ const steps = [
 ];
 
 export const FrontCreate = () => {
-  
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
