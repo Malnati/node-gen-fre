@@ -1,5 +1,5 @@
 // src/schemaService.ts
-import { db, IDatabaseSchema } from './GeradorDatabase';
+import { db, IDatabaseSchema } from './FrontendDB';
 
 // Função para adicionar um novo schema
 export async function addSchema(schema: IDatabaseSchema): Promise<number> {
