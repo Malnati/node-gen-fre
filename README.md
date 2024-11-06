@@ -1,5 +1,7 @@
 # Node.js e React Code Generator - Back-end com NestJS e Front-end com React
 
+![Node.js Code Generator](./public/node-gen-fre.gif)
+
 ## Descrição
 
 Bem-vindo ao Node.js e React Code Generator, uma aplicação que facilita a criação de sistemas completos, gerando tanto o back-end em Node.js com NestJS quanto o front-end em React com React Admin. Esta ferramenta permite configurar uma nova aplicação definindo parâmetros de conexão com o banco de dados (PostgreSQL ou MySQL) e selecionando componentes personalizados para geração automática do código-fonte.
