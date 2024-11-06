@@ -3,7 +3,7 @@
 import { CreateParams, CreateResult, DataProvider, DeleteParams, DeleteResult, Identifier, RaRecord } from "react-admin";
 import initialData from "./gen.json";
 
-const LOCAL_STORAGE_KEY = "myAppData";
+const LOCAL_STORAGE_KEY = "geradorData";
 
 const loadData = (resource: string) => {
     const allData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "{}");

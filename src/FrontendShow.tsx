@@ -2,9 +2,9 @@
 
 import { useRecordContext, NumberField, TextField, Show, SimpleShowLayout } from 'react-admin';
 import { Typography } from '@mui/material';
-import { Schema, Field } from './cache/db'; // Importa as interfaces Schema e Field
+import { IDatabaseSchema, IField } from './cache/GeradorDatabase'; // Importa as interfaces Schema e Field
 
-const FieldDisplay = ({ field }: { field: Field }) => {
+const FieldDisplay = ({ field }: { field: IField }) => {
     switch (field.component) {
         case 'TextField':
             return <TextField source={field.name} />;
@@ -18,7 +18,7 @@ const FieldDisplay = ({ field }: { field: Field }) => {
 };
 
 export const FrontendShow = () => {
-    const record = useRecordContext<Schema>(); // Obtém o schema atual a ser exibido
+    const record = useRecordContext<IDatabaseSchema>(); // Obtém o schema atual a ser exibido
 
     if (!record) return null;
 
