@@ -7,13 +7,13 @@ import {
 } from "react-admin";
 import { Layout } from "./Layout";
 import { authProvider } from "./authProvider";
-import { genDataProvider } from "./genDataProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import CustomLogin from "./CustomLogin";
 import { AppList } from "./AppList";
 import { AppShow } from "./AppShow";
 import { AppEdit } from "./AppEdit";
 import { AppCreate } from "./AppCreate";
+import { FrontCreate } from "./FrontCreate";
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import { Dashboard } from "./Dashboard";
 import { dataProvider } from "./dataProvder";
@@ -30,14 +30,19 @@ export const App = () => (
       dashboard={Dashboard}
       theme={defaultDarkTheme}
     >
-      <Resource
-        name="apps"
-        list={AppList}
-        show={AppShow}
-        edit={AppEdit}
-        create={AppCreate}
-        icon={WidgetsIcon}
-      />
+    <Resource
+      name="apps"
+      list={AppList}
+      show={AppShow}
+      edit={AppEdit}
+      create={AppCreate}
+      icon={WidgetsIcon}
+    />
+    <Resource
+      name="fronts"
+      create={FrontCreate}
+      icon={WidgetsIcon}
+    />
     </Admin>
   </GoogleOAuthProvider>
 );

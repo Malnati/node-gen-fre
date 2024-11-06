@@ -30,10 +30,10 @@ export const Dashboard = () => {
                         variant="contained"
                         color="primary"
                         startIcon={<AddCircleOutlineIcon />}
-                        onClick={() => navigate("/apps/create")}
+                        onClick={() => navigate("/fronts")}
                         style={{ marginRight: "10px" }}
                     >
-                        Inserir Nova Aplicação
+                        Front-end
                     </Button>
                     <Button
                         variant="outlined"
@@ -41,7 +41,7 @@ export const Dashboard = () => {
                         startIcon={<CodeIcon />}
                         onClick={() => navigate("/apps")}
                     >
-                        Ver Aplicações Geradas
+                        Back-end
                     </Button>
                 </Box>
 
