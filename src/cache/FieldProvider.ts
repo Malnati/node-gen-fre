@@ -24,24 +24,30 @@ import {
     UpdateParams,
     UpdateResult,
 } from 'react-admin';
-import { db, IFrontend, IScreen, IField } from './FrontendDB';
+import { db, IField } from './FrontendDB';
 
 const FieldProvider: DataProvider = {
-    getList: function <RecordType extends RaRecord = any>(resource: string, params: GetListParams & QueryFunctionContext): Promise<GetListResult<RecordType>> {
-        throw new Error('Function not implemented.');
+    getList: async function <RecordType extends RaRecord = any>(resource: string, params: GetListParams & QueryFunctionContext): Promise<GetListResult<RecordType>> {
+        const fields = await db.fields.toArray();
+        return { data: fields as unknown as RecordType[], total: fields.length };
     },
-    getOne: function <RecordType extends RaRecord = any>(resource: string, params: GetOneParams<RecordType> & QueryFunctionContext): Promise<GetOneResult<RecordType>> {
-        throw new Error('Function not implemented.');
+    getOne: async function <RecordType extends RaRecord = any>(resource: string, params: GetOneParams<RecordType> & QueryFunctionContext): Promise<GetOneResult<RecordType>> {
+        const field = await db.fields.get(Number(params.id));
+        if (!field) throw new Error(`Field with id ${params.id} not found`);
+        return { data: field as unknown as RecordType };
     },
-    getMany: function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
-        throw new Error('Function not implemented.');
+    getMany: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
+        const fields = await db.fields.bulkGet(params.ids.map(id => Number(id)));
+        return { data: fields.filter(f => f !== undefined) as unknown as RecordType[] };
     },
-    getManyReference: function <RecordType extends RaRecord = any>(resource: string, params: GetManyReferenceParams & QueryFunctionContext): Promise<GetManyReferenceResult<RecordType>> {
-        throw new Error('Function not implemented.');
+    getManyReference: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyReferenceParams & QueryFunctionContext): Promise<GetManyReferenceResult<RecordType>> {
+        const fields = await db.fields.toArray();
+        const filteredFields = fields.filter(field => field[params.target] === params.id);
+        return { data: filteredFields as RecordType[], total: filteredFields.length };
     },
     update: function <RecordType extends RaRecord = any>(resource: string, params: UpdateParams): Promise<UpdateResult<RecordType>> {
         const updated: IField = {
-            id: params.id,
+            id: Number(params.id),
             name: resource,
             type: params.data.type,
             specifications: Object.keys(params.data).reduce((specs, key) => {
@@ -51,10 +57,9 @@ const FieldProvider: DataProvider = {
                 return specs;
             }, {} as Record<string, any>),
         };
-        return db.updateField(params.id, updated).then((id) => ({ data: { ...params.data, id } } as UpdateResult<RecordType>));
+        return db.updateField(Number(params.id), updated).then((id) => ({ data: { ...params.data, id } } as UpdateResult<RecordType>));
     },
     updateMany: async function <RecordType extends RaRecord = any>(resource: string, params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
-        // Define as atualizações comuns a todos os registros usando Partial<IField>
         const updates: Partial<IField> = {
             name: resource,
             type: params.data.type,
@@ -66,7 +71,6 @@ const FieldProvider: DataProvider = {
             }, {} as Record<string, any>)
         };
     
-        // Executa a atualização em lote e retorna os IDs atualizados
         const numericIds = params.ids.map(id => Number(id));
         const updatedIds = await db.updateManyFields(numericIds, updates);
         return { data: updatedIds };
@@ -85,11 +89,14 @@ const FieldProvider: DataProvider = {
         };
         return db.createField(created).then((id) => ({ data: { ...params.data, id } } as CreateResult<ResultRecordType>));
     },
-    delete: function <RecordType extends RaRecord = any>(resource: string, params: DeleteParams<RecordType>): Promise<DeleteResult<RecordType>> {
-        throw new Error('Function not implemented.');
+    delete: async function <RecordType extends RaRecord = any>(resource: string, params: DeleteParams<RecordType>): Promise<DeleteResult<RecordType>> {
+        await db.deleteField(Number(params.id));
+        return { data: params.previousData };
     },
-    deleteMany: function <RecordType extends RaRecord = any>(resource: string, params: DeleteManyParams<RecordType>): Promise<DeleteManyResult<RecordType>> {
-        throw new Error('Function not implemented.');
+    deleteMany: async function <RecordType extends RaRecord = any>(resource: string, params: DeleteManyParams<RecordType>): Promise<DeleteManyResult<RecordType>> {
+        const numericIds = params.ids.map(id => Number(id));
+        await db.deleteManyFields(numericIds);
+        return { data: numericIds };
     }
 };
 
