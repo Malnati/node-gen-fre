@@ -17,7 +17,8 @@ import { FrontCreate } from "./FrontCreate";
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import TvIcon from '@mui/icons-material/Tv';
 import { Dashboard } from "./Dashboard";
-import { dataProvider } from "./dataProvder";
+import { dataProvider } from "./DataProvder";
+import { FrontendList } from "./FrontendList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -41,7 +42,7 @@ export const App = () => (
     />
     <Resource
       name="fronts"
-      list={BackendList}
+      list={FrontendList}
       create={FrontCreate}
       icon={TvIcon}
     />
