@@ -15,6 +15,7 @@ import { AppEdit } from "./AppEdit";
 import { AppCreate } from "./AppCreate";
 import { FrontCreate } from "./FrontCreate";
 import WidgetsIcon from '@mui/icons-material/Widgets';
+import TvIcon from '@mui/icons-material/Tv';
 import { Dashboard } from "./Dashboard";
 import { dataProvider } from "./dataProvder";
 
@@ -40,8 +41,9 @@ export const App = () => (
     />
     <Resource
       name="fronts"
+      list={AppList}
       create={FrontCreate}
-      icon={WidgetsIcon}
+      icon={TvIcon}
     />
     </Admin>
   </GoogleOAuthProvider>

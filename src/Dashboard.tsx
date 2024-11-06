@@ -30,7 +30,7 @@ export const Dashboard = () => {
                         variant="contained"
                         color="primary"
                         startIcon={<AddCircleOutlineIcon />}
-                        onClick={() => navigate("/fronts")}
+                        onClick={() => navigate("/fronts/create")}
                         style={{ marginRight: "10px" }}
                     >
                         Front-end
