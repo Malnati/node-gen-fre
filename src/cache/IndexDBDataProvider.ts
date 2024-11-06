@@ -1,11 +1,11 @@
-// src/cache/dataProvider.ts
+// src/cache/IndexDBDataProvider.ts
 
 import { DataProvider, GetListResult, GetOneResult, GetManyResult, CreateResult, GetManyReferenceResult, UpdateResult, UpdateManyResult, DeleteResult, DeleteManyResult } from 'react-admin';
 import { db, Schema } from './db';
 
 type RecordType = any; // Define RecordType or import it if defined elsewhere
 
-const dataProvider: DataProvider = {
+const IndexDBDataProvider: DataProvider = {
     
     async getList(resource, params): Promise<GetListResult<RecordType>> {
         const { page, perPage } = params.pagination || { page: 1, perPage: 10 };
