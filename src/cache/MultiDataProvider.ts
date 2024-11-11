@@ -1,13 +1,15 @@
 // src/cache/MultiDataProvider.ts
 
 import { DataProvider } from 'react-admin';
-import { MainDataProvider } from './MainDataProvider';
+
 import FieldProvider from './FieldProvider';
 import ScreenProvider from './ScreenProvider';
 import FrontEndProvider from './FrontEndProvider';
+import AppDataProvider from './AppProvider';
 
 // Mapeamento dinâmico de resources para data providers
 const providersMap: Record<string, DataProvider> = {
+  apps: AppDataProvider,
   fields: FieldProvider,
   screens: ScreenProvider,
   fronts: FrontEndProvider,

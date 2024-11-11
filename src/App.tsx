@@ -13,7 +13,6 @@ import { Layout } from "./Layout";
 import { authProvider } from "./authProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import CustomLogin from "./CustomLogin";
-import { BackendList } from "./BackendList";
 import { FrontCreate } from "./FrontCreate";
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import TvIcon from '@mui/icons-material/Tv';
@@ -24,6 +23,7 @@ import { FrontendList } from "./FrontendList";
 import { FieldList } from "./FieldList";
 import { ScreenList } from "./ScreensList";
 import MultiDataProvider from "./cache/MultiDataProvider";
+import { AppList } from "./AppList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -47,7 +47,7 @@ export const App = () => {
         
         <Resource
           name="apps"
-          list={BackendList}
+          list={AppList}
           icon={WidgetsIcon}
         />
         <Resource
