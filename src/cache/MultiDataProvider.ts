@@ -5,11 +5,11 @@ import { DataProvider } from 'react-admin';
 import FieldProvider from './FieldProvider';
 import ScreenProvider from './ScreenProvider';
 import FrontEndProvider from './FrontEndProvider';
-import AppDataProvider from './AppProvider';
+import AppProvider from './AppProvider';
 
 // Mapeamento dinâmico de resources para data providers
 const providersMap: Record<string, DataProvider> = {
-  apps: AppDataProvider,
+  apps: AppProvider,
   fields: FieldProvider,
   screens: ScreenProvider,
   fronts: FrontEndProvider,
