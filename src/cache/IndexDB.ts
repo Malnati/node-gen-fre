@@ -1,21 +1,21 @@
 import Dexie, { Table } from 'dexie';
 
 export interface IField {
-    id?: number;
+    id: number;
     name: string;
     type: string;
     specifications?: Record<string, any>;
 }
 
 export interface IScreen {
-    id?: number;
+    id: number;
     name: string;
     fields: number[];
     specifications?: Record<string, any>;
 }
 
 export interface IFrontend {
-    id?: number;
+    id: number;
     name: string;
     screens: number[];
     specifications?: Record<string, any>;
@@ -35,32 +35,22 @@ export class DB extends Dexie {
         });
     }
 
+    async clearDatabase() {
+        await db.fields.clear();
+        await db.screens.clear();
+        await db.frontends.clear();
+    }
+
     async seedData() {
-        // Verifica se já existem dados
-        const hasFields = await this.fields.count();
-        const hasScreens = await this.screens.count();
-        const hasFrontends = await this.frontends.count();
+        // Adiciona os dados usando `put`, para substituir se o registro já existir
+        await this.fields.put({ id: 1, name: 'Field 1', type: 'string', specifications: { maxLength: 255 } });
+        await this.fields.put({ id: 2, name: 'Field 2', type: 'number', specifications: { max: 1000 } });
 
-        if (hasFields === 0) {
-            await this.fields.bulkAdd([
-                { name: 'Field 1', type: 'string', specifications: { maxLength: 255 } },
-                { name: 'Field 2', type: 'number', specifications: { max: 1000 } },
-            ]);
-        }
+        await this.screens.put({ id: 1, name: 'Screen 1', fields: [1, 2], specifications: { layout: 'grid' } });
+        await this.screens.put({ id: 2, name: 'Screen 2', fields: [2], specifications: { layout: 'list' } });
 
-        if (hasScreens === 0) {
-            await this.screens.bulkAdd([
-                { name: 'Screen 1', fields: [1, 2], specifications: { layout: 'grid' } },
-                { name: 'Screen 2', fields: [2], specifications: { layout: 'list' } },
-            ]);
-        }
-
-        if (hasFrontends === 0) {
-            await this.frontends.bulkAdd([
-                { name: 'Frontend 1', screens: [1], specifications: { responsive: true } },
-                { name: 'Frontend 2', screens: [2], specifications: { responsive: false } },
-            ]);
-        }
+        await this.frontends.put({ id: 1, name: 'Frontend 1', screens: [1], specifications: { responsive: true } });
+        await this.frontends.put({ id: 2, name: 'Frontend 2', screens: [2], specifications: { responsive: false } });
     }
 
     // CRUD functions for IField

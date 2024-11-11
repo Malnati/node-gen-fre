@@ -11,46 +11,72 @@ const providersMap: Record<string, DataProvider> = {
   fields: FieldProvider,
   screens: ScreenProvider,
   fronts: FrontEndProvider,
-  // Adicione outros resources e seus data providers conforme necessário
 };
 
 const MultiDataProvider: DataProvider = {
-  getList: (resource, params) => {
-    const provider = providersMap[resource] || MainDataProvider;
-    return provider.getList(resource, params);
-  },
-  getOne: (resource, params) => {
-    const provider = providersMap[resource] || MainDataProvider;
-    return provider.getOne(resource, params);
-  },
-  getMany: (resource, params) => {
-    const provider = providersMap[resource] || MainDataProvider;
-    return provider.getMany(resource, params);
-  },
-  getManyReference: (resource, params) => {
-    const provider = providersMap[resource] || MainDataProvider;
-    return provider.getManyReference(resource, params);
-  },
-  create: (resource, params) => {
-    const provider = providersMap[resource] || MainDataProvider;
-    return provider.create(resource, params);
-  },
-  update: (resource, params) => {
-    const provider = providersMap[resource] || MainDataProvider;
-    return provider.update(resource, params);
-  },
-  updateMany: (resource, params) => {
-    const provider = providersMap[resource] || MainDataProvider;
-    return provider.updateMany(resource, params);
-  },
-  delete: (resource, params) => {
-    const provider = providersMap[resource] || MainDataProvider;
-    return provider.delete(resource, params);
-  },
-  deleteMany: (resource, params) => {
-    const provider = providersMap[resource] || MainDataProvider;
-    return provider.deleteMany(resource, params);
-  },
+    getList: (resource, params) => {
+        const provider = providersMap[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider.getList(resource, params);
+    },
+    getOne: (resource, params) => {
+        const provider = providersMap[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider.getOne(resource, params);
+    },
+    getMany: (resource, params) => {
+        const provider = providersMap[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider.getMany(resource, params);
+    },
+    getManyReference: (resource, params) => {
+        const provider = providersMap[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider.getManyReference(resource, params);
+    },
+    create: (resource, params) => {
+        const provider = providersMap[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider.create(resource, params);
+    },
+    update: (resource, params) => {
+        const provider = providersMap[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider.update(resource, params);
+    },
+    updateMany: (resource, params) => {
+        const provider = providersMap[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider.updateMany(resource, params);
+    },
+    delete: (resource, params) => {
+        const provider = providersMap[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider.delete(resource, params);
+    },
+    deleteMany: (resource, params) => {
+        const provider = providersMap[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider.deleteMany(resource, params);
+    },
 };
 
 export default MultiDataProvider;

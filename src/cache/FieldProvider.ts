@@ -77,7 +77,7 @@ const FieldProvider: DataProvider = {
     },
     create: function <RecordType extends Omit<RaRecord, 'id'> = any, ResultRecordType extends RaRecord = RecordType & { id: Identifier; }>(resource: string, params: CreateParams): Promise<CreateResult<ResultRecordType>> {
         const created: IField = {
-            id: undefined,
+            id: Date.now(),
             name: resource,
             type: params.data.type,
             specifications: Object.keys(params.data).reduce((specs, key) => {

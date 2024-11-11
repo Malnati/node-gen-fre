@@ -29,21 +29,29 @@ import { db, IFrontend } from './IndexDB';
 const FrontEndProvider: DataProvider = {
     getList: async function <RecordType extends RaRecord = any>(resource: string, params: GetListParams & QueryFunctionContext): Promise<GetListResult<RecordType>> {
         const frontends = await db.frontends.toArray();
-        return { data: frontends as unknown as RecordType[], total: frontends.length };
+        const result = { data: frontends as unknown as RecordType[], total: frontends.length };
+        console.log('FrontEndProvider.getList', JSON.stringify(result, null, 2));
+        return result;
     },
     getOne: async function <RecordType extends RaRecord = any>(resource: string, params: GetOneParams<RecordType> & QueryFunctionContext): Promise<GetOneResult<RecordType>> {
         const frontend = await db.frontends.get(Number(params.id));
         if (!frontend) throw new Error(`Frontend with id ${params.id} not found`);
-        return { data: frontend as unknown as RecordType };
+        const result = { data: frontend as unknown as RecordType };
+        console.log('FrontEndProvider.getOne', JSON.stringify(result, null, 2));
+        return result;
     },
     getMany: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
         const frontends = await db.frontends.bulkGet(params.ids.map(id => Number(id)));
-        return { data: frontends.filter(f => f !== undefined) as unknown as RecordType[] };
+        const result = { data: frontends.filter(f => f !== undefined) as unknown as RecordType[] };
+        console.log('FrontEndProvider.getMany', JSON.stringify(result, null, 2));
+        return result;
     },
     getManyReference: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyReferenceParams & QueryFunctionContext): Promise<GetManyReferenceResult<RecordType>> {
         const frontends = await db.frontends.toArray();
         const filteredFrontends = frontends.filter(frontend => frontend[params.target as keyof IFrontend] === params.id);
-        return { data: filteredFrontends as unknown as RecordType[], total: filteredFrontends.length };
+        const result = { data: filteredFrontends as unknown as RecordType[], total: filteredFrontends.length };
+        console.log('FrontEndProvider.getManyReference', JSON.stringify(result, null, 2));
+        return result;
     },
     update: function <RecordType extends RaRecord = any>(resource: string, params: UpdateParams): Promise<UpdateResult<RecordType>> {
         const updated: IFrontend = {
@@ -77,7 +85,7 @@ const FrontEndProvider: DataProvider = {
     },
     create: function <RecordType extends Omit<RaRecord, 'id'> = any, ResultRecordType extends RaRecord = RecordType & { id: Identifier; }>(resource: string, params: CreateParams): Promise<CreateResult<ResultRecordType>> {
         const created: IFrontend = {
-            id: undefined,
+            id: Date.now(),
             name: resource,
             screens: params.data.screens,
             specifications: Object.keys(params.data).reduce((specs, key) => {

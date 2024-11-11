@@ -77,7 +77,7 @@ const ScreenProvider: DataProvider = {
     },
     create: function <RecordType extends Omit<RaRecord, 'id'> = any, ResultRecordType extends RaRecord = RecordType & { id: Identifier; }>(resource: string, params: CreateParams): Promise<CreateResult<ResultRecordType>> {
         const created: IScreen = {
-            id: undefined,
+            id: Date.now(),
             name: resource,
             fields: params.data.fields,
             specifications: Object.keys(params.data).reduce((specs, key) => {
