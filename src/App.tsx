@@ -10,7 +10,7 @@ import {
 
 import { db } from "./cache/IndexDB";
 import { Layout } from "./Layout";
-import { authProvider } from "./authProvider";
+import { GoogleAuthProvider } from "./GoogleAuthProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import CustomLogin from "./CustomLogin";
 import { FrontCreate } from "./FrontCreate";
@@ -39,7 +39,7 @@ export const App = () => {
         <Admin
           layout={Layout}
           dataProvider={MultiDataProvider}
-          authProvider={authProvider}
+          authProvider={GoogleAuthProvider}
           loginPage={<CustomLogin />} 
           dashboard={Dashboard}
           theme={defaultDarkTheme}

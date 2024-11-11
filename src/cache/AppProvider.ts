@@ -1,4 +1,4 @@
-// src/cache/AppDataProvider.ts
+// src/cache/AppProvider.ts
 
 import {
     RaRecord,
@@ -24,81 +24,74 @@ import {
     UpdateParams,
     UpdateResult,
 } from 'react-admin';
-import { db, IFrontend } from './IndexDB';
+import { db, IApp } from './IndexDB';
 
 const AppDataProvider: DataProvider = {
     getList: async function <RecordType extends RaRecord = any>(resource: string, params: GetListParams & QueryFunctionContext): Promise<GetListResult<RecordType>> {
-        const frontends = await db.frontends.toArray();
-        const result = { data: frontends as unknown as RecordType[], total: frontends.length };
+        const apps = await db.apps.toArray();
+        const result = { data: apps as unknown as RecordType[], total: apps.length };
         console.log('AppDataProvider.getList', JSON.stringify(result, null, 2));
         return result;
     },
     getOne: async function <RecordType extends RaRecord = any>(resource: string, params: GetOneParams<RecordType> & QueryFunctionContext): Promise<GetOneResult<RecordType>> {
-        const frontend = await db.frontends.get(Number(params.id));
-        if (!frontend) throw new Error(`Frontend with id ${params.id} not found`);
-        const result = { data: frontend as unknown as RecordType };
+        const app = await db.apps.get(Number(params.id));
+        if (!app) throw new Error(`App with id ${params.id} not found`);
+        const result = { data: app as unknown as RecordType };
         console.log('AppDataProvider.getOne', JSON.stringify(result, null, 2));
         return result;
     },
     getMany: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
-        const frontends = await db.frontends.bulkGet(params.ids.map(id => Number(id)));
-        const result = { data: frontends.filter(f => f !== undefined) as unknown as RecordType[] };
+        const apps = await db.apps.bulkGet(params.ids.map(id => Number(id)));
+        const result = { data: apps.filter(f => f !== undefined) as unknown as RecordType[] };
         console.log('AppDataProvider.getMany', JSON.stringify(result, null, 2));
         return result;
     },
     getManyReference: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyReferenceParams & QueryFunctionContext): Promise<GetManyReferenceResult<RecordType>> {
-        const frontends = await db.frontends.toArray();
-        const filteredFrontends = frontends.filter(frontend => frontend[params.target as keyof IFrontend] === params.id);
-        const result = { data: filteredFrontends as unknown as RecordType[], total: filteredFrontends.length };
+        const apps = await db.apps.toArray();
+        const filteredApps = apps.filter(app => app[params.target as keyof IApp] === params.id);
+        const result = { data: filteredApps as unknown as RecordType[], total: filteredApps.length };
         console.log('AppDataProvider.getManyReference', JSON.stringify(result, null, 2));
         return result;
     },
     update: function <RecordType extends RaRecord = any>(resource: string, params: UpdateParams): Promise<UpdateResult<RecordType>> {
-        const updated: IFrontend = {
+        const updated: IApp = {
             id: Number(params.id),
-            name: resource,
-            screens: params.data.screens,
-            specifications: Object.keys(params.data).reduce((specs, key) => {
-                if (key !== 'type') {
-                    specs[key] = params.data[key];
-                }
-                return specs;
-            }, {} as Record<string, any>),
+            app: resource,
+            host: params.data.host,
+            port: params.data.port,
+            database: params.data.database,
+            user: params.data.user,
+            dbType: params.data.dbType,
         };
-        return db.updateFrontend(Number(params.id), updated).then((id) => ({ data: { ...params.data, id } } as UpdateResult<RecordType>));
+        return db.updateApp(Number(params.id), updated).then((id) => ({ data: { ...params.data, id } } as UpdateResult<RecordType>));
     },
     updateMany: async function <RecordType extends RaRecord = any>(resource: string, params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
-        const updates: Partial<IFrontend> = {
-            name: resource,
-            screens: params.data.screens,
-            specifications: Object.keys(params.data).reduce((specs, key) => {
-                if (key !== 'type') {
-                    specs[key] = params.data[key];
-                }
-                return specs;
-            }, {} as Record<string, any>)
+        const updates: Partial<IApp> = {
+            app: resource,
+            host: params.data.host,
+            port: params.data.port,
+            database: params.data.database,
+            user: params.data.user,
+            dbType: params.data.dbType,
         };
-    
         const numericIds = params.ids.map(id => Number(id));
-        const updatedIds = await db.updateManyFrontends(numericIds, updates);
+        const updatedIds = await db.updateManyApps(numericIds, updates);
         return { data: updatedIds };
     },
     create: function <RecordType extends Omit<RaRecord, 'id'> = any, ResultRecordType extends RaRecord = RecordType & { id: Identifier; }>(resource: string, params: CreateParams): Promise<CreateResult<ResultRecordType>> {
-        const created: IFrontend = {
+        const created: IApp = {
             id: Date.now(),
-            name: resource,
-            screens: params.data.screens,
-            specifications: Object.keys(params.data).reduce((specs, key) => {
-                if (key !== 'type') {
-                    specs[key] = params.data[key];
-                }
-                return specs;
-            }, {} as Record<string, any>),
+            app: resource,
+            host: params.data.host,
+            port: params.data.port,
+            database: params.data.database,
+            user: params.data.user,
+            dbType: params.data.dbType,
         };
-        return db.createFrontend(created).then((id) => ({ data: { ...params.data, id } } as CreateResult<ResultRecordType>));
+        return db.createApp(created).then((id) => ({ data: { ...params.data, id } } as CreateResult<ResultRecordType>));
     },
     delete: async function <RecordType extends RaRecord = any>(resource: string, params: DeleteParams<RecordType>): Promise<DeleteResult<RecordType>> {
-        await db.deleteFrontend(Number(params.id));
+        await db.deleteApp(Number(params.id));
         if (!params.previousData) {
             throw new Error(`Previous data for id ${params.id} not found`);
         }
@@ -106,7 +99,7 @@ const AppDataProvider: DataProvider = {
     },
     deleteMany: async function <RecordType extends RaRecord = any>(resource: string, params: DeleteManyParams<RecordType>): Promise<DeleteManyResult<RecordType>> {
         const numericIds = params.ids.map(id => Number(id));
-        await db.deleteManyFrontends(numericIds);
+        await db.deleteManyApps(numericIds);
         return { data: numericIds };
     }
 };

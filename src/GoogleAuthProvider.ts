@@ -1,9 +1,9 @@
-// src/authProvider.ts
+// src/GoogleAuthProvider.ts
 
 import { AuthProvider, HttpError } from "react-admin";
 import { googleLogout, useGoogleLogin } from "@react-oauth/google";
 
-export const authProvider: AuthProvider = {
+export const GoogleAuthProvider: AuthProvider = {
   login: () => {
     return new Promise<void>((resolve, reject) => {
       const login = useGoogleLogin({
@@ -62,4 +62,4 @@ export const authProvider: AuthProvider = {
   },
 };
 
-export default authProvider;
+export default GoogleAuthProvider;
