@@ -50,6 +50,7 @@ export const App = () => {
           list={AppList}
           icon={WidgetsIcon}
         />
+        
         <Resource
           name="fronts"
           list={FrontendList}
