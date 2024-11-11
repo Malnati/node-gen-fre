@@ -1,4 +1,4 @@
-// in src/dataProvider.ts
+// src/cache/MainDataProvider.ts
 
 import { CreateParams, CreateResult, DataProvider, DeleteParams, DeleteResult, Identifier, RaRecord } from "react-admin";
 import initialData from "./gen.json";
@@ -22,7 +22,7 @@ const saveData = (resource: string, data: any[]) => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allData));
 };
 
-export const dataProvider: DataProvider = {
+export const MainDataProvider: DataProvider = {
     getList: (resource, params) => {
         const { page, perPage } = params.pagination || { page: 1, perPage: 10 };
         const { field, order } = params.sort || { field: "defaultField", order: "ASC" };

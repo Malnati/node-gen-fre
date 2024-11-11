@@ -2,7 +2,7 @@
 
 import { useRecordContext, NumberField, TextField, Show, SimpleShowLayout } from 'react-admin';
 import { Typography } from '@mui/material';
-import { IDatabaseSchema, IField } from './cache/FrontendDB'; // Importa as interfaces Schema e Field
+import { IDatabaseSchema, IField } from './cache/IndexDB'; // Importa as interfaces Schema e Field
 
 const FieldDisplay = ({ field }: { field: IField }) => {
     switch (field.component) {

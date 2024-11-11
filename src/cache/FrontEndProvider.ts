@@ -1,4 +1,4 @@
-// src/cache/FieldProvider.ts
+// src/cache/FrontEndProvider.ts
 
 import {
     RaRecord,
@@ -24,32 +24,32 @@ import {
     UpdateParams,
     UpdateResult,
 } from 'react-admin';
-import { db, IField } from './IndexDB';
+import { db, IFrontend } from './IndexDB';
 
-const FieldProvider: DataProvider = {
+const FrontEndProvider: DataProvider = {
     getList: async function <RecordType extends RaRecord = any>(resource: string, params: GetListParams & QueryFunctionContext): Promise<GetListResult<RecordType>> {
-        const fields = await db.fields.toArray();
-        return { data: fields as unknown as RecordType[], total: fields.length };
+        const frontends = await db.frontends.toArray();
+        return { data: frontends as unknown as RecordType[], total: frontends.length };
     },
     getOne: async function <RecordType extends RaRecord = any>(resource: string, params: GetOneParams<RecordType> & QueryFunctionContext): Promise<GetOneResult<RecordType>> {
-        const field = await db.fields.get(Number(params.id));
-        if (!field) throw new Error(`Field with id ${params.id} not found`);
-        return { data: field as unknown as RecordType };
+        const frontend = await db.frontends.get(Number(params.id));
+        if (!frontend) throw new Error(`Frontend with id ${params.id} not found`);
+        return { data: frontend as unknown as RecordType };
     },
     getMany: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
-        const fields = await db.fields.bulkGet(params.ids.map(id => Number(id)));
-        return { data: fields.filter(f => f !== undefined) as unknown as RecordType[] };
+        const frontends = await db.frontends.bulkGet(params.ids.map(id => Number(id)));
+        return { data: frontends.filter(f => f !== undefined) as unknown as RecordType[] };
     },
     getManyReference: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyReferenceParams & QueryFunctionContext): Promise<GetManyReferenceResult<RecordType>> {
-        const fields = await db.fields.toArray();
-        const filteredFields = fields.filter(field => field[params.target as keyof IField] === params.id);
-        return { data: filteredFields as unknown as RecordType[], total: filteredFields.length };
+        const frontends = await db.frontends.toArray();
+        const filteredFrontends = frontends.filter(frontend => frontend[params.target as keyof IFrontend] === params.id);
+        return { data: filteredFrontends as unknown as RecordType[], total: filteredFrontends.length };
     },
     update: function <RecordType extends RaRecord = any>(resource: string, params: UpdateParams): Promise<UpdateResult<RecordType>> {
-        const updated: IField = {
+        const updated: IFrontend = {
             id: Number(params.id),
             name: resource,
-            type: params.data.type,
+            screens: params.data.screens,
             specifications: Object.keys(params.data).reduce((specs, key) => {
                 if (key !== 'type') {
                     specs[key] = params.data[key];
@@ -57,12 +57,12 @@ const FieldProvider: DataProvider = {
                 return specs;
             }, {} as Record<string, any>),
         };
-        return db.updateField(Number(params.id), updated).then((id) => ({ data: { ...params.data, id } } as UpdateResult<RecordType>));
+        return db.updateFrontend(Number(params.id), updated).then((id) => ({ data: { ...params.data, id } } as UpdateResult<RecordType>));
     },
     updateMany: async function <RecordType extends RaRecord = any>(resource: string, params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
-        const updates: Partial<IField> = {
+        const updates: Partial<IFrontend> = {
             name: resource,
-            type: params.data.type,
+            screens: params.data.screens,
             specifications: Object.keys(params.data).reduce((specs, key) => {
                 if (key !== 'type') {
                     specs[key] = params.data[key];
@@ -72,14 +72,14 @@ const FieldProvider: DataProvider = {
         };
     
         const numericIds = params.ids.map(id => Number(id));
-        const updatedIds = await db.updateManyFields(numericIds, updates);
+        const updatedIds = await db.updateManyFrontends(numericIds, updates);
         return { data: updatedIds };
     },
     create: function <RecordType extends Omit<RaRecord, 'id'> = any, ResultRecordType extends RaRecord = RecordType & { id: Identifier; }>(resource: string, params: CreateParams): Promise<CreateResult<ResultRecordType>> {
-        const created: IField = {
+        const created: IFrontend = {
             id: undefined,
             name: resource,
-            type: params.data.type,
+            screens: params.data.screens,
             specifications: Object.keys(params.data).reduce((specs, key) => {
                 if (key !== 'type') {
                     specs[key] = params.data[key];
@@ -87,10 +87,10 @@ const FieldProvider: DataProvider = {
                 return specs;
             }, {} as Record<string, any>),
         };
-        return db.createField(created).then((id) => ({ data: { ...params.data, id } } as CreateResult<ResultRecordType>));
+        return db.createFrontend(created).then((id) => ({ data: { ...params.data, id } } as CreateResult<ResultRecordType>));
     },
     delete: async function <RecordType extends RaRecord = any>(resource: string, params: DeleteParams<RecordType>): Promise<DeleteResult<RecordType>> {
-        await db.deleteField(Number(params.id));
+        await db.deleteFrontend(Number(params.id));
         if (!params.previousData) {
             throw new Error(`Previous data for id ${params.id} not found`);
         }
@@ -98,9 +98,9 @@ const FieldProvider: DataProvider = {
     },
     deleteMany: async function <RecordType extends RaRecord = any>(resource: string, params: DeleteManyParams<RecordType>): Promise<DeleteManyResult<RecordType>> {
         const numericIds = params.ids.map(id => Number(id));
-        await db.deleteManyFields(numericIds);
+        await db.deleteManyFrontends(numericIds);
         return { data: numericIds };
     }
 };
 
-export default FieldProvider;
+export default FrontEndProvider;
