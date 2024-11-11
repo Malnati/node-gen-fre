@@ -21,18 +21,46 @@ export interface IFrontend {
     specifications?: Record<string, any>;
 }
 
-export class FrontendDB extends Dexie {
+export class DB extends Dexie {
     fields!: Table<IField>;
     screens!: Table<IScreen>;
     frontends!: Table<IFrontend>;
 
     constructor() {
-        super("FrontendDB");
+        super("DB");
         this.version(1).stores({
             fields: "++id, name, type",
             screens: "++id, name, *fields",
             frontends: "++id, name, *screens"
         });
+    }
+
+    async seedData() {
+        // Verifica se já existem dados
+        const hasFields = await this.fields.count();
+        const hasScreens = await this.screens.count();
+        const hasFrontends = await this.frontends.count();
+
+        if (hasFields === 0) {
+            await this.fields.bulkAdd([
+                { name: 'Field 1', type: 'string', specifications: { maxLength: 255 } },
+                { name: 'Field 2', type: 'number', specifications: { max: 1000 } },
+            ]);
+        }
+
+        if (hasScreens === 0) {
+            await this.screens.bulkAdd([
+                { name: 'Screen 1', fields: [1, 2], specifications: { layout: 'grid' } },
+                { name: 'Screen 2', fields: [2], specifications: { layout: 'list' } },
+            ]);
+        }
+
+        if (hasFrontends === 0) {
+            await this.frontends.bulkAdd([
+                { name: 'Frontend 1', screens: [1], specifications: { responsive: true } },
+                { name: 'Frontend 2', screens: [2], specifications: { responsive: false } },
+            ]);
+        }
     }
 
     // CRUD functions for IField
@@ -144,4 +172,4 @@ export class FrontendDB extends Dexie {
     }
 }
 
-export const db = new FrontendDB();
+export const db = new DB();
