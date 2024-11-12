@@ -1,3 +1,5 @@
+// src/cache/IndexDB.ts
+
 import Dexie, { Table } from 'dexie';
 
 export interface IField {
