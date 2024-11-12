@@ -1,10 +1,11 @@
 // src/AppShow.tsx
 
-import { Show, SimpleShowLayout, TextField } from 'react-admin';
+import { ReferenceField, Show, SimpleShowLayout, TextField } from 'react-admin';
 
 export const AppShow = () => (
     <Show>
         <SimpleShowLayout>
+            <ReferenceField source="id" reference="apps" />
             <TextField source="app" />
             <TextField source="host" />
             <TextField source="port" />
@@ -14,7 +15,6 @@ export const AppShow = () => (
             <TextField source="outputDir" />
             <TextField source="components" />
             <TextField source="dbType" />
-            <TextField source="id" />
         </SimpleShowLayout>
     </Show>
 );

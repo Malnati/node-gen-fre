@@ -13,6 +13,7 @@ export const AppEdit = () => (
             <TextInput source="user" />
             <TextInput source="password" />
             <TextInput source="dbType" />
+            <ReferenceInput source="specifications" reference="specifications" />
         </SimpleForm>
     </Edit>
 );
