@@ -90,7 +90,11 @@ export class DB extends Dexie {
             { id: 3, type: 'screen', referenceId: 1, key: 'layout', value: 'grid' },
             { id: 4, type: 'screen', referenceId: 2, key: 'layout', value: 'list' },
             { id: 5, type: 'frontend', referenceId: 1, key: 'responsive', value: true },
-            { id: 6, type: 'frontend', referenceId: 2, key: 'responsive', value: false }
+            { id: 6, type: 'frontend', referenceId: 2, key: 'responsive', value: false },
+            { id: 7, type: 'app', referenceId: 1, key: 'theme', value: true },
+            { id: 8, type: 'app', referenceId: 1, key: 'theme', value: true },
+            { id: 9, type: 'app', referenceId: 1, key: 'sso', value: true },
+            { id: 10, type: 'app', referenceId: 2, key: 'sso', value: false }
         ]);
     }
 
