@@ -2,6 +2,14 @@
 
 import Dexie, { Table } from 'dexie';
 
+export interface ISpecification {
+    id: number;
+    type: 'field' | 'screen' | 'frontend' | 'app';  // Define o tipo de item relacionado
+    referenceId: number; // ID do item relacionado (field, screen, frontend, app)
+    key: string;         // Chave da especificação, por exemplo, "maxLength" ou "layout"
+    value: any;          // Valor da especificação, que pode variar conforme o tipo
+}
+
 export interface IField {
     id: number;
     name: string;
