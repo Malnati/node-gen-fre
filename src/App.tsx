@@ -26,6 +26,7 @@ import MultiDataProvider from "./cache/MultiDataProvider";
 import { AppList } from "./AppList";
 import { AppCreate } from "./AppCreate";
 import { AppEdit } from "./AppEdit";
+import { AppShow } from "./AppShow";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -52,6 +53,7 @@ export const App = () => {
           list={AppList}
           create={AppCreate}
           edit={AppEdit}
+          show={AppShow}
           icon={WidgetsIcon}
         />
         
