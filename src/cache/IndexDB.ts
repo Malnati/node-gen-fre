@@ -46,7 +46,8 @@ export class DB extends Dexie {
     fields!: Table<IField>;
     screens!: Table<IScreen>;
     frontends!: Table<IFrontend>;
-
+    specifications!: Table<ISpecification>;
+    
     constructor() {
         super("DB");
         this.version(1).stores({
