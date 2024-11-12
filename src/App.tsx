@@ -13,7 +13,7 @@ import { Layout } from "./Layout";
 import { GoogleAuthProvider } from "./GoogleAuthProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import CustomLogin from "./CustomLogin";
-import { FrontCreate } from "./FrontCreate";
+import { FrontCreate } from "./FrontendCreate";
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import TvIcon from '@mui/icons-material/Tv';
 import { Dashboard } from "./Dashboard";
