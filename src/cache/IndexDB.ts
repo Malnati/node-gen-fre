@@ -71,15 +71,17 @@ export class DB extends Dexie {
         await this.apps.put({ id: 1, app: 'App 1', host: 'localhost', port: '5432', database: 'postgres', user: 'postgres', dbType: 'postgres' });
         await this.apps.put({ id: 2, app: 'App 2', host: 'localhost', port: '5432', database: 'postgres', user: 'postgres', dbType: 'postgres' });
 
-        // Adiciona os dados usando `put`, para substituir se o registro já existir
-        await this.fields.put({ id: 1, name: 'Field 1', type: 'string', specifications: { maxLength: 255 } });
-        await this.fields.put({ id: 2, name: 'Field 2', type: 'number', specifications: { max: 1000 } });
+        // Adiciona os dados de fields
+        await this.fields.put({ id: 1, name: 'Field 1', type: 'string' });
+        await this.fields.put({ id: 2, name: 'Field 2', type: 'number' });
 
-        await this.screens.put({ id: 1, name: 'Screen 1', fields: [1, 2], specifications: { layout: 'grid' } });
-        await this.screens.put({ id: 2, name: 'Screen 2', fields: [2], specifications: { layout: 'list' } });
+        // Adiciona os dados de screens
+        await this.screens.put({ id: 1, name: 'Screen 1', fields: [1, 2] });
+        await this.screens.put({ id: 2, name: 'Screen 2', fields: [2] });
 
-        await this.frontends.put({ id: 1, name: 'Frontend 1', screens: [1], specifications: { responsive: true } });
-        await this.frontends.put({ id: 2, name: 'Frontend 2', screens: [2], specifications: { responsive: false } });
+        // Adiciona os dados de frontends
+        await this.frontends.put({ id: 1, name: 'Frontend 1', screens: [1] });
+        await this.frontends.put({ id: 2, name: 'Frontend 2', screens: [2] });
 
         // Exemplo de carga inicial para cada tipo
         await this.specifications.bulkPut([
