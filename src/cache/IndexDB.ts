@@ -40,6 +40,7 @@ export interface IApp {
     database: string;
     user: string;
     dbType: string;
+    specifications?: Record<string, any>;
 }
 
 export class DB extends Dexie {
