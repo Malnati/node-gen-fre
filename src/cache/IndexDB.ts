@@ -92,6 +92,42 @@ export class DB extends Dexie {
         ]);
     }
 
+    // CRUD functions for ISpecification
+    async getListSpecifications(): Promise<ISpecification[]> {
+        return await this.specifications.toArray();
+    }
+
+    async getOneSpecification(id: number): Promise<ISpecification | undefined> {
+        return await this.specifications.get(id);
+    }
+
+    async createSpecification(specification: ISpecification): Promise<number> {
+        return await this.specifications.add(specification);
+    }
+
+    async updateSpecification(id: number, updates: Partial<ISpecification>): Promise<number> {
+        return await this.specifications.update(id, updates);
+    }
+
+    async updateManySpecifications(ids: number[], updates: Partial<ISpecification>): Promise<number[]> {
+        const updatedIds: number[] = [];
+        await this.transaction('rw', this.specifications, async () => {
+            for (const id of ids) {
+                await this.specifications.update(id, updates);
+                updatedIds.push(id);
+            }
+        });
+        return updatedIds;
+    }
+
+    async deleteSpecification(id: number): Promise<void> {
+        await this.specifications.delete(id);
+    }
+
+    async deleteManySpecifications(ids: number[]): Promise<void> {
+        await this.specifications.bulkDelete(ids);
+    }
+
     // CRUD functions for IApp
     async getListApps(): Promise<IApp[]> {
         return await this.apps.toArray();
