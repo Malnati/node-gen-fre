@@ -80,6 +80,16 @@ export class DB extends Dexie {
 
         await this.frontends.put({ id: 1, name: 'Frontend 1', screens: [1], specifications: { responsive: true } });
         await this.frontends.put({ id: 2, name: 'Frontend 2', screens: [2], specifications: { responsive: false } });
+
+        // Exemplo de carga inicial para cada tipo
+        await this.specifications.bulkPut([
+            { id: 1, type: 'field', referenceId: 1, key: 'maxLength', value: 255 },
+            { id: 2, type: 'field', referenceId: 2, key: 'max', value: 1000 },
+            { id: 3, type: 'screen', referenceId: 1, key: 'layout', value: 'grid' },
+            { id: 4, type: 'screen', referenceId: 2, key: 'layout', value: 'list' },
+            { id: 5, type: 'frontend', referenceId: 1, key: 'responsive', value: true },
+            { id: 6, type: 'frontend', referenceId: 2, key: 'responsive', value: false }
+        ]);
     }
 
     // CRUD functions for IApp
