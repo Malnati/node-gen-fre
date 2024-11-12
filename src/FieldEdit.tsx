@@ -1,8 +1,8 @@
-// src/AppEdit.tsx
+// src/FieldEdit.tsx
 
 import { Edit, ReferenceInput, SimpleForm, TextInput } from 'react-admin';
 
-export const AppEdit = () => (
+export const FieldEdit = () => (
     <Edit>
         <SimpleForm>
             <ReferenceInput source="id" reference="apps" />

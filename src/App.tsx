@@ -27,6 +27,9 @@ import { AppList } from "./AppList";
 import { AppCreate } from "./AppCreate";
 import { AppEdit } from "./AppEdit";
 import { AppShow } from "./AppShow";
+import { FieldCreate } from "./FieldCreate";
+import { FieldEdit } from "./FieldEdit";
+import { FieldShow } from "./FieldShow";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -71,6 +74,9 @@ export const App = () => {
         
         <Resource name="fields" 
           list={FieldList}
+          create={FieldCreate}
+          edit={FieldEdit}
+          show={FieldShow}
           icon={FormatAlignJustifyIcon}
         />
       </Admin>
