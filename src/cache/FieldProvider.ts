@@ -28,20 +28,20 @@ import { db, IField } from './IndexDB';
 
 const FieldProvider: DataProvider = {
     getList: async function <RecordType extends RaRecord = any>(resource: string, params: GetListParams & QueryFunctionContext): Promise<GetListResult<RecordType>> {
-        const fields = await db.fields.toArray();
+        const fields = await db.fieldService.getAll();
         return { data: fields as unknown as RecordType[], total: fields.length };
     },
     getOne: async function <RecordType extends RaRecord = any>(resource: string, params: GetOneParams<RecordType> & QueryFunctionContext): Promise<GetOneResult<RecordType>> {
-        const field = await db.fields.get(Number(params.id));
+        const field = await db.fieldService.getOne(Number(params.id));
         if (!field) throw new Error(`Field with id ${params.id} not found`);
         return { data: field as unknown as RecordType };
     },
     getMany: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
-        const fields = await db.fields.bulkGet(params.ids.map(id => Number(id)));
+        const fields = await db.fieldService.bulkGet(params.ids.map(id => Number(id)));
         return { data: fields.filter(f => f !== undefined) as unknown as RecordType[] };
     },
     getManyReference: async function <RecordType extends RaRecord = any>(resource: string, params: GetManyReferenceParams & QueryFunctionContext): Promise<GetManyReferenceResult<RecordType>> {
-        const fields = await db.fields.toArray();
+        const fields = await db.fieldService.getAll();
         const filteredFields = fields.filter(field => field[params.target as keyof IField] === params.id);
         return { data: filteredFields as unknown as RecordType[], total: filteredFields.length };
     },
@@ -57,7 +57,7 @@ const FieldProvider: DataProvider = {
                 return specs;
             }, {} as Record<string, any>),
         };
-        return db.updateField(Number(params.id), updated).then((id) => ({ data: { ...params.data, id } } as UpdateResult<RecordType>));
+        return db.fieldService.update(Number(params.id), updated).then((id) => ({ data: { ...params.data, id } } as UpdateResult<RecordType>));
     },
     updateMany: async function <RecordType extends RaRecord = any>(resource: string, params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
         const updates: Partial<IField> = {
@@ -72,7 +72,7 @@ const FieldProvider: DataProvider = {
         };
     
         const numericIds = params.ids.map(id => Number(id));
-        const updatedIds = await db.updateManyFields(numericIds, updates);
+        const updatedIds = await db.fieldService.updateMany(numericIds, updates);
         return { data: updatedIds };
     },
     create: function <RecordType extends Omit<RaRecord, 'id'> = any, ResultRecordType extends RaRecord = RecordType & { id: Identifier; }>(resource: string, params: CreateParams): Promise<CreateResult<ResultRecordType>> {
@@ -87,10 +87,10 @@ const FieldProvider: DataProvider = {
                 return specs;
             }, {} as Record<string, any>),
         };
-        return db.createField(created).then((id) => ({ data: { ...params.data, id } } as CreateResult<ResultRecordType>));
+        return db.fieldService.create(created).then((id) => ({ data: { ...params.data, id } } as CreateResult<ResultRecordType>));
     },
     delete: async function <RecordType extends RaRecord = any>(resource: string, params: DeleteParams<RecordType>): Promise<DeleteResult<RecordType>> {
-        await db.deleteField(Number(params.id));
+        await db.fieldService.delete(Number(params.id));
         if (!params.previousData) {
             throw new Error(`Previous data for id ${params.id} not found`);
         }
@@ -98,7 +98,7 @@ const FieldProvider: DataProvider = {
     },
     deleteMany: async function <RecordType extends RaRecord = any>(resource: string, params: DeleteManyParams<RecordType>): Promise<DeleteManyResult<RecordType>> {
         const numericIds = params.ids.map(id => Number(id));
-        await db.deleteManyFields(numericIds);
+        await db.fieldService.deleteMany(numericIds);
         return { data: numericIds };
     }
 };

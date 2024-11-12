@@ -13,6 +13,10 @@ export default class CRUDService<T> {
         return await this.table.get(id);
     }
 
+    async bulkGet(ids: number[]): Promise<(T | undefined)[]> {
+        return await this.table.bulkGet(ids);
+    }
+    
     async create(item: T): Promise<number> {
         return await this.table.add(item);
     }
