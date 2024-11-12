@@ -25,6 +25,7 @@ import { ScreenList } from "./ScreensList";
 import MultiDataProvider from "./cache/MultiDataProvider";
 import { AppList } from "./AppList";
 import { AppCreate } from "./AppCreate";
+import { AppEdit } from "./AppEdit";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -50,6 +51,7 @@ export const App = () => {
           name="apps"
           list={AppList}
           create={AppCreate}
+          edit={AppEdit}
           icon={WidgetsIcon}
         />
         
