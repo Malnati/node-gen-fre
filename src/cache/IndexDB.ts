@@ -1,6 +1,7 @@
 // src/cache/IndexDB.ts
 
 import Dexie, { Table } from 'dexie';
+import CRUDService from './CRUDService';
 
 export interface ISpecification {
     id: number;
@@ -48,6 +49,12 @@ export class DB extends Dexie {
     frontends!: Table<IFrontend>;
     specifications!: Table<ISpecification>;
 
+    appService!: CRUDService<IApp>;
+    fieldService!: CRUDService<IField>;
+    screenService!: CRUDService<IScreen>;
+    frontendService!: CRUDService<IFrontend>;
+    specificationService!: CRUDService<ISpecification>;
+
     constructor() {
         super("DB");
         this.version(1).stores({
@@ -57,6 +64,13 @@ export class DB extends Dexie {
             frontends: "++id, name, *screens, *specifications",
             specifications: "++id, type, referenceId, key" 
         });
+        
+        // Instanciando CRUDService para cada tabela
+        this.appService = new CRUDService(this.apps);
+        this.fieldService = new CRUDService(this.fields);
+        this.screenService = new CRUDService(this.screens);
+        this.frontendService = new CRUDService(this.frontends);
+        this.specificationService = new CRUDService(this.specifications);
     }
 
     async clearDatabase() {
@@ -96,186 +110,6 @@ export class DB extends Dexie {
             { id: 9, type: 'app', referenceId: 1, key: 'sso', value: true },
             { id: 10, type: 'app', referenceId: 2, key: 'sso', value: false }
         ]);
-    }
-
-    // CRUD functions for ISpecification
-    async getListSpecifications(): Promise<ISpecification[]> {
-        return await this.specifications.toArray();
-    }
-
-    async getOneSpecification(id: number): Promise<ISpecification | undefined> {
-        return await this.specifications.get(id);
-    }
-
-    async createSpecification(specification: ISpecification): Promise<number> {
-        return await this.specifications.add(specification);
-    }
-
-    async updateSpecification(id: number, updates: Partial<ISpecification>): Promise<number> {
-        return await this.specifications.update(id, updates);
-    }
-
-    async updateManySpecifications(ids: number[], updates: Partial<ISpecification>): Promise<number[]> {
-        const updatedIds: number[] = [];
-        await this.transaction('rw', this.specifications, async () => {
-            for (const id of ids) {
-                await this.specifications.update(id, updates);
-                updatedIds.push(id);
-            }
-        });
-        return updatedIds;
-    }
-
-    async deleteSpecification(id: number): Promise<void> {
-        await this.specifications.delete(id);
-    }
-
-    async deleteManySpecifications(ids: number[]): Promise<void> {
-        await this.specifications.bulkDelete(ids);
-    }
-
-    // CRUD functions for IApp
-    async getListApps(): Promise<IApp[]> {
-        return await this.apps.toArray();
-    }
-
-    async getOneApp(id: number): Promise<IApp | undefined> {
-        return await this.apps.get(id);
-    }
-
-    async createApp(app: IApp): Promise<number> {
-        return await this.apps.add(app);
-    }
-
-    async updateApp(id: number, updates: Partial<IApp>): Promise<number> {
-        return await this.apps.update(id, updates);
-    }
-
-    async updateManyApps(ids: number[], updates: Partial<IApp>): Promise<number[]> {
-        const updatedIds: number[] = [];
-        await this.transaction('rw', this.apps, async () => {
-            for (const id of ids) {
-                await this.apps.update(id, updates);
-                updatedIds.push(id);
-            }
-        });
-        return updatedIds;
-    }
-
-    async deleteApp(id: number): Promise<void> {
-        await this.apps.delete(id);
-    }
-
-    async deleteManyApps(ids: number[]): Promise<void> {
-        await this.apps.bulkDelete(ids);
-    }
-
-    // CRUD functions for IField
-    async getListFields(): Promise<IField[]> {
-        return await this.fields.toArray();
-    }
-
-    async getOneField(id: number): Promise<IField | undefined> {
-        return await this.fields.get(id);
-    }
-
-    async createField(field: IField): Promise<number> {
-        return await this.fields.add(field);
-    }
-
-    async updateField(id: number, updates: Partial<IField>): Promise<number> {
-        return await this.fields.update(id, updates);
-    }
-
-    async updateManyFields(ids: number[], updates: Partial<IField>): Promise<number[]> {
-        const updatedIds: number[] = [];
-        await this.transaction('rw', this.fields, async () => {
-            for (const id of ids) {
-                await this.fields.update(id, updates);
-                updatedIds.push(id);
-            }
-        });
-        return updatedIds;
-    }
-
-    async deleteField(id: number): Promise<void> {
-        await this.fields.delete(id);
-    }
-
-    async deleteManyFields(ids: number[]): Promise<void> {
-        await this.fields.bulkDelete(ids);
-    }
-
-    // CRUD functions for IScreen
-    async getListScreens(): Promise<IScreen[]> {
-        return await this.screens.toArray();
-    }
-
-    async getOneScreen(id: number): Promise<IScreen | undefined> {
-        return await this.screens.get(id);
-    }
-
-    async createScreen(screen: IScreen): Promise<number> {
-        return await this.screens.add(screen);
-    }
-
-    async updateScreen(id: number, updates: Partial<IScreen>): Promise<number> {
-        return await this.screens.update(id, updates);
-    }
-
-    async updateManyScreens(ids: number[], updates: Partial<IScreen>): Promise<number[]> {
-        const updatedIds: number[] = [];
-        await this.transaction('rw', this.screens, async () => {
-            for (const id of ids) {
-                await this.screens.update(id, updates);
-                updatedIds.push(id);
-            }
-        });
-        return updatedIds;
-    }
-
-    async deleteScreen(id: number): Promise<void> {
-        await this.screens.delete(id);
-    }
-
-    async deleteManyScreens(ids: number[]): Promise<void> {
-        await this.screens.bulkDelete(ids);
-    }
-
-    // CRUD functions for IFrontend
-    async getListFrontends(): Promise<IFrontend[]> {
-        return await this.frontends.toArray();
-    }
-
-    async getOneFrontend(id: number): Promise<IFrontend | undefined> {
-        return await this.frontends.get(id);
-    }
-
-    async createFrontend(frontend: IFrontend): Promise<number> {
-        return await this.frontends.add(frontend);
-    }
-
-    async updateFrontend(id: number, updates: Partial<IFrontend>): Promise<number> {
-        return await this.frontends.update(id, updates);
-    }
-
-    async updateManyFrontends(ids: number[], updates: Partial<IFrontend>): Promise<number[]> {
-        const updatedIds: number[] = [];
-        await this.transaction('rw', this.frontends, async () => {
-            for (const id of ids) {
-                await this.frontends.update(id, updates);
-                updatedIds.push(id);
-            }
-        });
-        return updatedIds;
-    }
-
-    async deleteFrontend(id: number): Promise<void> {
-        await this.frontends.delete(id);
-    }
-
-    async deleteManyFrontends(ids: number[]): Promise<void> {
-        await this.frontends.bulkDelete(ids);
     }
 }
 
