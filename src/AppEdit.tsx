@@ -6,7 +6,7 @@ export const AppEdit = () => (
     <Edit>
         <SimpleForm>
             <ReferenceField source="id" reference="apps" />
-            <TextInput source="name" />
+            <TextInput source="name" helperText="Name of the application."/>
             <ReferenceArrayField reference="frontends" source="frontends">
                 <SingleFieldList>
                     <ChipField source="name" />
