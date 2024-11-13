@@ -14,16 +14,12 @@ export const AppList = () => (
             <TextField source="host" />
             <TextField source="dbType" />
             <ReferenceArrayField reference="specifications" source="specifications">
-                <SingleFieldList>
-                    <TextField source="key" />
-                </SingleFieldList>
-{/* 
                 <Datagrid>
                     <TextField source="type" />
                     <TextField source="referenceId" />
                     <TextField source="key" />
                     <TextField source="value" />
-                </Datagrid> */}
+                </Datagrid>
             </ReferenceArrayField>
             <EditButton />
             <ShowButton />

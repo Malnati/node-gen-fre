@@ -5,7 +5,7 @@ import { DataProvider } from 'react-admin';
 import DataProviderFactory from './DataProviderFactory';
 import { db } from './IndexDB';
 
-const AppProvider = DataProviderFactory(db.appService);
+const AppProvider = DataProviderFactory(db.dbService);
 const FieldProvider = DataProviderFactory(db.fieldService);
 const FrontEndProvider = DataProviderFactory(db.frontendService);
 const SpecificationProvider = DataProviderFactory(db.specificationService);
