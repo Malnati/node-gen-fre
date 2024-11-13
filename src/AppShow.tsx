@@ -1,20 +1,27 @@
 // src/AppShow.tsx
 
-import { ReferenceField, Show, SimpleShowLayout, TextField } from 'react-admin';
+import { ChipField, ReferenceArrayField, Show, SimpleShowLayout, SingleFieldList, TextField } from 'react-admin';
 
 export const AppShow = () => (
     <Show>
         <SimpleShowLayout>
-            <ReferenceField source="id" reference="apps" />
-            <TextField source="app" />
-            <TextField source="host" />
-            <TextField source="port" />
-            <TextField source="database" />
-            <TextField source="user" />
-            <TextField source="password" />
-            <TextField source="outputDir" />
-            <TextField source="components" />
-            <TextField source="dbType" />
+            <TextField source="id" />
+            <ChipField source="name" label='Name'/>
+            <ReferenceArrayField reference="frontends" source="frontends">
+                <SingleFieldList>
+                    <ChipField source="name" />
+                </SingleFieldList>
+            </ReferenceArrayField>
+            <ReferenceArrayField reference="microservices" source="microservices">
+                <SingleFieldList>
+                    <ChipField source="name" />
+                </SingleFieldList>
+            </ReferenceArrayField>
+            <ReferenceArrayField reference="specifications" source="specifications">
+                <SingleFieldList>
+                    <ChipField source="key" />
+                </SingleFieldList>
+            </ReferenceArrayField>
         </SimpleShowLayout>
     </Show>
 );

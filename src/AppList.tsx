@@ -1,6 +1,6 @@
 // src/AppList.tsx
 
-import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList, ReferenceField } from 'react-admin';
+import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList, ReferenceField, ChipField } from 'react-admin';
 
 const filters = [
     <TextInput source="q" label="Search" alwaysOn />,
@@ -11,22 +11,22 @@ export const AppList = () => (
     <List emptyWhileLoading filters={filters} actions={<ListActions hasCreate />}>
         <Datagrid>
             <ReferenceField source="platformId" reference="platforms">
-                <TextField source="name" />
+                <ChipField source="name" />
             </ReferenceField>
             <TextField source="name" label="App title" />
             <ReferenceArrayField reference="frontends" source="frontends">
                 <SingleFieldList>
-                    <TextField source="name" />
+                    <ChipField source="name" />
                 </SingleFieldList>
             </ReferenceArrayField>
             <ReferenceArrayField reference="microservices" source="microservices">
                 <SingleFieldList>
-                    <TextField source="name" />
+                    <ChipField source="name" />
                 </SingleFieldList>
             </ReferenceArrayField>
             <ReferenceArrayField reference="specifications" source="specifications">
                 <SingleFieldList>
-                    <TextField source="key" />
+                    <ChipField source="key" />
                 </SingleFieldList>
             </ReferenceArrayField>
             <EditButton />
