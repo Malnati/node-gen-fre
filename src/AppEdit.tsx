@@ -1,22 +1,20 @@
 // src/AppEdit.tsx
 
-import { ChipField, Edit, ReferenceArrayField, ReferenceField, SimpleForm, SingleFieldList, TextInput } from 'react-admin';
+import { CheckboxGroupInput, ChipField, Edit, ReferenceArrayField, ReferenceArrayInput, ReferenceInput, SelectInput, SimpleForm, SingleFieldList, TextInput } from 'react-admin';
 
 export const AppEdit = () => (
     <Edit>
         <SimpleForm>
-            <ReferenceField source="id" reference="apps" />
+            <ReferenceInput label="Author" source="platformId" reference="platforms">
+                <SelectInput optionText='name' createLabel="Add a Platform"/>
+            </ReferenceInput>
             <TextInput source="name" helperText="Name of the application."/>
-            <ReferenceArrayField reference="frontends" source="frontends">
-                <SingleFieldList>
-                    <ChipField source="name" />
-                </SingleFieldList>
-            </ReferenceArrayField>
-            <ReferenceArrayField reference="microservices" source="microservices">
-                <SingleFieldList>
-                    <ChipField source="name" />
-                </SingleFieldList>
-            </ReferenceArrayField>
+            <ReferenceArrayInput source="frontends" reference="frontends">
+                <CheckboxGroupInput optionText="name" row={false}/>
+            </ReferenceArrayInput>
+            <ReferenceArrayInput source="microservices" reference="microservices">
+                <CheckboxGroupInput optionText="name" row={false}/>
+            </ReferenceArrayInput>
             <ReferenceArrayField reference="specifications" source="specifications">
                 <SingleFieldList>
                     <ChipField source="key" />
