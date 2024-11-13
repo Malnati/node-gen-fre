@@ -2,7 +2,7 @@
 
 import { Fragment } from 'react';
 
-import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList, ReferenceField, ChipField, BulkDeleteButton, BulkExportButton } from 'react-admin';
+import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList, ReferenceField, ChipField, BulkDeleteButton, BulkExportButton, DeleteButton } from 'react-admin';
 
 const filters = [
     <TextInput source="q" label="Search" alwaysOn />,
@@ -14,7 +14,7 @@ export const AppList = () => (
         <Datagrid bulkActionButtons={
             <Fragment>
                     <BulkExportButton />
-                    <BulkDeleteButton />
+                    <BulkDeleteButton mutationMode="pessimistic"/>
                 </Fragment>
             }>
             <ReferenceField source="platformId" reference="platforms">
@@ -38,6 +38,7 @@ export const AppList = () => (
             </ReferenceArrayField>
             <EditButton />
             <ShowButton />
+            <DeleteButton mutationMode="pessimistic" />
         </Datagrid>
     </List>
 );
