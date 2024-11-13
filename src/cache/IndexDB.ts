@@ -164,8 +164,25 @@ export class DB extends Dexie {
         await this.apps.put({ id: 2, platformId: 1, name: 'Profiles', frontends: [2], microservices: [2], specifications: [10, 12] });
         
         // Adiciona os dados de features
-        await this.platformFeatures.put({ id: 1, platformId: 1, name: 'Manage Users', description: 'Handle users data.', attributes: [], specifications: [] });
-        await this.platformFeatures.put({ id: 1, platformId: 1, name: 'Manage Profiles', description: 'Handle profiles data for users.', attributes: [], specifications: [] });
+        await this.platformFeatures.put({ id: 1, platformId: 1, name: 'Login', description: 'Sign-in/sign-out.', attributes: [1], specifications: [] });
+        await this.platformFeatures.put({ id: 2, platformId: 1, name: 'Dashboard', description: 'Main page.', attributes: [2], specifications: [] });
+        await this.platformFeatures.put({ id: 3, platformId: 1, name: 'Manage Users', description: 'Handle users data.', attributes: [3, 4, 5, 6], specifications: [] });
+        await this.platformFeatures.put({ id: 4, platformId: 1, name: 'Manage Profiles', description: 'Handle profiles data for users.', attributes: [7, 8, 9, 10], specifications: [] });
+
+        // Adiciona os dados de specifications para cada tipo, incluindo novos exemplos para Platform, App, MicroService, Database
+        await this.attributes.bulkPut([
+            // Specifications for features
+            { id:  1, type: 'feature', referenceId:  1, key: 'authentication', value: 'Google Auth' },
+            { id:  2, type: 'feature', referenceId:  2, key: 'text', value: 'Welcome text' },
+            { id:  3, type: 'feature', referenceId:  3, key: 'Create users', value: 'Capability to create users data.' },
+            { id:  4, type: 'feature', referenceId:  4, key: 'List users', value: 'Capability to list users data.' },
+            { id:  5, type: 'feature', referenceId:  5, key: 'Edit users', value: 'Capability to edit users data.' },
+            { id:  6, type: 'feature', referenceId:  6, key: 'Delete users', value: 'Capability to delete users data.' },
+            { id:  7, type: 'feature', referenceId:  7, key: 'Create profiles', value: 'Capability to create profiles data.' },
+            { id:  8, type: 'feature', referenceId:  8, key: 'List profiles', value: 'Capability to list profiles data.' },
+            { id:  9, type: 'feature', referenceId:  9, key: 'Edit profiles', value: 'Capability to edit profiles data.' },
+            { id: 10, type: 'feature', referenceId: 10, key: 'Delete profiles', value: 'Capability to delete profiles data.' },
+        ]);
 
         // Adiciona os dados de microservices
         await this.microservices.put({ id: 1, appId: 1, name: 'User', databases: [1], specifications: [14, 16] });
