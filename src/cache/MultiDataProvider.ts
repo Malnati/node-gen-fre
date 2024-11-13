@@ -6,6 +6,7 @@ import DataProviderFactory from './DataProviderFactory';
 import { db } from './IndexDB';
 
 const PlatformProvider = DataProviderFactory(db.platformService);
+const PlatformFeatureProvider = DataProviderFactory(db.platformFeatureService);
 const AppProvider = DataProviderFactory(db.appService);
 const MicroserviceProvider = DataProviderFactory(db.msService);
 const FrontendProvider = DataProviderFactory(db.frontendService);
@@ -17,6 +18,7 @@ const ScreenProvider = DataProviderFactory(db.screenService);
 // Mapeamento dinâmico de resources para data providers
 const providersMap: Record<string, DataProvider> = {
   platforms: PlatformProvider,
+  platformFeatures: PlatformFeatureProvider,
   apps: AppProvider,
   microservices: MicroserviceProvider,
   frontends: FrontendProvider,

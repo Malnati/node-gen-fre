@@ -5,7 +5,15 @@ import CRUDService from './CRUDService';
 
 export interface ISpecification {
     id: number;
-    type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'platform' | 'microservice'; // Define o tipo de item relacionado
+    type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'platform' | 'microservice' | 'feature' | 'attribute'; // Define o tipo de item relacionado
+    referenceId: number; // ID do item relacionado (field, screen, frontend, app)
+    key: string;         // Chave da especificação, por exemplo, "maxLength" ou "layout"
+    value: any;          // Valor da especificação, que pode variar conforme o tipo
+}
+
+export interface IAttributes {
+    id: number;
+    type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'platform' | 'microservice' | 'feature' | 'attribute'; // Define o tipo de item relacionado
     referenceId: number; // ID do item relacionado (field, screen, frontend, app)
     key: string;         // Chave da especificação, por exemplo, "maxLength" ou "layout"
     value: any;          // Valor da especificação, que pode variar conforme o tipo
@@ -44,6 +52,15 @@ export interface IPlatform {
     specifications?: number[];
 }
 
+export interface IPlatformFeature {
+    id: number;
+    platformId: number;
+    name: string;
+    description: string;
+    attributes?: number[];
+    specifications?: number[];
+}
+
 export interface IApp {
     id: number;
     platformId: number;
@@ -74,6 +91,7 @@ export interface IDatabase {
 
 export class DB extends Dexie {
     platforms!: Table<IPlatform>;
+    platformFeatures!: Table<IPlatformFeature>;
     apps!: Table<IApp>;
     microservices!: Table<IMicroService>;
     databases!: Table<IDatabase>;
@@ -81,8 +99,10 @@ export class DB extends Dexie {
     screens!: Table<IScreen>;
     frontends!: Table<IFrontend>;
     specifications!: Table<ISpecification>;
+    attributes!: Table<IAttributes>;
 
     platformService!: CRUDService<IPlatform>;
+    platformFeatureService!: CRUDService<IPlatformFeature>;
     appService!: CRUDService<IApp>;
     msService!: CRUDService<IMicroService>;
     dbService!: CRUDService<IDatabase>;
@@ -90,6 +110,7 @@ export class DB extends Dexie {
     screenService!: CRUDService<IScreen>;
     frontendService!: CRUDService<IFrontend>;
     specificationService!: CRUDService<ISpecification>;
+    attributeService!: CRUDService<IAttributes>;
 
     constructor() {
         super("DB");
@@ -98,17 +119,20 @@ export class DB extends Dexie {
 
         this.version(1).stores({
             platforms: "++id, name, *apps, *specifications",
+            platformFeatures: "++id, platformId, name, description, *attributes, *specifications",
             apps: "++id, platformId, name, *microservices, *frontends, *specifications",
             microservices: "++id, appId, name, *databases, *specifications",
             databases: "++id, microserviceId, host, port, database, user, dbType, *specifications",
             frontends: "++id, appId, name, *screens, *specifications",
             screens: "++id, frontendId, name, *fields, *specifications",
             fields: "++id, screenId, name, label, type, max, *specifications",
-            specifications: "++id, type, referenceId, key" 
+            specifications: "++id, type, referenceId, key",
+            attributes: "++id, type, referenceId, key" 
         });
         
         // Instanciando CRUDService para cada tabela
         this.platformService = new CRUDService(this.platforms);
+        this.platformFeatureService = new CRUDService(this.platformFeatures);
         this.appService = new CRUDService(this.apps);
         this.msService = new CRUDService(this.microservices);
         this.dbService = new CRUDService(this.databases);
@@ -116,6 +140,7 @@ export class DB extends Dexie {
         this.screenService = new CRUDService(this.screens);
         this.frontendService = new CRUDService(this.frontends);
         this.specificationService = new CRUDService(this.specifications);
+        this.attributeService = new CRUDService(this.attributes);
 
         this.seedData();
     }
@@ -134,7 +159,7 @@ export class DB extends Dexie {
     // Adiciona os dados usando `put`, para substituir se o registro já existir
     async seedData() {
         
-        await this.platforms.put({ id: 1, name: 'Mobiles', apps: [1, 2], specifications: [20, 21] });
+        await this.platforms.put({ id: 1, name: 'Gerador', apps: [1, 2], specifications: [20, 21] });
 
         // Adiciona os dados de apps
         await this.apps.put({ id: 1, platformId: 1, name: 'Apple User', frontends: [1], microservices: [1], specifications: [11, 13] });
