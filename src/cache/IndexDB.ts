@@ -3,24 +3,25 @@
 import Dexie, { Table } from 'dexie';
 import CRUDService from './CRUDService';
 
-export interface ISpecification {
+export interface IId {
     id: number;
-    type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'platform' | 'microservice' | 'feature' | 'attribute'; // Define o tipo de item relacionado
+}
+
+export interface IMetadata extends IId {
     referenceId: number; // ID do item relacionado (field, screen, frontend, app)
     key: string;         // Chave da especificação, por exemplo, "maxLength" ou "layout"
     value: any;          // Valor da especificação, que pode variar conforme o tipo
 }
 
-export interface IAttributes {
-    id: number;
+export interface ISpecification extends IMetadata {
     type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'platform' | 'microservice' | 'feature' | 'attribute'; // Define o tipo de item relacionado
-    referenceId: number; // ID do item relacionado (field, screen, frontend, app)
-    key: string;         // Chave da especificação, por exemplo, "maxLength" ou "layout"
-    value: any;          // Valor da especificação, que pode variar conforme o tipo
 }
 
-export interface IField {
-    id: number;
+export interface IAttributes extends IMetadata {
+    type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'microservice' | 'feature'; // Define o tipo de item relacionado
+}
+
+export interface IField extends IId {
     screenId: number; 
     name: string;
     label: string;
@@ -29,31 +30,27 @@ export interface IField {
     specifications?: number[];
 }
 
-export interface IScreen {
-    id: number;
+export interface IScreen extends IId {
     frontendId: number; 
     name: string;
     fields: number[];
     specifications?: number[];
 }
 
-export interface IFrontend {
-    id: number;
+export interface IFrontend extends IId {
     appId: number; 
     name: string;
     screens: number[];
     specifications?: number[];
 }
 
-export interface IPlatform {
-    id: number;
+export interface IPlatform extends IId {
     name: string;
     apps?: number[];
     specifications?: number[];
 }
 
-export interface IPlatformFeature {
-    id: number;
+export interface IFeature extends IId {
     platformId: number;
     name: string;
     description: string;
@@ -61,8 +58,11 @@ export interface IPlatformFeature {
     specifications?: number[];
 }
 
-export interface IApp {
-    id: number;
+export interface IPlatformFeature extends IFeature {
+    platformId: number;
+}
+
+export interface IApp extends IId {
     platformId: number;
     name: string;
     microservices?: number[];
@@ -70,16 +70,14 @@ export interface IApp {
     specifications?: number[];
 }
 
-export interface IMicroService {
-    id: number;
+export interface IMicroService extends IId {
     appId: number; 
     name: string;
     databases?: number[];
     specifications?: number[];
 }
 
-export interface IDatabase {
-    id: number;
+export interface IDatabase extends IId {
     microserviceId: number; 
     host: string;
     port: string;
@@ -147,6 +145,7 @@ export class DB extends Dexie {
 
     async clearDatabase() {
         await db.platforms.bulkDelete(await db.platforms.toCollection().primaryKeys());
+        await db.platformFeatures.bulkDelete(await db.platformFeatures.toCollection().primaryKeys());
         await db.apps.bulkDelete(await db.apps.toCollection().primaryKeys());
         await db.microservices.bulkDelete(await db.microservices.toCollection().primaryKeys());
         await db.databases.bulkDelete(await db.databases.toCollection().primaryKeys());
@@ -161,9 +160,13 @@ export class DB extends Dexie {
         
         await this.platforms.put({ id: 1, name: 'Gerador', apps: [1, 2], specifications: [20, 21] });
 
+        
         // Adiciona os dados de apps
         await this.apps.put({ id: 1, platformId: 1, name: 'Apple User', frontends: [1], microservices: [1], specifications: [11, 13] });
         await this.apps.put({ id: 2, platformId: 1, name: 'Apple Profile', frontends: [2], microservices: [2], specifications: [10, 12] });
+        
+        // Adiciona os dados de features
+        await this.apps.put({ id: 1, platformId: 1, name: 'Apple User', frontends: [1], microservices: [1], specifications: [11, 13] });
 
         // Adiciona os dados de microservices
         await this.microservices.put({ id: 1, appId: 1, name: 'User', databases: [1], specifications: [14, 16] });

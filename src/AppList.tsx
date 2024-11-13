@@ -1,6 +1,8 @@
 // src/AppList.tsx
 
-import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList, ReferenceField, ChipField } from 'react-admin';
+import { Fragment } from 'react';
+
+import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList, ReferenceField, ChipField, BulkDeleteButton, BulkExportButton } from 'react-admin';
 
 const filters = [
     <TextInput source="q" label="Search" alwaysOn />,
@@ -8,8 +10,13 @@ const filters = [
 ];
 
 export const AppList = () => (
-    <List emptyWhileLoading filters={filters} actions={<ListActions hasCreate />}>
-        <Datagrid>
+    <List emptyWhileLoading filters={filters} actions={<ListActions hasCreate/>}>
+        <Datagrid bulkActionButtons={
+            <Fragment>
+                    <BulkExportButton />
+                    <BulkDeleteButton />
+                </Fragment>
+            }>
             <ReferenceField source="platformId" reference="platforms">
                 <ChipField source="name" />
             </ReferenceField>
