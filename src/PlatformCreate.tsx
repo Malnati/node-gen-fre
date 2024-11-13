@@ -5,7 +5,7 @@ import { Create, ReferenceArrayField, ReferenceInput, SimpleForm, SingleFieldLis
 export const PlatformCreate = () => (
     <Create>
         <SimpleForm>
-            <ReferenceInput source="id" reference="platforms" />
+            <TextField source="id" label="ID" id="id" />
             <TextInput source="name" />
             <ReferenceInput source="specifications" reference="specifications" />
             <ReferenceArrayField reference="apps" source="apps">
