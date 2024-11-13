@@ -1,10 +1,13 @@
 // src/AppCreate.tsx
 
-import { CheckboxGroupInput, ChipField, Create, ReferenceArrayField, ReferenceArrayInput, ReferenceField, SelectArrayInput, SimpleForm, SingleFieldList, TextInput } from 'react-admin';
+import { CheckboxGroupInput, ChipField, Create, ReferenceArrayField, ReferenceArrayInput, ReferenceField, ReferenceInput, SelectArrayInput, SelectInput, SimpleForm, SingleFieldList, TextInput } from 'react-admin';
 
 export const AppCreate = () => (
     <Create>
         <SimpleForm>
+            <ReferenceInput label="Author" source="platformId" reference="platforms">
+                <SelectInput optionText='name'/>
+            </ReferenceInput>
             <ReferenceField source="id" reference="apps" />
             <TextInput source="name" />
             <ReferenceArrayField reference="frontends" source="frontends">
