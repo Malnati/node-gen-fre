@@ -1,6 +1,6 @@
 // src/FrontendList.tsx
 
-import { Datagrid, List, NumberField, ReferenceInput, TextInput, TextField, ListActions, EditButton, ShowButton } from 'react-admin';
+import { Datagrid, List, NumberField, ReferenceInput, TextInput, TextField, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList } from 'react-admin';
 
 const filters = [
     <TextInput source="q" label="Search" alwaysOn key="search" />,
@@ -12,7 +12,16 @@ export const FrontendList = () => (
         <Datagrid rowClick="edit">
             <NumberField source="id" label="ID" />
             <TextField source="name" label="Name" />
-            <TextField source="screens" label="Screens" /> {/* Exibe IDs das telas associadas */}
+            <ReferenceArrayField reference="screens" source="screens">
+                <SingleFieldList>
+                    <TextField source="name" />
+                </SingleFieldList>
+            </ReferenceArrayField>
+            <ReferenceArrayField reference="specifications" source="specifications">
+                <SingleFieldList>
+                    <TextField source="key" />
+                </SingleFieldList>
+            </ReferenceArrayField>
             <EditButton />
             <ShowButton />
         </Datagrid>

@@ -10,20 +10,21 @@ const filters = [
 export const AppList = () => (
     <List emptyWhileLoading filters={filters} actions={<ListActions hasCreate />}>
         <Datagrid>
-            <TextField source="app" label="App title" />
-            <TextField source="host" />
-            <TextField source="dbType" />
+            <TextField source="name" label="App title" />
+            <ReferenceArrayField reference="frontends" source="frontends">
+                <SingleFieldList>
+                    <TextField source="name" />
+                </SingleFieldList>
+            </ReferenceArrayField>
+            <ReferenceArrayField reference="microservices" source="microservices">
+                <SingleFieldList>
+                    <TextField source="name" />
+                </SingleFieldList>
+            </ReferenceArrayField>
             <ReferenceArrayField reference="specifications" source="specifications">
                 <SingleFieldList>
                     <TextField source="key" />
                 </SingleFieldList>
-{/* 
-                <Datagrid>
-                    <TextField source="type" />
-                    <TextField source="referenceId" />
-                    <TextField source="key" />
-                    <TextField source="value" />
-                </Datagrid> */}
             </ReferenceArrayField>
             <EditButton />
             <ShowButton />
