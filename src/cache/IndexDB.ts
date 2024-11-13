@@ -51,7 +51,6 @@ export interface IPlatform extends IId {
 }
 
 export interface IFeature extends IId {
-    platformId: number;
     name: string;
     description: string;
     attributes?: number[];
@@ -160,13 +159,13 @@ export class DB extends Dexie {
         
         await this.platforms.put({ id: 1, name: 'Gerador', apps: [1, 2], specifications: [20, 21] });
 
-        
         // Adiciona os dados de apps
-        await this.apps.put({ id: 1, platformId: 1, name: 'Apple User', frontends: [1], microservices: [1], specifications: [11, 13] });
-        await this.apps.put({ id: 2, platformId: 1, name: 'Apple Profile', frontends: [2], microservices: [2], specifications: [10, 12] });
+        await this.apps.put({ id: 1, platformId: 1, name: 'Users', frontends: [1], microservices: [1], specifications: [11, 13] });
+        await this.apps.put({ id: 2, platformId: 1, name: 'Profiles', frontends: [2], microservices: [2], specifications: [10, 12] });
         
         // Adiciona os dados de features
-        await this.apps.put({ id: 1, platformId: 1, name: 'Apple User', frontends: [1], microservices: [1], specifications: [11, 13] });
+        await this.platformFeatures.put({ id: 1, platformId: 1, name: 'Manage Users', description: 'Handle users data.', attributes: [], specifications: [] });
+        await this.platformFeatures.put({ id: 1, platformId: 1, name: 'Manage Profiles', description: 'Handle profiles data for users.', attributes: [], specifications: [] });
 
         // Adiciona os dados de microservices
         await this.microservices.put({ id: 1, appId: 1, name: 'User', databases: [1], specifications: [14, 16] });
@@ -177,36 +176,29 @@ export class DB extends Dexie {
         await this.databases.put({ id: 2, microserviceId: 2, host: 'localhost', port: '5432', database: 'profile', user: 'postgres', dbType: 'postgres', specifications: [18] });
 
         // Adiciona os dados de frontends
-        await this.frontends.put({ id: 1, appId: 1, name: 'iOS Cocoa', screens: [1, 2], specifications: [7, 9]});
-        await this.frontends.put({ id: 2, appId: 2, name: 'Android React', screens: [3, 4], specifications: [8] });
+        await this.frontends.put({ id: 1, appId: 1, name: 'Web Desktop', screens: [1, 2], specifications: [7, 9]});
 
-        // Adiciona os dados de screens para iOS
-        await this.screens.put({ id: 1, frontendId: 1, name: 'User', fields: [1, 2, 3, 4], specifications: [26] });
-        await this.screens.put({ id: 2, frontendId: 1, name: 'Profile', fields: [5, 6, 7], specifications: [27] });
+        // Adiciona os dados de screens 
+        await this.screens.put({ id:  1, frontendId: 1, name: 'Login', fields: [1, 2], specifications: [] });
+        await this.screens.put({ id:  2, frontendId: 1, name: 'Dashboard', fields: [], specifications: [] });
+        await this.screens.put({ id:  3, frontendId: 1, name: 'List User', fields: [1, 2, 3, 4], specifications: [26] });
+        await this.screens.put({ id:  4, frontendId: 1, name: 'Create User', fields: [1, 2, 3, 4], specifications: [26] });
+        await this.screens.put({ id:  5, frontendId: 1, name: 'Update User', fields: [1, 2, 3, 4], specifications: [26] });
+        await this.screens.put({ id:  6, frontendId: 1, name: 'Delete User', fields: [1, 2, 3, 4], specifications: [26] });
+        await this.screens.put({ id:  7, frontendId: 1, name: 'List Profile', fields: [5, 6, 7], specifications: [27] });
+        await this.screens.put({ id:  8, frontendId: 1, name: 'Create Profile', fields: [5, 6, 7], specifications: [27] });
+        await this.screens.put({ id:  9, frontendId: 1, name: 'Update Profile', fields: [5, 6, 7], specifications: [27] });
+        await this.screens.put({ id: 10, frontendId: 1, name: 'Delete Profile', fields: [5, 6, 7], specifications: [27] });
 
-        // Adiciona os dados de screens para Android
-        await this.screens.put({ id: 3, frontendId: 2, name: 'User', fields: [1, 2, 3, 4], specifications: [28] });
-        await this.screens.put({ id: 4, frontendId: 2, name: 'Profile', fields: [5, 6, 7], specifications: [29] });
-
-        // Adiciona os dados de fields para iOS - User
+        // Adiciona os dados de fields - User
         await this.fields.put({ id: 1, screenId: 1, name: 'user', label: 'name', type: 'string', max: 256, specifications: [1, 2] });
         await this.fields.put({ id: 2, screenId: 1, name: 'password', label: 'password', type: 'string', max: 256, specifications: [3, 4] });
         await this.fields.put({ id: 3, screenId: 1, name: 'e-mail', label: 'e-mail', type: 'string', max: 256, specifications: [5, 6] });
         await this.fields.put({ id: 4, screenId: 1, name: 'sms', label: 'sms', type: 'string', max: 256, specifications: [7, 8] });
-        // Adiciona os dados de fields para iOS - Profile
+        // Adiciona os dados de fields - Profile
         await this.fields.put({ id: 5, screenId: 2, name: 'name', label: 'Name', type: 'string', max: 256, specifications: [9, 10] });
         await this.fields.put({ id: 6, screenId: 2, name: 'company', label: 'Company', type: 'string', max: 256, specifications: [11, 12] });
         await this.fields.put({ id: 7, screenId: 2, name: 'title', label: 'Title', type: 'string', max: 256, specifications: [13, 14] });
-
-        // Adiciona os dados de fields para Android - User
-        await this.fields.put({ id:  8, screenId: 3, name: 'user', label: 'name', type: 'string', max: 256, specifications: [15, 16] });
-        await this.fields.put({ id:  9, screenId: 3, name: 'password', label: 'password', type: 'string', max: 256, specifications: [17, 18] });
-        await this.fields.put({ id: 10, screenId: 3, name: 'e-mail', label: 'e-mail', type: 'string', max: 256, specifications: [19, 20] });
-        await this.fields.put({ id: 11, screenId: 3, name: 'sms', label: 'sms', type: 'string', max: 256, specifications: [21, 22] });
-        // Adiciona os dados de fields para Android - Profile
-        await this.fields.put({ id: 12, screenId: 4, name: 'name', label: 'Name', type: 'string', max: 256, specifications: [23, 24] });
-        await this.fields.put({ id: 13, screenId: 4, name: 'company', label: 'Company', type: 'string', max: 256, specifications: [25, 26] });
-        await this.fields.put({ id: 14, screenId: 4, name: 'title', label: 'Title', type: 'string', max: 256, specifications: [27, 28] });
 
         // Adiciona os dados de specifications para cada tipo, incluindo novos exemplos para Platform, App, MicroService, Database
         await this.specifications.bulkPut([
