@@ -93,6 +93,9 @@ export class DB extends Dexie {
 
     constructor() {
         super("DB");
+
+        this.clearDatabase();
+
         this.version(1).stores({
             platforms: "++id, name, *apps, *specifications",
             apps: "++id, platformId, name, *microservices, *frontends, *specifications",
@@ -113,16 +116,19 @@ export class DB extends Dexie {
         this.screenService = new CRUDService(this.screens);
         this.frontendService = new CRUDService(this.frontends);
         this.specificationService = new CRUDService(this.specifications);
+
+        this.seedData();
     }
 
     async clearDatabase() {
-        await db.platforms.clear();
-        await db.apps.clear();
-        await db.microservices.clear();
-        await db.databases.clear();
-        await db.fields.clear();
-        await db.screens.clear();
-        await db.frontends.clear();
+        await db.platforms.bulkDelete(await db.platforms.toCollection().primaryKeys());
+        await db.apps.bulkDelete(await db.apps.toCollection().primaryKeys());
+        await db.microservices.bulkDelete(await db.microservices.toCollection().primaryKeys());
+        await db.databases.bulkDelete(await db.databases.toCollection().primaryKeys());
+        await db.fields.bulkDelete(await db.fields.toCollection().primaryKeys());
+        await db.screens.bulkDelete(await db.screens.toCollection().primaryKeys());
+        await db.frontends.bulkDelete(await db.frontends.toCollection().primaryKeys());
+        await db.specifications.bulkDelete(await db.specifications.toCollection().primaryKeys());
     }
 
     // Adiciona os dados usando `put`, para substituir se o registro já existir

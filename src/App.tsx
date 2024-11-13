@@ -33,6 +33,7 @@ import { FieldEdit } from "./FieldEdit";
 import { FieldShow } from "./FieldShow";
 import { PlatformList } from "./PlatformList";
 import { PlatformCreate } from "./PlatformCreate";
+import { PlatformEdit } from "./PlatformEdit";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -58,6 +59,7 @@ export const App = () => {
           name="platforms"
           list={PlatformList}
           create={PlatformCreate}
+          edit={PlatformEdit}
           icon={SettingsSystemDaydreamIcon}
         />
         
