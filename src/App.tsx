@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import {
   Admin,
   defaultDarkTheme,
+  radiantLightTheme, 
+  radiantDarkTheme,
   Resource,
 } from "react-admin";
 
@@ -53,7 +55,8 @@ export const App = () => {
           authProvider={GoogleAuthProvider}
           loginPage={<CustomLogin />} 
           dashboard={Dashboard}
-          theme={defaultDarkTheme}
+          theme={radiantLightTheme}
+          darkTheme={radiantDarkTheme}
         >
         
         <Resource
