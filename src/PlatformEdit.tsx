@@ -1,6 +1,6 @@
 // src/PlatformEdit.tsx
 
-import { Edit, ReferenceArrayField, SimpleForm, SingleFieldList, TextField, TextInput } from 'react-admin';
+import { ChipField, Edit, ReferenceArrayField, SimpleForm, SingleFieldList, TextField, TextInput } from 'react-admin';
 
 export const PlatformEdit = () => (
     <Edit>
@@ -9,12 +9,12 @@ export const PlatformEdit = () => (
             <TextInput source="name" id='name'/>
             <ReferenceArrayField reference="apps" source="apps" label="Apps" >
                 <SingleFieldList>
-                    <TextField source="name" />
+                    <ChipField source="name" />
                 </SingleFieldList>
             </ReferenceArrayField>
             <ReferenceArrayField reference="specifications" source="specifications" label="Specifications">
                 <SingleFieldList>
-                    <TextField source="key" />
+                    <ChipField source="key" />
                 </SingleFieldList>
             </ReferenceArrayField>
         </SimpleForm>

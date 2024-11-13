@@ -1,6 +1,6 @@
 // src/PlatformShow.tsx
 
-import { Show, ReferenceArrayField, SimpleForm, SingleFieldList, TextField } from 'react-admin';
+import { Show, ReferenceArrayField, SimpleForm, SingleFieldList, TextField, ChipField } from 'react-admin';
 
 export const PlatformShow = () => (
     <Show>
@@ -9,12 +9,12 @@ export const PlatformShow = () => (
             <TextField source="name" id='name'/>
             <ReferenceArrayField reference="apps" source="apps" label="Apps" >
                 <SingleFieldList>
-                    <TextField source="name" />
+                    <ChipField source="name" />
                 </SingleFieldList>
             </ReferenceArrayField>
             <ReferenceArrayField reference="specifications" source="specifications" label="Specifications">
                 <SingleFieldList>
-                    <TextField source="key" />
+                    <ChipField source="key" />
                 </SingleFieldList>
             </ReferenceArrayField>
         </SimpleForm>

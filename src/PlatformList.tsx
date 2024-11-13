@@ -1,6 +1,6 @@
 // src/PlatformList.tsx
 
-import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList, ReferenceField } from 'react-admin';
+import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList, ReferenceField, ChipField } from 'react-admin';
 
 const filters = [
     <TextInput source="q" label="Search" alwaysOn />,
@@ -14,12 +14,12 @@ export const PlatformList = () => (
             <TextField source="name" label="Platform" id='name' />
             <ReferenceArrayField reference="apps" source="apps">
                 <SingleFieldList>
-                    <TextField source="name" />
+                    <ChipField source="name" />
                 </SingleFieldList>
             </ReferenceArrayField>
             <ReferenceArrayField reference="specifications" source="specifications">
                 <SingleFieldList>
-                    <TextField source="key" />
+                    <ChipField source="key" />
                 </SingleFieldList>
             </ReferenceArrayField>
             <EditButton />
