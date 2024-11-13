@@ -10,8 +10,8 @@ const filters = [
 export const PlatformList = () => (
     <List emptyWhileLoading filters={filters} actions={<ListActions hasCreate />}>
         <Datagrid>
-            <ReferenceField source="id" reference="platforms" label="ID" />
-            <TextField source="name" label="Platform" id='id' />
+            <TextField source="id" label="ID" id="id" />
+            <TextField source="name" label="Platform" id='name' />
             <ReferenceArrayField reference="apps" source="apps">
                 <SingleFieldList>
                     <TextField source="name" />

@@ -1,12 +1,12 @@
-// src/PlatformEdit.tsx
+// src/PlatformShow.tsx
 
-import { Edit, ReferenceArrayField, SimpleForm, SingleFieldList, TextField, TextInput } from 'react-admin';
+import { Show, ReferenceArrayField, SimpleForm, SingleFieldList, TextField } from 'react-admin';
 
-export const PlatformEdit = () => (
-    <Edit>
+export const PlatformShow = () => (
+    <Show>
         <SimpleForm>
             <TextField source="id" label="ID" id="id" />
-            <TextInput source="name" id='name'/>
+            <TextField source="name" id='name'/>
             <ReferenceArrayField reference="apps" source="apps" label="Apps" >
                 <SingleFieldList>
                     <TextField source="name" />
@@ -18,5 +18,5 @@ export const PlatformEdit = () => (
                 </SingleFieldList>
             </ReferenceArrayField>
         </SimpleForm>
-    </Edit>
+    </Show>
 );
