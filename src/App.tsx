@@ -18,6 +18,7 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import TvIcon from '@mui/icons-material/Tv';
 import { Dashboard } from "./Dashboard";
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
+import SettingsSystemDaydreamIcon from '@mui/icons-material/SettingsSystemDaydream';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { FrontendList } from "./FrontendList";
 import { FieldList } from "./FieldList";
@@ -30,6 +31,7 @@ import { AppShow } from "./AppShow";
 import { FieldCreate } from "./FieldCreate";
 import { FieldEdit } from "./FieldEdit";
 import { FieldShow } from "./FieldShow";
+import { PlatformList } from "./PlatformList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -52,6 +54,12 @@ export const App = () => {
         >
         
         <Resource
+          name="platforms"
+          list={PlatformList}
+          icon={SettingsSystemDaydreamIcon}
+        />
+        
+        <Resource
           name="apps"
           list={AppList}
           create={AppCreate}
@@ -61,7 +69,7 @@ export const App = () => {
         />
         
         <Resource
-          name="fronts"
+          name="frontends"
           list={FrontendList}
           create={FrontCreate}
           icon={TvIcon}

@@ -1,4 +1,4 @@
-// src/AppList.tsx
+// src/PlatformList.tsx
 
 import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, ReferenceArrayField, SingleFieldList, ReferenceField } from 'react-admin';
 
@@ -7,19 +7,12 @@ const filters = [
     <ReferenceInput source="id" label="App" reference="apps" />,
 ];
 
-export const AppList = () => (
+export const PlatformList = () => (
     <List emptyWhileLoading filters={filters} actions={<ListActions hasCreate />}>
         <Datagrid>
-            <ReferenceField source="platformId" reference="platforms">
-                <TextField source="name" />
-            </ReferenceField>
-            <TextField source="name" label="App title" />
-            <ReferenceArrayField reference="frontends" source="frontends">
-                <SingleFieldList>
-                    <TextField source="name" />
-                </SingleFieldList>
-            </ReferenceArrayField>
-            <ReferenceArrayField reference="microservices" source="microservices">
+            <ReferenceField source="id" reference="platforms" />
+            <TextField source="name" label="Platform" />
+            <ReferenceArrayField reference="apps" source="apps">
                 <SingleFieldList>
                     <TextField source="name" />
                 </SingleFieldList>

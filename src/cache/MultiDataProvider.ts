@@ -5,18 +5,24 @@ import { DataProvider } from 'react-admin';
 import DataProviderFactory from './DataProviderFactory';
 import { db } from './IndexDB';
 
-const AppProvider = DataProviderFactory(db.dbService);
+const PlatformProvider = DataProviderFactory(db.platformService);
+const AppProvider = DataProviderFactory(db.appService);
+const MicroserviceProvider = DataProviderFactory(db.msService);
+const FrontendProvider = DataProviderFactory(db.frontendService);
+const DatabaseProvider = DataProviderFactory(db.dbService);
 const FieldProvider = DataProviderFactory(db.fieldService);
-const FrontEndProvider = DataProviderFactory(db.frontendService);
 const SpecificationProvider = DataProviderFactory(db.specificationService);
 const ScreenProvider = DataProviderFactory(db.screenService);
 
 // Mapeamento dinâmico de resources para data providers
 const providersMap: Record<string, DataProvider> = {
+  platforms: PlatformProvider,
   apps: AppProvider,
+  microservices: MicroserviceProvider,
+  frontends: FrontendProvider,
+  databases: DatabaseProvider,
   fields: FieldProvider,
   screens: ScreenProvider,
-  fronts: FrontEndProvider,
   specifications: SpecificationProvider,
 };
 

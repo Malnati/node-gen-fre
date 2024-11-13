@@ -116,6 +116,7 @@ export class DB extends Dexie {
     }
 
     async clearDatabase() {
+        await db.platforms.clear();
         await db.apps.clear();
         await db.microservices.clear();
         await db.databases.clear();
