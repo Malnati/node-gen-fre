@@ -53,11 +53,6 @@ const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleuserc
 
 export const App = () => {
 
-  useEffect(() => {
-    // Limpa o banco de dados e, após a limpeza, chama o método de seed
-    db.seedData();
-  }, []);
-
   return (
       <GoogleOAuthProvider clientId={clientId}>
         <Admin
