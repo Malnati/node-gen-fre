@@ -144,7 +144,7 @@ export class DB extends Dexie {
     dateTimeInputs!: Table<IDateTimeInputProps>;
     fileInputs!: Table<IFileInputProps>;
     imageInputs!: Table<IImageInputProps>;
-    // numberInputProps!: Table<INumberInputProps>;
+    numberInputs!: Table<INumberInputProps>;
     // passwordInputProps!: Table<IPasswordInputProps>;
     // referenceInputProps!: Table<IReferenceInputProps>;
     // richTextInputProps!: Table<IRichTextInputProps>;
@@ -171,7 +171,7 @@ export class DB extends Dexie {
     dateTimeInputsService!: CRUDService<IDateTimeInputProps>;
     fileInputsService!: CRUDService<IFileInputProps>;
     imageInputsService!: CRUDService<IImageInputProps>;
-    // numberInputPropsService!: CRUDService<INumberInputProps>;
+    numberInputsService!: CRUDService<INumberInputProps>;
     // passwordInputPropsService!: CRUDService<IPasswordInputProps>;
     // referenceInputPropsService!: CRUDService<IReferenceInputProps>;
     // richTextInputPropsService!: CRUDService<IRichTextInputProps>;
@@ -202,7 +202,7 @@ export class DB extends Dexie {
             dateTimeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
             fileInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, minSize, maxSize, multiple, placeholder", 
             imageInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, minSize, maxSize, multiple, placeholder", 
-            // numberInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, step, min, max", 
+            numberInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, step, min, max", 
             // passwordInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, autoComplete", 
             // referenceInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, source, reference, sort, filter, perPage, allowEmpty, defaultValue, optionText, optionValue", 
             // richTextInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, toolbar, editorOptions", 
@@ -231,7 +231,7 @@ export class DB extends Dexie {
         this.dateTimeInputsService = new CRUDService(this.dateTimeInputs);
         this.fileInputsService = new CRUDService(this.fileInputs);
         this.imageInputsService = new CRUDService(this.imageInputs);
-        // this.numberInputPropsService = new CRUDService(this.numberInputProps);
+        this.numberInputsService = new CRUDService(this.numberInputs);
         // this.passwordInputPropsService = new CRUDService(this.passwordInputProps);
         // this.referenceInputPropsService = new CRUDService(this.referenceInputProps);
         // this.richTextInputPropsService = new CRUDService(this.richTextInputProps);
@@ -270,6 +270,7 @@ export class DB extends Dexie {
         await this.dateTimeInputs.clear();
         await this.fileInputs.clear();
         await this.imageInputs.clear();
+        await this.numberInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -451,6 +452,52 @@ export class DB extends Dexie {
             multiple: true,                      // Permite múltiplas imagens
             placeholder: 'Escolha imagens para sua galeria'
         });        
+    
+        await this.numberInputs.put({
+            id: 1,
+            source: 'age',                     // Nome do campo (ex.: "age" para idade)
+            className: 'age-input',            // Classe CSS para customização do estilo
+            defaultValue: 18,                  // Valor padrão inicial
+            readOnly: false,                   // Campo editável
+            disabled: false,                   // Campo habilitado para interação
+            fullWidth: true,                   // Campo ocupa largura total do formulário
+            helperText: 'Informe sua idade',   // Texto de ajuda exibido abaixo do campo
+            label: 'Idade',                    // Rótulo descritivo
+            step: 1,                           // Incremento de 1 unidade
+            min: 0,                            // Valor mínimo permitido (0 anos)
+            max: 120                           // Valor máximo permitido (120 anos)
+        });
+
+        await this.numberInputs.put({
+            id: 2,
+            source: 'height',                  // Nome do campo (ex.: "height" para altura)
+            className: 'height-input',         // Classe CSS para estilo
+            defaultValue: 170,                 // Valor padrão inicial (170 cm)
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,
+            helperText: 'Informe sua altura em centímetros', // Texto de ajuda para o input
+            label: 'Altura (cm)',              // Rótulo para o campo
+            step: 0.5,                         // Incremento de meio centímetro
+            min: 50,                           // Altura mínima (50 cm)
+            max: 250                           // Altura máxima (250 cm)
+        });
+
+        await this.numberInputs.put({
+            id: 3,
+            source: 'weight',                  // Nome do campo (ex.: "weight" para peso)
+            className: 'weight-input',         // Classe CSS personalizada
+            defaultValue: 70,                  // Valor padrão inicial (70 kg)
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Informe seu peso em kg', // Texto auxiliar
+            label: 'Peso (kg)',                // Rótulo do campo
+            step: 0.1,                         // Incremento de 100 gramas
+            min: 20,                           // Peso mínimo permitido (20 kg)
+            max: 200                           // Peso máximo permitido (200 kg)
+        });
+    
     }
 
     async seedData() {

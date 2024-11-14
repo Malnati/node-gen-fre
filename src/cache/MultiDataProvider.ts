@@ -21,7 +21,7 @@ const DateInputsProvider=DataProviderFactory(db.dateInputsService);
 const DateTimeInputsProvider=DataProviderFactory(db.dateTimeInputsService);
 const FileInputsProvider=DataProviderFactory(db.fileInputsService);
 const ImageInputsProvider=DataProviderFactory(db.imageInputsService);
-// const NumberInputPropsProvider=DataProviderFactory(db.numberInputPropsService);
+const NumberInputsProvider=DataProviderFactory(db.numberInputsService);
 // const PasswordInputPropsProvider=DataProviderFactory(db.passwordInputPropsService);
 // const ReferenceInputPropsProvider=DataProviderFactory(db.referenceInputPropsService);
 // const RichTextInputPropsProvider=DataProviderFactory(db.richTextInputPropsService);
@@ -49,7 +49,7 @@ const providersMap: Record<string, DataProvider> = {
   dateTimeInputs: DateTimeInputsProvider,
   fileInputs: FileInputsProvider,
   imageInputs: ImageInputsProvider,
-//   numberInputProps: NumberInputPropsProvider,
+  numberInputs: NumberInputsProvider,
 //   passwordInputProps: PasswordInputPropsProvider,
 //   referenceInputProps: ReferenceInputPropsProvider,
 //   richTextInputProps: RichTextInputPropsProvider,

@@ -45,6 +45,7 @@ import { DateInputList } from "./DateInputList";
 import { DateTimeInputList } from "./DateTimeInput";
 import { FileInputList } from "./FileInputsList";
 import { ImageInputList } from "./ImageInputsList";
+import { NumberInputList } from "./NumberInputList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -138,6 +139,12 @@ export const App = () => {
         <Resource
           name="imageInputs"
           list={ImageInputList}
+          icon={InputIcon}
+        />
+
+        <Resource
+          name="numberInputs"
+          list={NumberInputList}
           icon={InputIcon}
         />
 

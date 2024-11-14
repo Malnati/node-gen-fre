@@ -6,7 +6,7 @@ import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, Edit
 
 const filters = [
     <TextInput source="q" label="Search" alwaysOn />,
-    <ReferenceInput source="id" label="FileInput" reference="dateInputs" />,
+    <ReferenceInput source="id" label="FileInput" reference="fileInputs" />,
 ];
 
 export const FileInputList = () => (
