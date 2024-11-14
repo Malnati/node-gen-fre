@@ -41,6 +41,8 @@ import { PlatformEdit } from "./PlatformEdit";
 import { PlatformShow } from "./PlatformShow";
 import { BooleanInputList as BooleanInputList } from "./BooleanInputList";
 import { CheckboxInputList } from "./CheckboxInputList";
+import { DateInputList } from "./DateInputList";
+import { DateTimeInputList } from "./DateTimeInput";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -112,6 +114,19 @@ export const App = () => {
           list={CheckboxInputList}
           icon={InputIcon}
         />
+
+        <Resource
+          name="dateInputs"
+          list={DateInputList}
+          icon={InputIcon}
+        />
+
+        <Resource
+          name="dateTimeInputs"
+          list={DateTimeInputList}
+          icon={InputIcon}
+        />
+
       </Admin>
     </GoogleOAuthProvider>
   );

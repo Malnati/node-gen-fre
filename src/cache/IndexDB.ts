@@ -140,8 +140,8 @@ export class DB extends Dexie {
     attributes!: Table<IAttribute>;
     booleanInputs!: Table<IBooleanInputProps>;
     checkboxInputs!: Table<ICheckboxGroupInputProps>;
-    // dateInputProps!: Table<IDateInputProps>;
-    // dateTimeInputProps!: Table<IDateTimeInputProps>;
+    dateInputs!: Table<IDateInputProps>;
+    dateTimeInputs!: Table<IDateTimeInputProps>;
     // fileInputProps!: Table<IFileInputProps>;
     // imageInputProps!: Table<IImageInputProps>;
     // numberInputProps!: Table<INumberInputProps>;
@@ -167,8 +167,8 @@ export class DB extends Dexie {
     attributeService!: CRUDService<IAttribute>;
     booleanInputService!: CRUDService<IBooleanInputProps>;
     checkboxInputsService!: CRUDService<ICheckboxGroupInputProps>;
-    // dateInputPropsService!: CRUDService<IDateInputProps>;
-    // dateTimeInputPropsService!: CRUDService<IDateTimeInputProps>;
+    dateInputsService!: CRUDService<IDateInputProps>;
+    dateTimeInputsService!: CRUDService<IDateTimeInputProps>;
     // fileInputPropsService!: CRUDService<IFileInputProps>;
     // imageInputPropsService!: CRUDService<IImageInputProps>;
     // numberInputPropsService!: CRUDService<INumberInputProps>;
@@ -198,8 +198,8 @@ export class DB extends Dexie {
             attributes: "++id, type, referenceId, key", 
             booleanInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label", 
             checkboxInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, labelPlacement, optionValue, translateChoice", 
-            // dateInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, options, placeholder", 
-            // dateTimeInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, options, placeholder", 
+            dateInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
+            dateTimeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
             // fileInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, options, minSize, maxSize, multiple, placeholder", 
             // imageInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, options, minSize, maxSize, multiple, placeholder", 
             // numberInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, step, min, max", 
@@ -227,8 +227,8 @@ export class DB extends Dexie {
         this.attributeService = new CRUDService(this.attributes);
         this.booleanInputService = new CRUDService(this.booleanInputs);
         this.checkboxInputsService = new CRUDService(this.checkboxInputs);
-        // this.dateInputPropsService = new CRUDService(this.dateInputProps);
-        // this.dateTimeInputPropsService = new CRUDService(this.dateTimeInputProps);
+        this.dateInputsService = new CRUDService(this.dateInputs);
+        this.dateTimeInputsService = new CRUDService(this.dateTimeInputs);
         // this.fileInputPropsService = new CRUDService(this.fileInputProps);
         // this.imageInputPropsService = new CRUDService(this.imageInputProps);
         // this.numberInputPropsService = new CRUDService(this.numberInputProps);
@@ -266,6 +266,8 @@ export class DB extends Dexie {
         await this.attributes.clear();
         await this.booleanInputs.clear();
         await this.checkboxInputs.clear();
+        await this.dateInputs.clear();
+        await this.dateTimeInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -323,7 +325,62 @@ export class DB extends Dexie {
             optionValue: 'newsletter',         // Valor representando a escolha do usuário
             translateChoice: false             // Não traduz o rótulo; usa o texto diretamente
         });
-
+        
+        await this.dateInputs.put({
+            id: 1,
+            source: 'birthDate',                 // Nome do campo relacionado à data de nascimento
+            className: 'birthdate-input',        // Classe CSS para customização do input de data
+            defaultValue: '2000-01-01',          // Data padrão (usado em formulários com valor inicial)
+            readOnly: false,                     // Campo de data é editável
+            disabled: false,                     // Campo de data não está desabilitado
+            fullWidth: true,                     // Campo ocupa a largura total do formulário
+            helperText: 'Informe sua data de nascimento', // Texto de ajuda para o campo
+            label: 'Data de Nascimento',         // Rótulo exibido ao lado do campo
+            locale: 'pt-BR',                     // Formato de data brasileiro
+            placeholder: 'DD/MM/AAAA'            // Placeholder indicando o formato esperado
+        });
+    
+        await this.dateInputs.put({
+            id: 2,
+            source: 'startDate',                 // Nome do campo relacionado à data de início
+            className: 'startdate-input',        // Classe CSS para customização do input
+            defaultValue: null,                  // Nenhum valor padrão definido
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,
+            helperText: 'Escolha a data de início para o evento',
+            label: 'Data de Início',
+            locale: 'en-US',                     // Formato de data americano
+            placeholder: 'MM/DD/YYYY'            // Placeholder indicando o formato esperado
+        });
+    
+        await this.dateTimeInputs.put({
+            id: 1,
+            source: 'appointment',               // Nome do campo relacionado a compromissos
+            className: 'appointment-input',      // Classe CSS para o input de data/hora
+            defaultValue: '2024-01-15T14:30:00', // Data/hora padrão inicial para o input
+            readOnly: false,                     // Campo de data/hora é editável
+            disabled: false,                     // Campo de data/hora não está desabilitado
+            fullWidth: true,                     // Campo ocupa largura total do formulário
+            helperText: 'Agende um horário',     // Texto de ajuda exibido abaixo do campo
+            label: 'Data e Hora do Compromisso', // Rótulo associado ao input
+            locale: 'pt-BR',                     // Formato brasileiro
+            placeholder: 'DD/MM/AAAA HH:MM'      // Placeholder que indica formato de data/hora esperado
+        });
+    
+        await this.dateTimeInputs.put({
+            id: 2,
+            source: 'meetingDateTime',           // Nome do campo relacionado ao horário de reunião
+            className: 'meeting-input',          // Classe CSS para o input de data/hora
+            defaultValue: null,                  // Nenhum valor padrão inicial
+            readOnly: false,
+            disabled: true,                      // Campo de data/hora está desabilitado (apenas visualização)
+            fullWidth: false,
+            helperText: 'Data e horário da próxima reunião',
+            label: 'Horário da Reunião',
+            locale: 'en-US',                     // Formato de data americano
+            placeholder: 'MM/DD/YYYY HH:MM AM/PM' // Placeholder para formato de data/hora em inglês
+        });
     }
 
     async seedData() {

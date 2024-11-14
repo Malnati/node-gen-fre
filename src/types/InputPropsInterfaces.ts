@@ -62,13 +62,11 @@ type LocaleOption =
 
 export interface IDateInputProps extends CommonInputProps {
     locale?: LocaleOption; // Usa o tipo de locais aceitos
-    options?: Intl.DateTimeFormatOptions;
     placeholder?: string;
 }
 
 export interface IDateTimeInputProps extends CommonInputProps {
     locale?: LocaleOption; // Usa o tipo de locais aceitos
-    options?: Intl.DateTimeFormatOptions;
     placeholder?: string;
 }
 
