@@ -21,6 +21,10 @@ export interface IAttribute extends IMetadata {
     type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'microservice' | 'feature' | 'login' | 'dashboard'; // Define o tipo de item relacionado
 }
 
+export interface ICommonInputAttribute extends IMetadata {
+    commonType: 'source' | 'className' | 'defaultValue' | 'readOnly' | 'disabled' | 'format' | 'fullWidth' | 'helperText' | 'label' | 'parse' | 'sx' | 'validate'; 
+}
+
 export interface IReferenceInputAttribute extends IMetadata {
     type: 'label' | 'perPage' | 'reference' | 'sort' | 'source' ; 
 }
