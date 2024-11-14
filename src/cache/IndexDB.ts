@@ -3,16 +3,7 @@
 import Dexie, { Table } from 'dexie';
 import CRUDService from './CRUDService';
 import { IBooleanInputProps, ICheckboxGroupInputProps, IDateInputProps, IDateTimeInputProps, IFileInputProps, IImageInputProps, INumberInputProps, IPasswordInputProps, IReferenceInputProps, IRichTextInputProps, ISearchInputProps, ISelectInputProps, ITextInputProps, ITimeInputProps, ITranslatableInputsProps } from '../types/InputPropsInterfaces';
-
-export interface IId {
-    id: number;
-}
-
-export interface IMetadata extends IId {
-    referenceId: number; // ID do item relacionado (field, screen, frontend, app)
-    key: string;         // Chave da especificação, por exemplo, "maxLength" ou "layout"
-    value: any;          // Valor da especificação, que pode variar conforme o tipo
-}
+import { IId, IMetadata } from '../types/IMetadata';
 
 export interface ISpecification extends IMetadata {
     type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'platform' | 'microservice' | 'feature' | 'attribute'; // Define o tipo de item relacionado
@@ -249,7 +240,6 @@ export class DB extends Dexie {
         this.searchInputPropsService = new CRUDService(this.searchInputProps);
         this.selectInputPropsService = new CRUDService(this.selectInputProps);
         this.textInputPropsService = new CRUDService(this.textInputProps);
-        this.textInputPropsService = new CRUDService(this.textInputProps);
         this.timeInputPropsService = new CRUDService(this.timeInputProps);
         this.translatableInputPropsService   = new CRUDService(this.translatableInputProps);
         this.seedData();
@@ -279,7 +269,6 @@ export class DB extends Dexie {
         await db.richTextInputProps.bulkDelete(await db.richTextInputProps.toCollection().primaryKeys());
         await db.searchInputProps.bulkDelete(await db.searchInputProps.toCollection().primaryKeys());
         await db.selectInputProps.bulkDelete(await db.selectInputProps.toCollection().primaryKeys());
-        await db.textInputProps.bulkDelete(await db.textInputProps.toCollection().primaryKeys());
         await db.textInputProps.bulkDelete(await db.textInputProps.toCollection().primaryKeys());
         await db.timeInputProps.bulkDelete(await db.timeInputProps.toCollection().primaryKeys());
         await db.translatableInputProps.bulkDelete(await db.translatableInputProps.toCollection().primaryKeys());
