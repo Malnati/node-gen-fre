@@ -6,10 +6,10 @@ import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, Edit
 
 const filters = [
     <TextInput source="q" label="Search" alwaysOn />,
-    <ReferenceInput source="id" label="BooleanInputProps" reference="booleanInputProps" />,
+    <ReferenceInput source="id" label="BooleanInput" reference="booleanInputs" />,
 ];
 
-export const BooleanInputPropsList = () => (
+export const BooleanInputList = () => (
     <List emptyWhileLoading filters={filters} actions={<ListActions hasCreate/>}>
         <Datagrid bulkActionButtons={
             <Fragment>
@@ -23,12 +23,9 @@ export const BooleanInputPropsList = () => (
             <TextField source="defaultValue" label="DefaultValue" />
             <TextField source="readOnly" label="ReadOnly" />
             <TextField source="disabled" label="Disabled" />
-            <TextField source="format" label="Format" />
             <TextField source="fullWidth" label="FullWidth" />
             <TextField source="helperText" label="HelperText" />
             <TextField source="label" label="Label" />
-            <TextField source="parse" label="Parse" />
-            <TextField source="sx" label="Sx" />
             <EditButton />
             <ShowButton />
             <DeleteButton mutationMode="pessimistic" />

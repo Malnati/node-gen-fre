@@ -22,6 +22,7 @@ import { Dashboard } from "./Dashboard";
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import SettingsSystemDaydreamIcon from '@mui/icons-material/SettingsSystemDaydream';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import InputIcon from '@mui/icons-material/Input';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { FrontendList } from "./FrontendList";
 import { FieldList } from "./FieldList";
@@ -38,7 +39,7 @@ import { PlatformList } from "./PlatformList";
 import { PlatformCreate } from "./PlatformCreate";
 import { PlatformEdit } from "./PlatformEdit";
 import { PlatformShow } from "./PlatformShow";
-import { BooleanInputPropsList } from "./BooleanInputPropsList";
+import { BooleanInputList as BooleanInputList } from "./BooleanInputList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -60,12 +61,6 @@ export const App = () => {
           theme={radiantLightTheme}
           darkTheme={radiantDarkTheme}
         >
-        
-        <Resource
-          name="booleanInputProps"
-          list={BooleanInputPropsList}
-          icon={SettingsSuggestIcon}
-        />
         
         <Resource
           name="platforms"
@@ -103,6 +98,12 @@ export const App = () => {
           edit={FieldEdit}
           show={FieldShow}
           icon={FormatAlignJustifyIcon}
+        />
+
+        <Resource
+          name="booleanInputs"
+          list={BooleanInputList}
+          icon={InputIcon}
         />
       </Admin>
     </GoogleOAuthProvider>

@@ -15,21 +15,21 @@ const SpecificationProvider = DataProviderFactory(db.specificationService);
 const ScreenProvider = DataProviderFactory(db.screenService);
 const DashboardProvider = DataProviderFactory(db.dashboardService);
 const LoginProvider = DataProviderFactory(db.loginService);
-const BooleanInputPropsProvider = DataProviderFactory(db.booleanInputPropsService);
-const CheckboxGroupInputPropsProvider=DataProviderFactory(db.checkboxGroupInputPropsService);
-const DateInputPropsProvider=DataProviderFactory(db.dateInputPropsService);
-const DateTimeInputPropsProvider=DataProviderFactory(db.dateTimeInputPropsService);
-const FileInputPropsProvider=DataProviderFactory(db.fileInputPropsService);
-const ImageInputPropsProvider=DataProviderFactory(db.imageInputPropsService);
-const NumberInputPropsProvider=DataProviderFactory(db.numberInputPropsService);
-const PasswordInputPropsProvider=DataProviderFactory(db.passwordInputPropsService);
-const ReferenceInputPropsProvider=DataProviderFactory(db.referenceInputPropsService);
-const RichTextInputPropsProvider=DataProviderFactory(db.richTextInputPropsService);
-const SearchInputPropsProvider=DataProviderFactory(db.searchInputPropsService);
-const SelectInputPropsProvider=DataProviderFactory(db.selectInputPropsService);
-const TextInputPropsProvider=DataProviderFactory(db.textInputPropsService);
-const TimeInputPropsProvider=DataProviderFactory(db.timeInputPropsService);
-const TranslatableInputPropsProvider=DataProviderFactory(db.translatableInputPropsService);
+const BooleanInputsProvider = DataProviderFactory(db.booleanInputService);
+// const CheckboxGroupInputPropsProvider=DataProviderFactory(db.checkboxGroupInputPropsService);
+// const DateInputPropsProvider=DataProviderFactory(db.dateInputPropsService);
+// const DateTimeInputPropsProvider=DataProviderFactory(db.dateTimeInputPropsService);
+// const FileInputPropsProvider=DataProviderFactory(db.fileInputPropsService);
+// const ImageInputPropsProvider=DataProviderFactory(db.imageInputPropsService);
+// const NumberInputPropsProvider=DataProviderFactory(db.numberInputPropsService);
+// const PasswordInputPropsProvider=DataProviderFactory(db.passwordInputPropsService);
+// const ReferenceInputPropsProvider=DataProviderFactory(db.referenceInputPropsService);
+// const RichTextInputPropsProvider=DataProviderFactory(db.richTextInputPropsService);
+// const SearchInputPropsProvider=DataProviderFactory(db.searchInputPropsService);
+// const SelectInputPropsProvider=DataProviderFactory(db.selectInputPropsService);
+// const TextInputPropsProvider=DataProviderFactory(db.textInputPropsService);
+// const TimeInputPropsProvider=DataProviderFactory(db.timeInputPropsService);
+// const TranslatableInputPropsProvider=DataProviderFactory(db.translatableInputPropsService);
 
 // Mapeamento dinâmico de resources para data providers
 const providersMap: Record<string, DataProvider> = {
@@ -43,21 +43,21 @@ const providersMap: Record<string, DataProvider> = {
   dashboards: DashboardProvider,
   logins: LoginProvider,
   specifications: SpecificationProvider,
-  booleanInputProps: BooleanInputPropsProvider,
-  checkboxGroupInputProps: CheckboxGroupInputPropsProvider,
-  dateInputProps: DateInputPropsProvider,
-  dateTimeInputProps: DateTimeInputPropsProvider,
-  fileInputProps: FileInputPropsProvider,
-  imageInputProps: ImageInputPropsProvider,
-  numberInputProps: NumberInputPropsProvider,
-  passwordInputProps: PasswordInputPropsProvider,
-  referenceInputProps: ReferenceInputPropsProvider,
-  richTextInputProps: RichTextInputPropsProvider,
-  searchInputProps: SearchInputPropsProvider,
-  selectInputProps: SelectInputPropsProvider,
-  textInputProps: TextInputPropsProvider,
-  timeInputProps: TimeInputPropsProvider,
-  translatableInputProps: TranslatableInputPropsProvider,
+  booleanInputs: BooleanInputsProvider,
+//   checkboxGroupInputProps: CheckboxGroupInputPropsProvider,
+//   dateInputProps: DateInputPropsProvider,
+//   dateTimeInputProps: DateTimeInputPropsProvider,
+//   fileInputProps: FileInputPropsProvider,
+//   imageInputProps: ImageInputPropsProvider,
+//   numberInputProps: NumberInputPropsProvider,
+//   passwordInputProps: PasswordInputPropsProvider,
+//   referenceInputProps: ReferenceInputPropsProvider,
+//   richTextInputProps: RichTextInputPropsProvider,
+//   searchInputProps: SearchInputPropsProvider,
+//   selectInputProps: SelectInputPropsProvider,
+//   textInputProps: TextInputPropsProvider,
+//   timeInputProps: TimeInputPropsProvider,
+//   translatableInputProps: TranslatableInputPropsProvider,
 };
 
 const getProvider = (resource: string): DataProvider => {
