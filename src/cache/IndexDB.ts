@@ -26,7 +26,7 @@ export interface ITextFieldAttribute extends IMetadata {
 }
 
 export interface INumberInputAttribute extends IMetadata {
-    type: 'multiline' | 'resettable'; 
+    type: 'max' | 'min' | 'step'; 
 }
 
 export interface ITextInputAttribute extends IMetadata {
