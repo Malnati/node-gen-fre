@@ -21,16 +21,8 @@ export interface IAttribute extends IMetadata {
     type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'microservice' | 'feature' | 'login' | 'dashboard'; // Define o tipo de item relacionado
 }
 
-export interface ITextFieldAttribute extends IMetadata {
-    type: 'text' | 'rich-text' ; // Define o tipo de item relacionado
-}
-
 export interface INumberInputAttribute extends IMetadata {
     type: 'max' | 'min' | 'step'; 
-}
-
-export interface ITextInputAttribute extends IMetadata {
-    type: 'multiline' | 'resettable'; 
 }
 
 export interface ITextInputAttribute extends IMetadata {
