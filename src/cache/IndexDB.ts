@@ -18,7 +18,7 @@ export interface ISpecification extends IMetadata {
 }
 
 export interface IAttributes extends IMetadata {
-    type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'microservice' | 'feature'; // Define o tipo de item relacionado
+    type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'microservice' | 'feature' | 'login' | 'dashboard'; // Define o tipo de item relacionado
 }
 
 export interface IField extends IId {
@@ -35,6 +35,14 @@ export interface IScreen extends IId {
     name: string;
     fields: number[];
     specifications?: number[];
+}
+
+export interface IDashboard extends IScreen, IId {
+    attributes: number[];
+}
+
+export interface ILogin extends IScreen, IId {
+    attributes: number[];
 }
 
 export interface IFrontend extends IId {
@@ -88,23 +96,25 @@ export interface IDatabase extends IId {
 
 export class DB extends Dexie {
     platforms!: Table<IPlatform>;
-    platformFeatures!: Table<IPlatformFeature>;
     apps!: Table<IApp>;
     microservices!: Table<IMicroService>;
     databases!: Table<IDatabase>;
     fields!: Table<IField>;
     screens!: Table<IScreen>;
+    dashboards!: Table<IDashboard>;
+    logins!: Table<ILogin>;
     frontends!: Table<IFrontend>;
     specifications!: Table<ISpecification>;
     attributes!: Table<IAttributes>;
 
     platformService!: CRUDService<IPlatform>;
-    platformFeatureService!: CRUDService<IPlatformFeature>;
     appService!: CRUDService<IApp>;
     msService!: CRUDService<IMicroService>;
     dbService!: CRUDService<IDatabase>;
     fieldService!: CRUDService<IField>;
     screenService!: CRUDService<IScreen>;
+    dashboardService!: CRUDService<IDashboard>;
+    loginService!: CRUDService<ILogin>;
     frontendService!: CRUDService<IFrontend>;
     specificationService!: CRUDService<ISpecification>;
     attributeService!: CRUDService<IAttributes>;
@@ -116,12 +126,13 @@ export class DB extends Dexie {
 
         this.version(1).stores({
             platforms: "++id, name, *apps, *specifications",
-            platformFeatures: "++id, platformId, name, description, *attributes, *specifications",
-            apps: "++id, platformId, name, *microservices, *frontends, *specifications",
-            microservices: "++id, appId, name, *databases, *specifications",
+            apps: "++id, platformId, name, *microservices, *frontends, *attributes, *specifications",
+            microservices: "++id, appId, name, *databases, *attributes, *specifications",
             databases: "++id, microserviceId, host, port, database, user, dbType, *specifications",
             frontends: "++id, appId, name, *screens, *specifications",
             screens: "++id, frontendId, name, *fields, *specifications",
+            dashboards: "++id, frontendId, name, *fields, *attributes, *specifications",
+            logins: "++id, frontendId, name, *fields, *attributes, *specifications",
             fields: "++id, screenId, name, label, type, max, *specifications",
             specifications: "++id, type, referenceId, key",
             attributes: "++id, type, referenceId, key" 
@@ -129,12 +140,13 @@ export class DB extends Dexie {
         
         // Instanciando CRUDService para cada tabela
         this.platformService = new CRUDService(this.platforms);
-        this.platformFeatureService = new CRUDService(this.platformFeatures);
         this.appService = new CRUDService(this.apps);
         this.msService = new CRUDService(this.microservices);
         this.dbService = new CRUDService(this.databases);
         this.fieldService = new CRUDService(this.fields);
         this.screenService = new CRUDService(this.screens);
+        this.dashboardService = new CRUDService(this.dashboards);
+        this.loginService = new CRUDService(this.logins);
         this.frontendService = new CRUDService(this.frontends);
         this.specificationService = new CRUDService(this.specifications);
         this.attributeService = new CRUDService(this.attributes);
@@ -144,12 +156,13 @@ export class DB extends Dexie {
 
     async clearDatabase() {
         await db.platforms.bulkDelete(await db.platforms.toCollection().primaryKeys());
-        await db.platformFeatures.bulkDelete(await db.platformFeatures.toCollection().primaryKeys());
         await db.apps.bulkDelete(await db.apps.toCollection().primaryKeys());
         await db.microservices.bulkDelete(await db.microservices.toCollection().primaryKeys());
         await db.databases.bulkDelete(await db.databases.toCollection().primaryKeys());
         await db.fields.bulkDelete(await db.fields.toCollection().primaryKeys());
         await db.screens.bulkDelete(await db.screens.toCollection().primaryKeys());
+        await db.dashboards.bulkDelete(await db.dashboards.toCollection().primaryKeys());
+        await db.logins.bulkDelete(await db.logins.toCollection().primaryKeys());
         await db.frontends.bulkDelete(await db.frontends.toCollection().primaryKeys());
         await db.specifications.bulkDelete(await db.specifications.toCollection().primaryKeys());
     }
@@ -162,27 +175,6 @@ export class DB extends Dexie {
         // Adiciona os dados de apps
         await this.apps.put({ id: 1, platformId: 1, name: 'Users', frontends: [1], microservices: [1], specifications: [11, 13] });
         await this.apps.put({ id: 2, platformId: 1, name: 'Profiles', frontends: [2], microservices: [2], specifications: [10, 12] });
-        
-        // Adiciona os dados de features
-        await this.platformFeatures.put({ id: 1, platformId: 1, name: 'Login', description: 'Sign-in/sign-out.', attributes: [1], specifications: [] });
-        await this.platformFeatures.put({ id: 2, platformId: 1, name: 'Dashboard', description: 'Main page.', attributes: [2], specifications: [] });
-        await this.platformFeatures.put({ id: 3, platformId: 1, name: 'Manage Users', description: 'Handle users data.', attributes: [3, 4, 5, 6], specifications: [] });
-        await this.platformFeatures.put({ id: 4, platformId: 1, name: 'Manage Profiles', description: 'Handle profiles data for users.', attributes: [7, 8, 9, 10], specifications: [] });
-
-        // Adiciona os dados de specifications para cada tipo, incluindo novos exemplos para Platform, App, MicroService, Database
-        await this.attributes.bulkPut([
-            // Specifications for features
-            { id:  1, type: 'feature', referenceId:  1, key: 'authentication', value: 'Google Auth' },
-            { id:  2, type: 'feature', referenceId:  2, key: 'text', value: 'Welcome text' },
-            { id:  3, type: 'feature', referenceId:  3, key: 'Create users', value: 'Capability to create users data.' },
-            { id:  4, type: 'feature', referenceId:  4, key: 'List users', value: 'Capability to list users data.' },
-            { id:  5, type: 'feature', referenceId:  5, key: 'Edit users', value: 'Capability to edit users data.' },
-            { id:  6, type: 'feature', referenceId:  6, key: 'Delete users', value: 'Capability to delete users data.' },
-            { id:  7, type: 'feature', referenceId:  7, key: 'Create profiles', value: 'Capability to create profiles data.' },
-            { id:  8, type: 'feature', referenceId:  8, key: 'List profiles', value: 'Capability to list profiles data.' },
-            { id:  9, type: 'feature', referenceId:  9, key: 'Edit profiles', value: 'Capability to edit profiles data.' },
-            { id: 10, type: 'feature', referenceId: 10, key: 'Delete profiles', value: 'Capability to delete profiles data.' },
-        ]);
 
         // Adiciona os dados de microservices
         await this.microservices.put({ id: 1, appId: 1, name: 'User', databases: [1], specifications: [14, 16] });
@@ -197,7 +189,25 @@ export class DB extends Dexie {
 
         // Adiciona os dados de screens 
         await this.screens.put({ id:  1, frontendId: 1, name: 'Login', fields: [1, 2], specifications: [] });
+        // Adiciona os dados de specifications para cada tipo, incluindo novos exemplos para Platform, App, MicroService, Database, etc
+        await this.attributes.bulkPut([
+            // Specifications for login
+            { id:  1, type: 'login', referenceId: 1, key: 'Typography-Welcome', value: 'Bem-vindo' },
+            { id:  2, type: 'login', referenceId: 1, key: 'Typography-How-to-Login', value: 'Para acessar o sistema, faça login com o Google:' },
+            { id:  3, type: 'login', referenceId: 1, key: 'Typography-Button', value: 'Login com Google' },
+            { id:  4, type: 'login', referenceId: 1, key: 'Google-OAuth-Provider-ID', value: '178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com' },
+        ]);
+        
         await this.screens.put({ id:  2, frontendId: 1, name: 'Dashboard', fields: [], specifications: [] });
+        await this.attributes.bulkPut([
+            // Specifications for dashboard
+            { id:  5, type: 'dashboard', referenceId: 2, key: 'Typography-CardHeader-title', value: 'Bem-vindo ao sistema' },
+            { id:  6, type: 'dashboard', referenceId: 2, key: 'Typography-CardHeader-subheader', value: 'Id consectetur aliqua laborum amet proident tempor aliquip aliqua fugiat sit laboris qui incididunt proident. Sit do id laboris sunt adipisicing pariatur amet. Proident do sunt incididunt minim duis non cillum ad enim cillum proident reprehenderit eu. Commodo amet duis incididunt aliquip cillum dolore excepteur culpa est non nisi laborum et. Consequat fugiat amet ad culpa elit id ex ea excepteur occaecat. Irure magna qui Lorem eiusmod dolor cillum do minim.' },
+            { id:  7, type: 'dashboard', referenceId: 2, key: 'Typography-CardContent', value: 'Amet duis eu non do exercitation consequat irure Lorem nisi do Lorem est anim. Consectetur laboris et anim et incididunt pariatur ad ullamco consectetur reprehenderit occaecat in exercitation pariatur. Excepteur incididunt consectetur aute minim consequat velit aute mollit sint. Pariatur labore aliquip magna.' },
+            { id:  8, type: 'dashboard', referenceId: 2, key: 'Typography-Box', value: 'Occaecat elit qui duis commodo dolore ex est velit non pariatur. Labore eu cillum exercitation. Eu mollit ut laboris. In labore occaecat minim veniam in reprehenderit id sunt. Incididunt excepteur Lorem officia velit fugiat. Quis officia eu ullamco veniam ipsum sint nisi eiusmod. Aliquip quis mollit proident aliquip nisi do commodo aliquip est fugiat eiusmod exercitation quis ad. Officia eiusmod magna qui id minim laboris.' },
+        ]);
+
+
         await this.screens.put({ id:  3, frontendId: 1, name: 'List User', fields: [1, 2, 3, 4], specifications: [26] });
         await this.screens.put({ id:  4, frontendId: 1, name: 'Create User', fields: [1, 2, 3, 4], specifications: [26] });
         await this.screens.put({ id:  5, frontendId: 1, name: 'Update User', fields: [1, 2, 3, 4], specifications: [26] });
