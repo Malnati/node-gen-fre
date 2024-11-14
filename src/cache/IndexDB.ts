@@ -185,10 +185,10 @@ export class DB extends Dexie {
         await this.databases.put({ id: 2, microserviceId: 2, host: 'localhost', port: '5432', database: 'profile', user: 'postgres', dbType: 'postgres', specifications: [18] });
 
         // Adiciona os dados de frontends
-        await this.frontends.put({ id: 1, appId: 1, name: 'Web Desktop', screens: [1, 2], specifications: [7, 9]});
+        await this.frontends.put({ id: 1, appId: 1, name: 'Web Desktop', screens: [], specifications: []});
 
         // Adiciona os dados de screens 
-        await this.screens.put({ id:  1, frontendId: 1, name: 'Login', fields: [1, 2], specifications: [] });
+        await this.logins.put({ id:  1, frontendId: 1, name: 'Login', fields: [], attributes: [1, 2, 3, 4], specifications: [] });
         // Adiciona os dados de specifications para cada tipo, incluindo novos exemplos para Platform, App, MicroService, Database, etc
         await this.attributes.bulkPut([
             // Specifications for login
@@ -198,7 +198,7 @@ export class DB extends Dexie {
             { id:  4, type: 'login', referenceId: 1, key: 'Google-OAuth-Provider-ID', value: '178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com' },
         ]);
         
-        await this.screens.put({ id:  2, frontendId: 1, name: 'Dashboard', fields: [], specifications: [] });
+        await this.dashboards.put({ id:  2, frontendId: 1, name: 'Dashboard', fields: [], attributes: [5, 6, 7, 8], specifications: [] });
         await this.attributes.bulkPut([
             // Specifications for dashboard
             { id:  5, type: 'dashboard', referenceId: 2, key: 'Typography-CardHeader-title', value: 'Bem-vindo ao sistema' },
