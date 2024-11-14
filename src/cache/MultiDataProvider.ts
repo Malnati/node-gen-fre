@@ -16,7 +16,7 @@ const ScreenProvider = DataProviderFactory(db.screenService);
 const DashboardProvider = DataProviderFactory(db.dashboardService);
 const LoginProvider = DataProviderFactory(db.loginService);
 const BooleanInputsProvider = DataProviderFactory(db.booleanInputService);
-// const CheckboxGroupInputPropsProvider=DataProviderFactory(db.checkboxGroupInputPropsService);
+const CheckboxInputsProvider=DataProviderFactory(db.checkboxInputsService);
 // const DateInputPropsProvider=DataProviderFactory(db.dateInputPropsService);
 // const DateTimeInputPropsProvider=DataProviderFactory(db.dateTimeInputPropsService);
 // const FileInputPropsProvider=DataProviderFactory(db.fileInputPropsService);
@@ -44,7 +44,7 @@ const providersMap: Record<string, DataProvider> = {
   logins: LoginProvider,
   specifications: SpecificationProvider,
   booleanInputs: BooleanInputsProvider,
-//   checkboxGroupInputProps: CheckboxGroupInputPropsProvider,
+  checkboxInputs: CheckboxInputsProvider,
 //   dateInputProps: DateInputPropsProvider,
 //   dateTimeInputProps: DateTimeInputPropsProvider,
 //   fileInputProps: FileInputPropsProvider,

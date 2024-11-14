@@ -40,6 +40,7 @@ import { PlatformCreate } from "./PlatformCreate";
 import { PlatformEdit } from "./PlatformEdit";
 import { PlatformShow } from "./PlatformShow";
 import { BooleanInputList as BooleanInputList } from "./BooleanInputList";
+import { CheckboxInputList } from "./CheckboxInputList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -103,6 +104,12 @@ export const App = () => {
         <Resource
           name="booleanInputs"
           list={BooleanInputList}
+          icon={InputIcon}
+        />
+
+        <Resource
+          name="checkboxInputs"
+          list={CheckboxInputList}
           icon={InputIcon}
         />
       </Admin>

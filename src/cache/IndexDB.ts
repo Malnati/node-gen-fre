@@ -139,7 +139,7 @@ export class DB extends Dexie {
     specifications!: Table<ISpecification>;
     attributes!: Table<IAttribute>;
     booleanInputs!: Table<IBooleanInputProps>;
-    // checkboxGroupInputProps!: Table<ICheckboxGroupInputProps>;
+    checkboxInputs!: Table<ICheckboxGroupInputProps>;
     // dateInputProps!: Table<IDateInputProps>;
     // dateTimeInputProps!: Table<IDateTimeInputProps>;
     // fileInputProps!: Table<IFileInputProps>;
@@ -166,7 +166,7 @@ export class DB extends Dexie {
     specificationService!: CRUDService<ISpecification>;
     attributeService!: CRUDService<IAttribute>;
     booleanInputService!: CRUDService<IBooleanInputProps>;
-    // checkboxGroupInputPropsService!: CRUDService<ICheckboxGroupInputProps>;
+    checkboxInputsService!: CRUDService<ICheckboxGroupInputProps>;
     // dateInputPropsService!: CRUDService<IDateInputProps>;
     // dateTimeInputPropsService!: CRUDService<IDateTimeInputProps>;
     // fileInputPropsService!: CRUDService<IFileInputProps>;
@@ -197,20 +197,20 @@ export class DB extends Dexie {
             specifications: "++id, type, referenceId, key",
             attributes: "++id, type, referenceId, key", 
             booleanInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label", 
-            // checkboxGroupInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, labelPlacement, choices, optionText, optionValue, translateChoice", 
-            // dateInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, locale, options, placeholder", 
-            // dateTimeInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, locale, options, placeholder", 
-            // fileInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, accept, options, minSize, maxSize, multiple, placeholder", 
-            // imageInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, accept, options, minSize, maxSize, multiple, placeholder", 
-            // numberInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, step, min, max", 
-            // passwordInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, autoComplete", 
-            // referenceInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, source, reference, sort, filter, perPage, allowEmpty, defaultValue, optionText, optionValue", 
-            // richTextInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, toolbar, editorOptions", 
-            // searchInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, alwaysOn placeholder, resettable",
-            // selectInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, choices, create createLabel, disableValue, emptyText, emptyValue, isPending, onCreate, optionText, optionValue, resettable, translateChoice",
-            // textInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, type, resettable, multiline, placeholder",
-            // timeInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx",
-            // translatableInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, locales defaultLocale fullWidth groupKey selector stackProps sx",
+            checkboxInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, labelPlacement, optionValue, translateChoice", 
+            // dateInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, options, placeholder", 
+            // dateTimeInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, options, placeholder", 
+            // fileInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, options, minSize, maxSize, multiple, placeholder", 
+            // imageInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, options, minSize, maxSize, multiple, placeholder", 
+            // numberInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, step, min, max", 
+            // passwordInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, autoComplete", 
+            // referenceInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, source, reference, sort, filter, perPage, allowEmpty, defaultValue, optionText, optionValue", 
+            // richTextInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, toolbar, editorOptions", 
+            // searchInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, alwaysOn placeholder, resettable",
+            // selectInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, choices, create createLabel, disableValue, emptyText, emptyValue, isPending, onCreate, optionText, optionValue, resettable, translateChoice",
+            // textInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, type, resettable, multiline, placeholder",
+            // timeInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label",
+            // translatableInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locales defaultLocale fullWidth groupKey selector stackProps sx",
         });
         
         // Instanciando CRUDService para cada tabela
@@ -226,7 +226,7 @@ export class DB extends Dexie {
         this.specificationService = new CRUDService(this.specifications);
         this.attributeService = new CRUDService(this.attributes);
         this.booleanInputService = new CRUDService(this.booleanInputs);
-        // this.checkboxGroupInputPropsService = new CRUDService(this.checkboxGroupInputProps);
+        this.checkboxInputsService = new CRUDService(this.checkboxInputs);
         // this.dateInputPropsService = new CRUDService(this.dateInputProps);
         // this.dateTimeInputPropsService = new CRUDService(this.dateTimeInputProps);
         // this.fileInputPropsService = new CRUDService(this.fileInputProps);
@@ -265,6 +265,7 @@ export class DB extends Dexie {
         await this.specifications.clear();
         await this.attributes.clear();
         await this.booleanInputs.clear();
+        await this.checkboxInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -292,6 +293,37 @@ export class DB extends Dexie {
             helperText: 'Permite que receba boletins informativos',
             label: 'Receber Newsletter',
         });
+
+        await this.checkboxInputs.put({
+            id: 1,
+            source: 'acceptTerms',             // Identificador do campo, relacionado à aceitação de termos
+            className: 'terms-checkbox',       // Classe CSS para customização
+            defaultValue: false,               // Valor padrão (não selecionado)
+            readOnly: false,                   // Checkbox é editável
+            disabled: false,                   // Não desabilitado
+            fullWidth: false,                  // Não ocupa largura total do formulário
+            helperText: 'Você precisa aceitar os termos para continuar', // Texto de ajuda exibido abaixo do campo
+            label: 'Aceitar Termos',           // Rótulo exibido ao lado do checkbox
+            labelPlacement: 'end',             // Rótulo exibido à direita do checkbox
+            optionValue: 'terms',              // Valor que será enviado ao banco de dados
+            translateChoice: true              // Rótulo será traduzido com base na configuração de idioma
+        });
+    
+        await this.checkboxInputs.put({
+            id: 2,
+            source: 'subscribeNewsletter',     // Identificador do campo, relacionado à inscrição em boletins
+            className: 'newsletter-checkbox',  // Classe CSS para customização
+            defaultValue: true,                // Valor padrão (selecionado)
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,
+            helperText: 'Selecione para receber nossos boletins semanais',
+            label: 'Inscrever-se no Boletim Informativo',
+            labelPlacement: 'start',           // Rótulo exibido à esquerda do checkbox
+            optionValue: 'newsletter',         // Valor representando a escolha do usuário
+            translateChoice: false             // Não traduz o rótulo; usa o texto diretamente
+        });
+
     }
 
     async seedData() {

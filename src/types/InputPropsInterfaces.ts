@@ -27,8 +27,6 @@ export interface IBooleanInputProps extends CommonInputProps {
 
 export interface ICheckboxGroupInputProps extends CommonInputProps {
     labelPlacement?: 'end' | 'start' | 'top' | 'bottom';   // Posição do label em relação ao grupo de checkboxes
-    choices: Array<{ id: string | number; name: string }>; // Lista de opções que serão exibidas no grupo de checkboxes
-    optionText?: string | ((choice: any) => string);       // Texto a ser exibido para cada opção
     optionValue?: string;                                  // Valor da opção, que será usado como `id` no form state
     translateChoice?: boolean;                             // Define se o texto da opção será traduzido
 }
