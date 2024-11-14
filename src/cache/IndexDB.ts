@@ -21,6 +21,18 @@ export interface IAttribute extends IMetadata {
     type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'microservice' | 'feature' | 'login' | 'dashboard'; // Define o tipo de item relacionado
 }
 
+export interface IReferenceInputAttribute extends IMetadata {
+    type: 'label' | 'perPage' | 'reference' | 'sort' | 'source' ; 
+}
+
+export interface IBooleanInputAttribute extends IMetadata {
+    type: 'options' ; 
+}
+
+export interface ISearchInputAttribute extends IMetadata {
+    type: 'placeholder' | 'resettable' ; 
+}
+
 export interface INumberInputAttribute extends IMetadata {
     type: 'max' | 'min' | 'step'; 
 }
@@ -39,6 +51,10 @@ export interface IAutocompleteInputAttribute extends IMetadata {
 
 export interface IPasswordAttribute extends IMetadata {
     type: 'initiallyVisible';
+}
+
+export interface ISelectInputAttribute extends IMetadata {
+    type: 'choices' | 'emptyText' | 'emptyValue' | 'resettable' | 'translateChoice';
 }
 
 export interface IField extends IId {
