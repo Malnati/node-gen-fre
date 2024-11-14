@@ -26,7 +26,19 @@ export interface ITextFieldAttribute extends IMetadata {
 }
 
 export interface ITextinputAttribute extends IMetadata {
-    type: 'text' | 'rich-text' | 'toolbar' | 'multiline' | 'resettable' | 'password' | 'initiallyVisible' ; // Define o tipo de item relacionado
+    type: 'multiline' | 'resettable'; 
+}
+
+export interface IRichTextinputAttribute extends IMetadata {
+    type: 'toolbar' ;
+}
+
+export interface IAutocompleteInputTextinputAttribute extends IMetadata {
+    type: 'AutocompleteInput' | 'source' | 'choices' | 'create' | 'debounce' | 'emptyText' | 'emptyValue' | 'optionText' | 'optionValue' | 'translateChoice'; 
+}
+
+export interface IPasswordTextinputAttribute extends IMetadata {
+    type: 'initiallyVisible';
 }
 
 export interface IField extends IId {
