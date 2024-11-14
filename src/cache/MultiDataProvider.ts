@@ -22,14 +22,14 @@ const DateTimeInputsProvider=DataProviderFactory(db.dateTimeInputsService);
 const FileInputsProvider=DataProviderFactory(db.fileInputsService);
 const ImageInputsProvider=DataProviderFactory(db.imageInputsService);
 const NumberInputsProvider=DataProviderFactory(db.numberInputsService);
-// const PasswordInputPropsProvider=DataProviderFactory(db.passwordInputPropsService);
-// const ReferenceInputPropsProvider=DataProviderFactory(db.referenceInputPropsService);
-// const RichTextInputPropsProvider=DataProviderFactory(db.richTextInputPropsService);
-// const SearchInputPropsProvider=DataProviderFactory(db.searchInputPropsService);
-// const SelectInputPropsProvider=DataProviderFactory(db.selectInputPropsService);
-// const TextInputPropsProvider=DataProviderFactory(db.textInputPropsService);
-// const TimeInputPropsProvider=DataProviderFactory(db.timeInputPropsService);
-// const TranslatableInputPropsProvider=DataProviderFactory(db.translatableInputPropsService);
+const PasswordInputsProvider=DataProviderFactory(db.passwordInputsService);
+// const ReferenceInputsProvider=DataProviderFactory(db.referenceInputsService);
+// const RichTextInputsProvider=DataProviderFactory(db.richTextInputsService);
+// const SearchInputsProvider=DataProviderFactory(db.searchInputsService);
+// const SelectInputsProvider=DataProviderFactory(db.selectInputsService);
+// const TextInputsProvider=DataProviderFactory(db.textInputsService);
+// const TimeInputsProvider=DataProviderFactory(db.timeInputsService);
+// const TranslatableInputsProvider=DataProviderFactory(db.translatableInputsService);
 
 // Mapeamento dinâmico de resources para data providers
 const providersMap: Record<string, DataProvider> = {
@@ -50,14 +50,14 @@ const providersMap: Record<string, DataProvider> = {
   fileInputs: FileInputsProvider,
   imageInputs: ImageInputsProvider,
   numberInputs: NumberInputsProvider,
-//   passwordInputProps: PasswordInputPropsProvider,
-//   referenceInputProps: ReferenceInputPropsProvider,
-//   richTextInputProps: RichTextInputPropsProvider,
-//   searchInputProps: SearchInputPropsProvider,
-//   selectInputProps: SelectInputPropsProvider,
-//   textInputProps: TextInputPropsProvider,
-//   timeInputProps: TimeInputPropsProvider,
-//   translatableInputProps: TranslatableInputPropsProvider,
+  passwordInputs: PasswordInputsProvider,
+//   referenceInputs: ReferenceInputsProvider,
+//   richTextInputs: RichTextInputsProvider,
+//   searchInputs: SearchInputsProvider,
+//   selectInputs: SelectInputsProvider,
+//   textInputs: TextInputsProvider,
+//   timeInputs: TimeInputsProvider,
+//   translatableInputs: TranslatableInputsProvider,
 };
 
 const getProvider = (resource: string): DataProvider => {

@@ -145,7 +145,7 @@ export class DB extends Dexie {
     fileInputs!: Table<IFileInputProps>;
     imageInputs!: Table<IImageInputProps>;
     numberInputs!: Table<INumberInputProps>;
-    // passwordInputProps!: Table<IPasswordInputProps>;
+    passwordInputs!: Table<IPasswordInputProps>;
     // referenceInputProps!: Table<IReferenceInputProps>;
     // richTextInputProps!: Table<IRichTextInputProps>;
     // searchInputProps!: Table<ISearchInputProps>;
@@ -172,7 +172,7 @@ export class DB extends Dexie {
     fileInputsService!: CRUDService<IFileInputProps>;
     imageInputsService!: CRUDService<IImageInputProps>;
     numberInputsService!: CRUDService<INumberInputProps>;
-    // passwordInputPropsService!: CRUDService<IPasswordInputProps>;
+    passwordInputsService!: CRUDService<IPasswordInputProps>;
     // referenceInputPropsService!: CRUDService<IReferenceInputProps>;
     // richTextInputPropsService!: CRUDService<IRichTextInputProps>;
     // searchInputPropsService!: CRUDService<ISearchInputProps>;
@@ -203,7 +203,7 @@ export class DB extends Dexie {
             fileInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, minSize, maxSize, multiple, placeholder", 
             imageInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, minSize, maxSize, multiple, placeholder", 
             numberInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, step, min, max", 
-            // passwordInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, autoComplete", 
+            passwordInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, autoComplete", 
             // referenceInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, source, reference, sort, filter, perPage, allowEmpty, defaultValue, optionText, optionValue", 
             // richTextInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, toolbar, editorOptions", 
             // searchInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, alwaysOn placeholder, resettable",
@@ -232,7 +232,7 @@ export class DB extends Dexie {
         this.fileInputsService = new CRUDService(this.fileInputs);
         this.imageInputsService = new CRUDService(this.imageInputs);
         this.numberInputsService = new CRUDService(this.numberInputs);
-        // this.passwordInputPropsService = new CRUDService(this.passwordInputProps);
+        this.passwordInputsService = new CRUDService(this.passwordInputs);
         // this.referenceInputPropsService = new CRUDService(this.referenceInputProps);
         // this.richTextInputPropsService = new CRUDService(this.richTextInputProps);
         // this.searchInputPropsService = new CRUDService(this.searchInputProps);
@@ -271,6 +271,7 @@ export class DB extends Dexie {
         await this.fileInputs.clear();
         await this.imageInputs.clear();
         await this.numberInputs.clear();
+        await this.passwordInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -497,7 +498,45 @@ export class DB extends Dexie {
             min: 20,                           // Peso mínimo permitido (20 kg)
             max: 200                           // Peso máximo permitido (200 kg)
         });
-    
+        
+        await this.passwordInputs.put({
+            id: 1,
+            source: 'userPassword',              // Nome do campo para senha do usuário
+            className: 'password-input',         // Classe CSS para customização do estilo
+            defaultValue: '',                    // Senha vazia como padrão
+            readOnly: false,                     // Campo editável
+            disabled: false,                     // Campo habilitado para interação
+            fullWidth: true,                     // Campo ocupa a largura total do formulário
+            helperText: 'Digite sua senha',      // Texto auxiliar para o campo
+            label: 'Senha',                      // Rótulo descritivo para o campo de senha
+            autoComplete: 'new-password'         // Preenchimento automático desativado para nova senha
+        });
+
+        await this.passwordInputs.put({
+            id: 2,
+            source: 'confirmPassword',           // Nome do campo para confirmar a senha
+            className: 'confirm-password-input', // Classe CSS personalizada
+            defaultValue: '',                    // Padrão vazio
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Confirme sua senha',    // Texto auxiliar para confirmar senha
+            label: 'Confirmar Senha',            // Rótulo descritivo
+            autoComplete: 'off'                  // Preenchimento automático desativado
+        });
+
+        await this.passwordInputs.put({
+            id: 3,
+            source: 'adminPassword',             // Nome do campo para senha de admin
+            className: 'admin-password-input',   // Classe CSS para estilo
+            defaultValue: '',                    // Padrão vazio para segurança
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,                    // Campo ocupa largura parcial
+            helperText: 'Digite a senha de administrador', // Texto auxiliar
+            label: 'Senha de Administrador',     // Rótulo do campo
+            autoComplete: 'current-password'     // Preenchimento automático para senha atual
+        });
     }
 
     async seedData() {
