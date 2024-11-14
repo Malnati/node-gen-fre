@@ -161,7 +161,7 @@ export class DB extends Dexie {
     selectInputProps!: Table<ISelectInputProps>;
     textInputProps!: Table<ITextInputProps>;
     timeInputProps!: Table<ITimeInputProps>;
-    translatableInputsProps!: Table<ITranslatableInputsProps>;
+    translatableInputProps!: Table<ITranslatableInputsProps>;
 
     platformService!: CRUDService<IPlatform>;
     appService!: CRUDService<IApp>;
@@ -188,7 +188,7 @@ export class DB extends Dexie {
     selectInputPropsService!: CRUDService<ISelectInputProps>;
     textInputPropsService!: CRUDService<ITextInputProps>;
     timeInputPropsService!: CRUDService<ITimeInputProps>;
-    translatableInputsPropsService!: CRUDService<ITranslatableInputsProps>;
+    translatableInputPropsService!: CRUDService<ITranslatableInputsProps>;
 
     constructor() {
         super("DB");
@@ -209,20 +209,19 @@ export class DB extends Dexie {
             attributes: "++id, type, referenceId, key", 
             booleanInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, options", 
             checkboxGroupInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, labelPlacement, choices, optionText, optionValue, translateChoice", 
-            dateInputPropsService: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, locale, options, placeholder", 
+            dateInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, locale, options, placeholder", 
             dateTimeInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, locale, options, placeholder", 
             fileInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, accept, options, minSize, maxSize, multiple, placeholder", 
-            imageInputPropsService: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, accept, options, minSize, maxSize, multiple, placeholder", 
+            imageInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, accept, options, minSize, maxSize, multiple, placeholder", 
             numberInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, step, min, max", 
             passwordInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, autoComplete", 
             referenceInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, source, reference, sort, filter, perPage, allowEmpty, defaultValue, optionText, optionValue", 
             richTextInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, toolbar, editorOptions", 
             searchInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, alwaysOn placeholder, resettable",
             selectInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, choices, create createLabel, disableValue, emptyText, emptyValue, isPending, onCreate, optionText, optionValue, resettable, translateChoice",
-            textInputPropsService: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, ",
             textInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, type, resettable, multiline, placeholder",
             timeInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx",
-            translatableInputsProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, locales defaultLocale fullWidth groupKey selector stackProps sx",
+            translatableInputProps: "++id, source, className, defaultValue, readOnly, disabled, format, fullWidth, helperText, label, parse, sx, locales defaultLocale fullWidth groupKey selector stackProps sx",
         });
         
         // Instanciando CRUDService para cada tabela
@@ -237,7 +236,22 @@ export class DB extends Dexie {
         this.frontendService = new CRUDService(this.frontends);
         this.specificationService = new CRUDService(this.specifications);
         this.attributeService = new CRUDService(this.attributes);
-
+        this.booleanInputPropsService = new CRUDService(this.booleanInputProps);
+        this.checkboxGroupInputPropsService = new CRUDService(this.checkboxGroupInputProps);
+        this.dateInputPropsService = new CRUDService(this.dateInputProps);
+        this.dateTimeInputPropsService = new CRUDService(this.dateTimeInputProps);
+        this.fileInputPropsService = new CRUDService(this.fileInputProps);
+        this.imageInputPropsService = new CRUDService(this.imageInputProps);
+        this.numberInputPropsService = new CRUDService(this.numberInputProps);
+        this.passwordInputPropsService = new CRUDService(this.passwordInputProps);
+        this.referenceInputPropsService = new CRUDService(this.referenceInputProps);
+        this.richTextInputPropsService = new CRUDService(this.richTextInputProps);
+        this.searchInputPropsService = new CRUDService(this.searchInputProps);
+        this.selectInputPropsService = new CRUDService(this.selectInputProps);
+        this.textInputPropsService = new CRUDService(this.textInputProps);
+        this.textInputPropsService = new CRUDService(this.textInputProps);
+        this.timeInputPropsService = new CRUDService(this.timeInputProps);
+        this.translatableInputPropsService   = new CRUDService(this.translatableInputProps);
         this.seedData();
     }
 
@@ -253,6 +267,22 @@ export class DB extends Dexie {
         await db.frontends.bulkDelete(await db.frontends.toCollection().primaryKeys());
         await db.specifications.bulkDelete(await db.specifications.toCollection().primaryKeys());
         await db.attributes.bulkDelete(await db.attributes.toCollection().primaryKeys());
+        await db.booleanInputProps.bulkDelete(await db.booleanInputProps.toCollection().primaryKeys());
+        await db.checkboxGroupInputProps.bulkDelete(await db.checkboxGroupInputProps.toCollection().primaryKeys());
+        await db.dateInputProps.bulkDelete(await db.dateInputProps.toCollection().primaryKeys());
+        await db.dateTimeInputProps.bulkDelete(await db.dateTimeInputProps.toCollection().primaryKeys());
+        await db.fileInputProps.bulkDelete(await db.fileInputProps.toCollection().primaryKeys());
+        await db.imageInputProps.bulkDelete(await db.imageInputProps.toCollection().primaryKeys());
+        await db.numberInputProps.bulkDelete(await db.numberInputProps.toCollection().primaryKeys());
+        await db.passwordInputProps.bulkDelete(await db.passwordInputProps.toCollection().primaryKeys());
+        await db.referenceInputProps.bulkDelete(await db.referenceInputProps.toCollection().primaryKeys());
+        await db.richTextInputProps.bulkDelete(await db.richTextInputProps.toCollection().primaryKeys());
+        await db.searchInputProps.bulkDelete(await db.searchInputProps.toCollection().primaryKeys());
+        await db.selectInputProps.bulkDelete(await db.selectInputProps.toCollection().primaryKeys());
+        await db.textInputProps.bulkDelete(await db.textInputProps.toCollection().primaryKeys());
+        await db.textInputProps.bulkDelete(await db.textInputProps.toCollection().primaryKeys());
+        await db.timeInputProps.bulkDelete(await db.timeInputProps.toCollection().primaryKeys());
+        await db.translatableInputProps.bulkDelete(await db.translatableInputProps.toCollection().primaryKeys());
     }
 
     // Adiciona os dados usando `put`, para substituir se o registro já existir
