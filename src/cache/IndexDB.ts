@@ -142,8 +142,8 @@ export class DB extends Dexie {
     checkboxInputs!: Table<ICheckboxGroupInputProps>;
     dateInputs!: Table<IDateInputProps>;
     dateTimeInputs!: Table<IDateTimeInputProps>;
-    // fileInputProps!: Table<IFileInputProps>;
-    // imageInputProps!: Table<IImageInputProps>;
+    fileInputs!: Table<IFileInputProps>;
+    imageInputs!: Table<IImageInputProps>;
     // numberInputProps!: Table<INumberInputProps>;
     // passwordInputProps!: Table<IPasswordInputProps>;
     // referenceInputProps!: Table<IReferenceInputProps>;
@@ -169,8 +169,8 @@ export class DB extends Dexie {
     checkboxInputsService!: CRUDService<ICheckboxGroupInputProps>;
     dateInputsService!: CRUDService<IDateInputProps>;
     dateTimeInputsService!: CRUDService<IDateTimeInputProps>;
-    // fileInputPropsService!: CRUDService<IFileInputProps>;
-    // imageInputPropsService!: CRUDService<IImageInputProps>;
+    fileInputsService!: CRUDService<IFileInputProps>;
+    imageInputsService!: CRUDService<IImageInputProps>;
     // numberInputPropsService!: CRUDService<INumberInputProps>;
     // passwordInputPropsService!: CRUDService<IPasswordInputProps>;
     // referenceInputPropsService!: CRUDService<IReferenceInputProps>;
@@ -200,8 +200,8 @@ export class DB extends Dexie {
             checkboxInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, labelPlacement, optionValue, translateChoice", 
             dateInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
             dateTimeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
-            // fileInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, options, minSize, maxSize, multiple, placeholder", 
-            // imageInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, options, minSize, maxSize, multiple, placeholder", 
+            fileInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, minSize, maxSize, multiple, placeholder", 
+            imageInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, minSize, maxSize, multiple, placeholder", 
             // numberInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, step, min, max", 
             // passwordInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, autoComplete", 
             // referenceInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, source, reference, sort, filter, perPage, allowEmpty, defaultValue, optionText, optionValue", 
@@ -229,8 +229,8 @@ export class DB extends Dexie {
         this.checkboxInputsService = new CRUDService(this.checkboxInputs);
         this.dateInputsService = new CRUDService(this.dateInputs);
         this.dateTimeInputsService = new CRUDService(this.dateTimeInputs);
-        // this.fileInputPropsService = new CRUDService(this.fileInputProps);
-        // this.imageInputPropsService = new CRUDService(this.imageInputProps);
+        this.fileInputsService = new CRUDService(this.fileInputs);
+        this.imageInputsService = new CRUDService(this.imageInputs);
         // this.numberInputPropsService = new CRUDService(this.numberInputProps);
         // this.passwordInputPropsService = new CRUDService(this.passwordInputProps);
         // this.referenceInputPropsService = new CRUDService(this.referenceInputProps);
@@ -268,6 +268,8 @@ export class DB extends Dexie {
         await this.checkboxInputs.clear();
         await this.dateInputs.clear();
         await this.dateTimeInputs.clear();
+        await this.fileInputs.clear();
+        await this.imageInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -325,7 +327,7 @@ export class DB extends Dexie {
             optionValue: 'newsletter',         // Valor representando a escolha do usuário
             translateChoice: false             // Não traduz o rótulo; usa o texto diretamente
         });
-        
+
         await this.dateInputs.put({
             id: 1,
             source: 'birthDate',                 // Nome do campo relacionado à data de nascimento
@@ -381,6 +383,74 @@ export class DB extends Dexie {
             locale: 'en-US',                     // Formato de data americano
             placeholder: 'MM/DD/YYYY HH:MM AM/PM' // Placeholder para formato de data/hora em inglês
         });
+
+        await this.fileInputs.put({
+            id: 1,
+            source: 'document',                  // Nome do campo para um documento de upload
+            className: 'document-input',         // Classe CSS para customizar o input de arquivo
+            defaultValue: null,                  // Nenhum valor padrão inicial
+            readOnly: false,                     // Campo editável
+            disabled: false,                     // Campo habilitado para interação
+            fullWidth: true,                     // Campo ocupa a largura total do formulário
+            helperText: 'Envie seu documento em PDF ou Word', // Texto de ajuda para o input de arquivo
+            label: 'Documento',                  // Rótulo do campo
+            accept: 'application/pdf',           // Aceita apenas arquivos PDF e documentos Word
+            minSize: 1024,                       // Tamanho mínimo do arquivo em bytes (1 KB)
+            maxSize: 10485760,                   // Tamanho máximo do arquivo em bytes (10 MB)
+            multiple: false,                     // Apenas um arquivo permitido
+            placeholder: 'Escolha um documento para enviar'  // Placeholder para o campo de upload
+        });
+    
+        await this.fileInputs.put({
+            id: 2,
+            source: 'attachments',               // Nome do campo para anexos
+            className: 'attachments-input',      // Classe CSS para customizar o input
+            defaultValue: null,                  // Nenhum valor padrão inicial
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,
+            helperText: 'Envie até 5 anexos',    // Texto de ajuda para os anexos
+            label: 'Anexos',
+            accept: '.zip',                      // Aceita formatos de arquivos compactados
+            minSize: 512,                        // Tamanho mínimo de 512 bytes (0.5 KB)
+            maxSize: 52428800,                   // Tamanho máximo de 50 MB
+            multiple: true,                      // Permite múltiplos arquivos
+            placeholder: 'Escolha arquivos para anexar'
+        });
+
+        await this.imageInputs.put({
+            id: 1,
+            source: 'profilePicture',            // Nome do campo para uma imagem de perfil
+            className: 'profile-picture-input',  // Classe CSS para o input de imagem
+            defaultValue: null,                  // Nenhum valor padrão
+            readOnly: false,                     // Campo editável
+            disabled: false,                     // Campo habilitado para interação
+            fullWidth: true,                     // Campo ocupa largura total
+            helperText: 'Envie uma imagem de perfil em JPEG ou PNG', // Texto de ajuda
+            label: 'Imagem de Perfil',           // Rótulo do campo
+            accept: 'image/jpeg',                // Aceita apenas imagens JPEG e PNG
+            minSize: 10240,                      // Tamanho mínimo de 10 KB
+            maxSize: 5242880,                    // Tamanho máximo de 5 MB
+            multiple: false,                     // Apenas uma imagem permitida
+            placeholder: 'Selecione uma imagem para o perfil' // Placeholder para o campo de imagem
+        });
+    
+        await this.imageInputs.put({
+            id: 2,
+            source: 'gallery',                   // Nome do campo para uma galeria de imagens
+            className: 'gallery-input',          // Classe CSS para o input de galeria de imagens
+            defaultValue: null,                  // Nenhum valor padrão inicial
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,
+            helperText: 'Envie até 10 imagens para a galeria', // Texto de ajuda para o campo de galeria
+            label: 'Galeria',
+            accept: 'image/*',                   // Aceita qualquer tipo de imagem
+            minSize: 5120,                       // Tamanho mínimo de 5 KB
+            maxSize: 10485760,                   // Tamanho máximo de 10 MB por imagem
+            multiple: true,                      // Permite múltiplas imagens
+            placeholder: 'Escolha imagens para sua galeria'
+        });        
     }
 
     async seedData() {

@@ -115,7 +115,6 @@ type FileAcceptOption =
     // Aplicando `FileAcceptOption` na interface `IFileInputProps`
 export interface IFileInputProps extends CommonInputProps {
     accept?: FileAcceptOption; // Usa o tipo de opções de arquivos aceitos
-    options?: DropzoneOptions; // Aceita um suporte de opções no qual você pode passar todas as propriedades react-dropzone.
     minSize?: number; // Tamanho mínimo do arquivo em bytes
     maxSize?: number; // Tamanho máximo do arquivo em bytes
     multiple?: boolean;   // Permite o upload de múltiplos arquivos se true
@@ -143,7 +142,6 @@ type ImageAcceptOption =
     // Aplicando `ImageAcceptOption` na interface `IImageInputProps`
 export interface IImageInputProps extends CommonInputProps {
     accept?: ImageAcceptOption; // Usa o tipo de opções de imagens aceitas
-    options?: DropzoneOptions; // Aceita um suporte de opções no qual você pode passar todas as propriedades react-dropzone.
     multiple?: boolean;   // Permite o upload de múltiplos arquivos se true
     placeholder?: string; // Texto de placeholder para o campo de upload
     minSize?: number; // Tamanho mínimo do arquivo em bytes

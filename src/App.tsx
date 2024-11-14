@@ -43,6 +43,8 @@ import { BooleanInputList as BooleanInputList } from "./BooleanInputList";
 import { CheckboxInputList } from "./CheckboxInputList";
 import { DateInputList } from "./DateInputList";
 import { DateTimeInputList } from "./DateTimeInput";
+import { FileInputList } from "./FileInputsList";
+import { ImageInputList } from "./ImageInputsList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -124,6 +126,18 @@ export const App = () => {
         <Resource
           name="dateTimeInputs"
           list={DateTimeInputList}
+          icon={InputIcon}
+        />
+
+        <Resource
+          name="fileInputs"
+          list={FileInputList}
+          icon={InputIcon}
+        />
+
+        <Resource
+          name="imageInputs"
+          list={ImageInputList}
           icon={InputIcon}
         />
 

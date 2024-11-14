@@ -19,8 +19,8 @@ const BooleanInputsProvider = DataProviderFactory(db.booleanInputService);
 const CheckboxInputsProvider=DataProviderFactory(db.checkboxInputsService);
 const DateInputsProvider=DataProviderFactory(db.dateInputsService);
 const DateTimeInputsProvider=DataProviderFactory(db.dateTimeInputsService);
-// const FileInputPropsProvider=DataProviderFactory(db.fileInputPropsService);
-// const ImageInputPropsProvider=DataProviderFactory(db.imageInputPropsService);
+const FileInputsProvider=DataProviderFactory(db.fileInputsService);
+const ImageInputsProvider=DataProviderFactory(db.imageInputsService);
 // const NumberInputPropsProvider=DataProviderFactory(db.numberInputPropsService);
 // const PasswordInputPropsProvider=DataProviderFactory(db.passwordInputPropsService);
 // const ReferenceInputPropsProvider=DataProviderFactory(db.referenceInputPropsService);
@@ -47,8 +47,8 @@ const providersMap: Record<string, DataProvider> = {
   checkboxInputs: CheckboxInputsProvider,
   dateInputs: DateInputsProvider,
   dateTimeInputs: DateTimeInputsProvider,
-//   fileInputProps: FileInputPropsProvider,
-//   imageInputProps: ImageInputPropsProvider,
+  fileInputs: FileInputsProvider,
+  imageInputs: ImageInputsProvider,
 //   numberInputProps: NumberInputPropsProvider,
 //   passwordInputProps: PasswordInputPropsProvider,
 //   referenceInputProps: ReferenceInputPropsProvider,
