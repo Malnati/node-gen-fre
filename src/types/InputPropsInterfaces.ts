@@ -1,8 +1,13 @@
 // src/types/InputPropsInterfaces.ts
 
+import { Component, ReactNode } from 'react';
 import { InputProps } from 'react-admin';
-import { SxProps } from '@mui/system';
+import { StackProps, SxProps } from '@mui/system';
 import { Theme } from '@mui/material/styles';  
+import { AlignmentButtons, ClearButtons, FormatButtons, LevelSelect, LinkButtons, ListButtons, QuoteButtons, RichTextInputToolbar } from 'ra-input-rich-text';
+import { EditorOptions } from '@tiptap/core';
+import { SwitchProps } from '@mui/material/Switch';
+import { DropzoneOptions } from 'react-dropzone';
 
 interface CommonInputProps extends InputProps {
     source: string; // Name of the entity property to use for the input value
@@ -19,12 +24,11 @@ interface CommonInputProps extends InputProps {
 }
 
 export interface IBooleanInputProps extends CommonInputProps {
-    // Propriedades adicionais específicas do BooleanInput (se necessário)
-    label?: string | false;  // Label específico ou ausência dele
-    helperText?: string;      // Texto de ajuda para o input
+    options?: SwitchProps; // Use o suporte de opções para passar qualquer opção suportada pelos componentes Switch da UI do Material. Por exemplo, aqui está como definir um ícone marcado personalizado
 }
 
 export interface ICheckboxGroupInputProps extends CommonInputProps {
+    labelPlacement?: 'end' | 'start' | 'top' | 'bottom';   // Posição do label em relação ao grupo de checkboxes
     choices: Array<{ id: string | number; name: string }>; // Lista de opções que serão exibidas no grupo de checkboxes
     optionText?: string | ((choice: any) => string);       // Texto a ser exibido para cada opção
     optionValue?: string;                                  // Valor da opção, que será usado como `id` no form state
@@ -117,13 +121,11 @@ type FileAcceptOption =
     // Aplicando `FileAcceptOption` na interface `IFileInputProps`
 export interface IFileInputProps extends CommonInputProps {
     accept?: FileAcceptOption; // Usa o tipo de opções de arquivos aceitos
-    multiple?: boolean; // Permite o upload de múltiplos arquivos se true
+    options?: DropzoneOptions; // Aceita um suporte de opções no qual você pode passar todas as propriedades react-dropzone.
+    minSize?: number; // Tamanho mínimo do arquivo em bytes
     maxSize?: number; // Tamanho máximo do arquivo em bytes
+    multiple?: boolean;   // Permite o upload de múltiplos arquivos se true
     placeholder?: string; // Texto de placeholder para o campo de upload
-    labelMultiple?: string; // Texto do label para o caso de múltiplos arquivos
-    labelSingle?: string; // Texto do label para o caso de um único arquivo
-    format?: (files: File[]) => any; // Função para formatar o(s) arquivo(s) antes de enviar
-    parse?: (value: any) => File[]; // Função para parsear o valor ao receber
 }
 
 // Definindo o tipo para opções de arquivos de imagem aceitos
@@ -147,25 +149,17 @@ type ImageAcceptOption =
     // Aplicando `ImageAcceptOption` na interface `IImageInputProps`
 export interface IImageInputProps extends CommonInputProps {
     accept?: ImageAcceptOption; // Usa o tipo de opções de imagens aceitas
-    multiple?: boolean; 
-    placeholder?: string; 
-    maxSize?: number; 
-    format?: (files: File[]) => any; 
-    parse?: (value: any) => File[]; 
-    previewImageStyle?: React.CSSProperties; 
-    previewText?: string; 
-    labelMultiple?: string; 
-    labelSingle?: string; 
+    options?: DropzoneOptions; // Aceita um suporte de opções no qual você pode passar todas as propriedades react-dropzone.
+    multiple?: boolean;   // Permite o upload de múltiplos arquivos se true
+    placeholder?: string; // Texto de placeholder para o campo de upload
+    minSize?: number; // Tamanho mínimo do arquivo em bytes
+    maxSize?: number; // Tamanho máximo do arquivo em bytes
 }
 
 export interface INumberInputProps extends CommonInputProps {
     step?: number; // Define o incremento ou decremento em cada interação com o input
     min?: number; // Valor mínimo permitido
     max?: number; // Valor máximo permitido
-    defaultValue?: number; // Valor padrão quando o campo é renderizado
-    parse?: (value: string | number) => number; // Função para parsear o valor de string para número antes de armazená-lo
-    format?: (value: number) => string | number; // Função para formatar o valor antes de exibi-lo no input
-    precision?: number; // Número de casas decimais a serem exibidas
 }
 
 export interface IPasswordInputProps extends CommonInputProps {
@@ -175,6 +169,7 @@ export interface IPasswordInputProps extends CommonInputProps {
 }
 
 export interface IReferenceInputProps extends CommonInputProps {
+    source: string; // Nome da entidade de referência, obrigatório para o ReferenceInput
     reference: string; // Nome do recurso de referência, obrigatório para o ReferenceInput
     sort?: { field: string; order: 'ASC' | 'DESC' }; // Opções de ordenação
     filter?: object; // Filtros adicionais para os dados referenciados
@@ -186,12 +181,21 @@ export interface IReferenceInputProps extends CommonInputProps {
     optionValue?: string; // Define qual campo usar como valor
 }
 
+// Definindo o tipo possível para a toolbar, baseado nos componentes permitidos pelo RichTextInputToolbar
+type ToolbarComponent =
+    | ReactNode
+    | typeof RichTextInputToolbar
+    | typeof LevelSelect
+    | typeof FormatButtons
+    | typeof ListButtons
+    | typeof LinkButtons
+    | typeof QuoteButtons
+    | typeof ClearButtons
+    | typeof AlignmentButtons;
+
 export interface IRichTextInputProps extends CommonInputProps {
-    toolbar?: Array<string>; // Define os botões a serem exibidos na barra de ferramentas
-    stripTags?: boolean; // Indica se deve remover as tags HTML ao salvar o valor
-    sanitize?: (value: string) => string; // Função para sanitizar o valor
-    disableImageUpload?: boolean; // Desabilita o upload de imagens no editor
-    helperText?: string; // Texto de ajuda que pode aparecer abaixo do campo
+    toolbar?: ToolbarComponent | ToolbarComponent[]; // Define os botões a serem exibidos na barra de ferramentas
+    editorOptions?: EditorOptions; // Opções adicionais para o editor de texto
 }
 
 export interface ISearchInputProps extends CommonInputProps {
@@ -201,32 +205,51 @@ export interface ISearchInputProps extends CommonInputProps {
 }
 
 export interface ISelectInputProps extends CommonInputProps {
-    choices: Array<{ id: string | number; name: string }>; // Array de objetos contendo `id` e `name` para cada opção
-    optionText?: string | ((choice: any) => string); // Texto a exibir para cada opção
-    optionValue?: string; // Valor a ser usado como valor real (ex.: 'id')
-    translateChoice?: boolean; // Habilita ou desabilita a tradução automática das opções
+    choices: Array<     | { id: string | number; name: string }  // Opção com `id` e `name`
+                        | { id: string | number; key: string | number }  // Opção com `id` e `key`
+                    >; // Array de objetos contendo `id` e `name` para cada opção
+    create?: Element; // Um Elemento React para renderizar quando os usuários quiserem criar uma nova escolha
+    createLabel: string; // Rótulo para a opção de criação
+    disableValue?: boolean; // Campo personalizado usado nas opções para desativar algumas opções, padrão é 'disabled'
     emptyText?: string; // Texto exibido quando não há nenhuma opção selecionada
     emptyValue?: any; // Valor a ser considerado para a opção vazia
+    isPending?: boolean; // Se verdadeiro, o componente exibirá um indicador de carregamento.
+    onCreate?: (value: any) => void; // Função chamada quando o usuário cria uma nova opção
+    optionText?: string | ((choice: any) => string) | Component; // Texto a exibir para cada opção
+    optionValue?: string; // Valor a ser usado como valor real (ex.: 'id')
+    resettable?: boolean; // Permite que o campo seja resetado para o valor inicial
+    translateChoice?: boolean; // Habilita ou desabilita a tradução automática das opções
 }
 
 export interface ITextInputProps extends CommonInputProps {
-    type?: string; // Tipo de input HTML (ex.: "text", "email", "password")
-    multiline?: boolean; // Habilita a área de texto multi-linha
-    rows?: number; // Número de linhas, usado quando multiline está ativado
-    placeholder?: string; // Placeholder para entrada de texto
+    type?:  
+    | "text"        // Texto genérico
+    | "email"       // E-mail
+    | "password"    // Senha
+    | "tel"         // Telefone
+    | "url"         // URL
+    | "number"      // Número
+    | "search"      // Pesquisa
+    | "date"        // Data
+    | "time"        // Hora
+    | "datetime-local" // Data e Hora Local
+    | "month"       // Mês
+    | "week"        // Semana
+    | "color";      // Cor
     resettable?: boolean; // Exibe um botão de reset para limpar o campo
+    multiline?: boolean; // Habilita a área de texto multi-linha
+    placeholder?: string; // Placeholder para entrada de texto
 }
 
 export interface ITimeInputProps extends CommonInputProps {
-    options?: object; // Propriedades adicionais para personalizar o input (ex.: formatação de tempo)
-    format?: (value: any) => any; // Função para formatar o valor ao exibir no campo
-    parse?: (value: any) => any; // Função para processar o valor antes de armazená-lo
 }
 
 export interface ITranslatableInputsProps extends CommonInputProps {
     locales: string[]; // Lista de códigos de idioma, ex: ['en', 'fr', 'de']
     defaultLocale?: string; // Locale padrão usado para a entrada (ex.: 'en')
+    fullWidth?: boolean; // Se verdadeiro, o input ocupará toda a largura do container
     groupKey?: string; // Opcional: chave de grupo para sincronizar translações de diferentes campos
-    variant?: 'standard' | 'outlined' | 'filled'; // Variante de estilo do Material UI para o input
-    margin?: 'none' | 'dense' | 'normal'; // Margin do Material UI para o input
+    selector?: ReactNode; // Componente React para selecionar o idioma
+    stackProps?: StackProps; // Propriedades do Stack do Material UI
+    sx?: SxProps<Theme>; // Material UI shortcut for defining custom styles
 }
