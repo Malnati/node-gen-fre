@@ -17,8 +17,16 @@ export interface ISpecification extends IMetadata {
     type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'platform' | 'microservice' | 'feature' | 'attribute'; // Define o tipo de item relacionado
 }
 
-export interface IAttributes extends IMetadata {
+export interface IAttribute extends IMetadata {
     type: 'field' | 'screen' | 'frontend' | 'database' | 'app' | 'microservice' | 'feature' | 'login' | 'dashboard'; // Define o tipo de item relacionado
+}
+
+export interface ITextFieldAttribute extends IMetadata {
+    type: 'text' | 'rich-text' ; // Define o tipo de item relacionado
+}
+
+export interface ITextinputAttribute extends IMetadata {
+    type: 'text' | 'rich-text' | 'toolbar' | 'multiline' | 'resettable' | 'password' | 'initiallyVisible' ; // Define o tipo de item relacionado
 }
 
 export interface IField extends IId {
@@ -105,7 +113,8 @@ export class DB extends Dexie {
     logins!: Table<ILogin>;
     frontends!: Table<IFrontend>;
     specifications!: Table<ISpecification>;
-    attributes!: Table<IAttributes>;
+    attributes!: Table<IAttribute>;
+    textAttributes!: Table<ITextFieldAttribute>;
 
     platformService!: CRUDService<IPlatform>;
     appService!: CRUDService<IApp>;
@@ -117,7 +126,8 @@ export class DB extends Dexie {
     loginService!: CRUDService<ILogin>;
     frontendService!: CRUDService<IFrontend>;
     specificationService!: CRUDService<ISpecification>;
-    attributeService!: CRUDService<IAttributes>;
+    attributeService!: CRUDService<IAttribute>;
+    textAttributeService!: CRUDService<ITextFieldAttribute>;
 
     constructor() {
         super("DB");
@@ -135,7 +145,8 @@ export class DB extends Dexie {
             logins: "++id, frontendId, name, *fields, *attributes, *specifications",
             fields: "++id, screenId, name, label, type, max, *specifications",
             specifications: "++id, type, referenceId, key",
-            attributes: "++id, type, referenceId, key" 
+            attributes: "++id, type, referenceId, key", 
+            textAttributes: "++id, type, referenceId, key", 
         });
         
         // Instanciando CRUDService para cada tabela
@@ -150,6 +161,7 @@ export class DB extends Dexie {
         this.frontendService = new CRUDService(this.frontends);
         this.specificationService = new CRUDService(this.specifications);
         this.attributeService = new CRUDService(this.attributes);
+        this.textAttributeService = new CRUDService(this.textAttributes);
 
         this.seedData();
     }
@@ -165,6 +177,8 @@ export class DB extends Dexie {
         await db.logins.bulkDelete(await db.logins.toCollection().primaryKeys());
         await db.frontends.bulkDelete(await db.frontends.toCollection().primaryKeys());
         await db.specifications.bulkDelete(await db.specifications.toCollection().primaryKeys());
+        await db.attributes.bulkDelete(await db.attributes.toCollection().primaryKeys());
+        await db.textAttributes.bulkDelete(await db.textAttributes.toCollection().primaryKeys());
     }
 
     // Adiciona os dados usando `put`, para substituir se o registro já existir
@@ -191,24 +205,38 @@ export class DB extends Dexie {
         await this.logins.put({ id:  1, frontendId: 1, name: 'Login', fields: [], attributes: [1, 2, 3, 4], specifications: [] });
         // Adiciona os dados de specifications para cada tipo, incluindo novos exemplos para Platform, App, MicroService, Database, etc
         await this.attributes.bulkPut([
-            // Specifications for login
+            // Attributes for login
             { id:  1, type: 'login', referenceId: 1, key: 'Typography-Welcome', value: 'Bem-vindo' },
             { id:  2, type: 'login', referenceId: 1, key: 'Typography-How-to-Login', value: 'Para acessar o sistema, faça login com o Google:' },
             { id:  3, type: 'login', referenceId: 1, key: 'Typography-Button', value: 'Login com Google' },
             { id:  4, type: 'login', referenceId: 1, key: 'Google-OAuth-Provider-ID', value: '178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com' },
         ]);
         
-        await this.dashboards.put({ id:  2, frontendId: 1, name: 'Dashboard', fields: [], attributes: [5, 6, 7, 8], specifications: [] });
+        await this.dashboards.put({ id:  1, frontendId: 1, name: 'Dashboard', fields: [], attributes: [5, 6, 7, 8], specifications: [] });
         await this.attributes.bulkPut([
-            // Specifications for dashboard
-            { id:  5, type: 'dashboard', referenceId: 2, key: 'Typography-CardHeader-title', value: 'Bem-vindo ao sistema' },
-            { id:  6, type: 'dashboard', referenceId: 2, key: 'Typography-CardHeader-subheader', value: 'Id consectetur aliqua laborum amet proident tempor aliquip aliqua fugiat sit laboris qui incididunt proident. Sit do id laboris sunt adipisicing pariatur amet. Proident do sunt incididunt minim duis non cillum ad enim cillum proident reprehenderit eu. Commodo amet duis incididunt aliquip cillum dolore excepteur culpa est non nisi laborum et. Consequat fugiat amet ad culpa elit id ex ea excepteur occaecat. Irure magna qui Lorem eiusmod dolor cillum do minim.' },
-            { id:  7, type: 'dashboard', referenceId: 2, key: 'Typography-CardContent', value: 'Amet duis eu non do exercitation consequat irure Lorem nisi do Lorem est anim. Consectetur laboris et anim et incididunt pariatur ad ullamco consectetur reprehenderit occaecat in exercitation pariatur. Excepteur incididunt consectetur aute minim consequat velit aute mollit sint. Pariatur labore aliquip magna.' },
-            { id:  8, type: 'dashboard', referenceId: 2, key: 'Typography-Box', value: 'Occaecat elit qui duis commodo dolore ex est velit non pariatur. Labore eu cillum exercitation. Eu mollit ut laboris. In labore occaecat minim veniam in reprehenderit id sunt. Incididunt excepteur Lorem officia velit fugiat. Quis officia eu ullamco veniam ipsum sint nisi eiusmod. Aliquip quis mollit proident aliquip nisi do commodo aliquip est fugiat eiusmod exercitation quis ad. Officia eiusmod magna qui id minim laboris.' },
+            // Attributes for dashboard
+            { id:  5, type: 'dashboard', referenceId: 1, key: 'Typography-CardHeader-title', value: 'Bem-vindo ao sistema' },
+            { id:  6, type: 'dashboard', referenceId: 1, key: 'Typography-CardHeader-subheader', value: 'Id consectetur aliqua laborum amet proident tempor aliquip aliqua fugiat sit laboris qui incididunt proident. Sit do id laboris sunt adipisicing pariatur amet. Proident do sunt incididunt minim duis non cillum ad enim cillum proident reprehenderit eu. Commodo amet duis incididunt aliquip cillum dolore excepteur culpa est non nisi laborum et. Consequat fugiat amet ad culpa elit id ex ea excepteur occaecat. Irure magna qui Lorem eiusmod dolor cillum do minim.' },
+            { id:  7, type: 'dashboard', referenceId: 1, key: 'Typography-CardContent', value: 'Amet duis eu non do exercitation consequat irure Lorem nisi do Lorem est anim. Consectetur laboris et anim et incididunt pariatur ad ullamco consectetur reprehenderit occaecat in exercitation pariatur. Excepteur incididunt consectetur aute minim consequat velit aute mollit sint. Pariatur labore aliquip magna.' },
+            { id:  8, type: 'dashboard', referenceId: 1, key: 'Typography-Box', value: 'Occaecat elit qui duis commodo dolore ex est velit non pariatur. Labore eu cillum exercitation. Eu mollit ut laboris. In labore occaecat minim veniam in reprehenderit id sunt. Incididunt excepteur Lorem officia velit fugiat. Quis officia eu ullamco veniam ipsum sint nisi eiusmod. Aliquip quis mollit proident aliquip nisi do commodo aliquip est fugiat eiusmod exercitation quis ad. Officia eiusmod magna qui id minim laboris.' },
         ]);
 
+        await this.screens.put({ id:  3, frontendId: 1, name: 'List User', fields: [1, 2, 3, 4], specifications: [] });
+        // Adiciona os dados de fields - User
+        await this.fields.put({ id: 1, screenId: 1, name: 'user', label: 'name', type: 'string', max: 256, specifications: [1, 2] });
+        await this.fields.put({ id: 2, screenId: 1, name: 'password', label: 'password', type: 'string', max: 256, specifications: [3, 4] });
+        await this.fields.put({ id: 3, screenId: 1, name: 'e-mail', label: 'e-mail', type: 'string', max: 256, specifications: [5, 6] });
+        await this.fields.put({ id: 4, screenId: 1, name: 'sms', label: 'sms', type: 'string', max: 256, specifications: [7, 8] });
+        await this.attributes.bulkPut([
+            // Attributes for fields - User
+            { id:  9,  type: 'field', referenceId: 1, key: 'multiline', value: '' },
+            { id:  10, type: 'field', referenceId: 2, key: 'resettable', value: '' },
+            { id:  12, type: 'field', referenceId: 2, key: 'text', value: '' },
+            { id:  12, type: 'field', referenceId: 2, key: 'number', value: '' },
+            { id:  11, type: 'field', referenceId: 2, key: 'rich-text', value: '' },
+            { id:  11, type: 'field', referenceId: 2, key: 'rich-text-toolbar', value: '' },
+        ]);
 
-        await this.screens.put({ id:  3, frontendId: 1, name: 'List User', fields: [1, 2, 3, 4], specifications: [26] });
         await this.screens.put({ id:  4, frontendId: 1, name: 'Create User', fields: [1, 2, 3, 4], specifications: [26] });
         await this.screens.put({ id:  5, frontendId: 1, name: 'Update User', fields: [1, 2, 3, 4], specifications: [26] });
         await this.screens.put({ id:  6, frontendId: 1, name: 'Delete User', fields: [1, 2, 3, 4], specifications: [26] });
@@ -217,11 +245,6 @@ export class DB extends Dexie {
         await this.screens.put({ id:  9, frontendId: 1, name: 'Update Profile', fields: [5, 6, 7], specifications: [27] });
         await this.screens.put({ id: 10, frontendId: 1, name: 'Delete Profile', fields: [5, 6, 7], specifications: [27] });
 
-        // Adiciona os dados de fields - User
-        await this.fields.put({ id: 1, screenId: 1, name: 'user', label: 'name', type: 'string', max: 256, specifications: [1, 2] });
-        await this.fields.put({ id: 2, screenId: 1, name: 'password', label: 'password', type: 'string', max: 256, specifications: [3, 4] });
-        await this.fields.put({ id: 3, screenId: 1, name: 'e-mail', label: 'e-mail', type: 'string', max: 256, specifications: [5, 6] });
-        await this.fields.put({ id: 4, screenId: 1, name: 'sms', label: 'sms', type: 'string', max: 256, specifications: [7, 8] });
         // Adiciona os dados de fields - Profile
         await this.fields.put({ id: 5, screenId: 2, name: 'name', label: 'Name', type: 'string', max: 256, specifications: [9, 10] });
         await this.fields.put({ id: 6, screenId: 2, name: 'company', label: 'Company', type: 'string', max: 256, specifications: [11, 12] });
