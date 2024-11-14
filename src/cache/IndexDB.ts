@@ -146,7 +146,7 @@ export class DB extends Dexie {
     imageInputs!: Table<IImageInputProps>;
     numberInputs!: Table<INumberInputProps>;
     passwordInputs!: Table<IPasswordInputProps>;
-    // referenceInputProps!: Table<IReferenceInputProps>;
+    referenceInputs!: Table<IReferenceInputProps>;
     // richTextInputProps!: Table<IRichTextInputProps>;
     // searchInputProps!: Table<ISearchInputProps>;
     // selectInputProps!: Table<ISelectInputProps>;
@@ -173,7 +173,7 @@ export class DB extends Dexie {
     imageInputsService!: CRUDService<IImageInputProps>;
     numberInputsService!: CRUDService<INumberInputProps>;
     passwordInputsService!: CRUDService<IPasswordInputProps>;
-    // referenceInputPropsService!: CRUDService<IReferenceInputProps>;
+    referenceInputsService!: CRUDService<IReferenceInputProps>;
     // richTextInputPropsService!: CRUDService<IRichTextInputProps>;
     // searchInputPropsService!: CRUDService<ISearchInputProps>;
     // selectInputPropsService!: CRUDService<ISelectInputProps>;
@@ -204,7 +204,7 @@ export class DB extends Dexie {
             imageInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, minSize, maxSize, multiple, placeholder", 
             numberInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, step, min, max", 
             passwordInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, autoComplete", 
-            // referenceInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, source, reference, sort, filter, perPage, allowEmpty, defaultValue, optionText, optionValue", 
+            referenceInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, source, reference, perPage, allowEmpty, defaultValue, optionValue", 
             // richTextInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, toolbar, editorOptions", 
             // searchInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, alwaysOn placeholder, resettable",
             // selectInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, choices, create createLabel, disableValue, emptyText, emptyValue, isPending, onCreate, optionText, optionValue, resettable, translateChoice",
@@ -233,7 +233,7 @@ export class DB extends Dexie {
         this.imageInputsService = new CRUDService(this.imageInputs);
         this.numberInputsService = new CRUDService(this.numberInputs);
         this.passwordInputsService = new CRUDService(this.passwordInputs);
-        // this.referenceInputPropsService = new CRUDService(this.referenceInputProps);
+        this.referenceInputsService = new CRUDService(this.referenceInputs);
         // this.richTextInputPropsService = new CRUDService(this.richTextInputProps);
         // this.searchInputPropsService = new CRUDService(this.searchInputProps);
         // this.selectInputPropsService = new CRUDService(this.selectInputProps);
@@ -247,6 +247,7 @@ export class DB extends Dexie {
 
     // Método async separado para garantir que o banco está inicializado antes de manipulação
     async initializeDatabase() {
+        await this.deleteDatabase();
         await this.clearDatabase();
         await this.seedData();
         await this.seedInputPropsData();
@@ -272,6 +273,7 @@ export class DB extends Dexie {
         await this.imageInputs.clear();
         await this.numberInputs.clear();
         await this.passwordInputs.clear();
+        await this.referenceInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -537,6 +539,54 @@ export class DB extends Dexie {
             label: 'Senha de Administrador',     // Rótulo do campo
             autoComplete: 'current-password'     // Preenchimento automático para senha atual
         });
+
+        await this.referenceInputs.put({
+            id: 1,
+            source: 'userRole',                    // Nome da propriedade no formulário
+            className: 'role-input',               // Classe CSS para estilização
+            defaultValue: '',                      // Valor padrão inicial
+            readOnly: false,                       // Campo é editável
+            disabled: false,                       // Campo está habilitado
+            fullWidth: true,                       // Campo ocupa largura total
+            helperText: 'Selecione o cargo do usuário', // Texto auxiliar abaixo do campo
+            label: 'Cargo',                        // Rótulo descritivo do campo
+            reference: 'roles',                    // Nome da entidade de referência
+            perPage: 10,                           // Exibe até 10 opções por página
+            allowEmpty: true,                      // Permite selecionar valor vazio
+            optionValue: 'id'                      // Usa o campo `id` como valor da opção
+        });
+    
+        await this.referenceInputs.put({
+            id: 2,
+            source: 'productCategory',             // Propriedade no formulário
+            className: 'category-input',           // Classe CSS personalizada
+            defaultValue: '',                      // Valor inicial vazio
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,                      // Campo ocupa largura parcial
+            helperText: 'Escolha a categoria do produto', // Texto auxiliar
+            label: 'Categoria de Produto',         // Rótulo para o campo
+            reference: 'categories',               // Nome da entidade referenciada
+            perPage: 5,                            // Exibe até 5 opções por página
+            allowEmpty: false,                     // Valor vazio não permitido
+            optionValue: 'name'                    // Usa o campo `name` como valor da opção
+        });
+    
+        await this.referenceInputs.put({
+            id: 3,
+            source: 'department',                  // Propriedade de departamento
+            className: 'department-input',         // Classe para personalização
+            defaultValue: 'Sales',                 // Valor padrão definido como "Sales"
+            readOnly: false,
+            disabled: true,                        // Campo está desabilitado
+            fullWidth: true,
+            helperText: 'Selecione o departamento', // Texto de ajuda
+            label: 'Departamento',                 // Rótulo do campo
+            reference: 'departments',              // Nome da entidade referenciada
+            perPage: 20,                           // Exibe até 20 opções por página
+            allowEmpty: true,                      // Permite valor vazio
+            optionValue: 'code'                    // Usa o campo `code` como valor
+        });
     }
 
     async seedData() {
@@ -678,22 +728,22 @@ export class DB extends Dexie {
         ]);
     }
 
-    // async clearDatabase() {
-        // await db.checkboxGroupInputProps.bulkDelete(await db.checkboxGroupInputProps.toCollection().primaryKeys());
-        // await db.dateInputProps.bulkDelete(await db.dateInputProps.toCollection().primaryKeys());
-        // await db.dateTimeInputProps.bulkDelete(await db.dateTimeInputProps.toCollection().primaryKeys());
-        // await db.fileInputProps.bulkDelete(await db.fileInputProps.toCollection().primaryKeys());
-        // await db.imageInputProps.bulkDelete(await db.imageInputProps.toCollection().primaryKeys());
-        // await db.numberInputProps.bulkDelete(await db.numberInputProps.toCollection().primaryKeys());
-        // await db.passwordInputProps.bulkDelete(await db.passwordInputProps.toCollection().primaryKeys());
-        // await db.referenceInputProps.bulkDelete(await db.referenceInputProps.toCollection().primaryKeys());
-        // await db.richTextInputProps.bulkDelete(await db.richTextInputProps.toCollection().primaryKeys());
-        // await db.searchInputProps.bulkDelete(await db.searchInputProps.toCollection().primaryKeys());
-        // await db.selectInputProps.bulkDelete(await db.selectInputProps.toCollection().primaryKeys());
-        // await db.textInputProps.bulkDelete(await db.textInputProps.toCollection().primaryKeys());
-        // await db.timeInputProps.bulkDelete(await db.timeInputProps.toCollection().primaryKeys());
-        // await db.translatableInputProps.bulkDelete(await db.translatableInputProps.toCollection().primaryKeys());
-    // }
+    async deleteDatabase() {
+        await db.checkboxInputs.bulkDelete(await db.checkboxInputs.toCollection().primaryKeys());
+        await db.dateInputs.bulkDelete(await db.dateInputs.toCollection().primaryKeys());
+        await db.dateTimeInputs.bulkDelete(await db.dateTimeInputs.toCollection().primaryKeys());
+        await db.fileInputs.bulkDelete(await db.fileInputs.toCollection().primaryKeys());
+        await db.imageInputs.bulkDelete(await db.imageInputs.toCollection().primaryKeys());
+        await db.numberInputs.bulkDelete(await db.numberInputs.toCollection().primaryKeys());
+        await db.passwordInputs.bulkDelete(await db.passwordInputs.toCollection().primaryKeys());
+        await db.referenceInputs.bulkDelete(await db.referenceInputs.toCollection().primaryKeys());
+        // await db.richTextInputs.bulkDelete(await db.richTextInputs.toCollection().primaryKeys());
+        // await db.searchInputs.bulkDelete(await db.searchInputs.toCollection().primaryKeys());
+        // await db.selectInputs.bulkDelete(await db.selectInputs.toCollection().primaryKeys());
+        // await db.textInputs.bulkDelete(await db.textInputs.toCollection().primaryKeys());
+        // await db.timeInputs.bulkDelete(await db.timeInputs.toCollection().primaryKeys());
+        // await db.translatableInputs.bulkDelete(await db.translatableInputs.toCollection().primaryKeys());
+    }
 
 }
 

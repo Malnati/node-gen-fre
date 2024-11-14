@@ -163,12 +163,9 @@ export interface IPasswordInputProps extends CommonInputProps {
 export interface IReferenceInputProps extends CommonInputProps {
     source: string; // Nome da entidade de referência, obrigatório para o ReferenceInput
     reference: string; // Nome do recurso de referência, obrigatório para o ReferenceInput
-    sort?: { field: string; order: 'ASC' | 'DESC' }; // Opções de ordenação
-    filter?: object; // Filtros adicionais para os dados referenciados
     perPage?: number; // Número de registros por página
     allowEmpty?: boolean; // Permite seleção de valor vazio
     defaultValue?: any; // Valor padrão para o campo
-    optionText?: string | ((choice: any) => string); // Define qual campo exibir como texto
     optionValue?: string; // Define qual campo usar como valor
 }
 
