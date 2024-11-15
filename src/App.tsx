@@ -52,6 +52,8 @@ import { RichTextInputList } from "./RichTextInputList";
 import { SearchInputList } from "./SearchInputList";
 import { SelectInputList } from "./SelectInputList";
 import { TextInputList } from "./TextInputList";
+import { TimeInputList } from "./TimeInputList";
+import { TranslatableInputList } from "./TranslatableInputList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -182,6 +184,18 @@ export const App = () => {
         <Resource
           name="textInputs"
           list={TextInputList}
+          icon={InputIcon}
+        />
+
+        <Resource
+          name="timeInputs"
+          list={TimeInputList}
+          icon={InputIcon}
+        />
+
+        <Resource
+          name="translatableInputs"
+          list={TranslatableInputList}
           icon={InputIcon}
         />
 

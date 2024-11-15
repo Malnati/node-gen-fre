@@ -28,8 +28,8 @@ const RichTextInputsProvider=DataProviderFactory(db.richTextInputsService);
 const SearchInputsProvider=DataProviderFactory(db.searchInputsService);
 const SelectInputsProvider=DataProviderFactory(db.selectInputsService);
 const TextInputsProvider=DataProviderFactory(db.textInputsService);
-// const TimeInputsProvider=DataProviderFactory(db.timeInputsService);
-// const TranslatableInputsProvider=DataProviderFactory(db.translatableInputsService);
+const TimeInputsProvider=DataProviderFactory(db.timeInputsService);
+const TranslatableInputsProvider=DataProviderFactory(db.translatableInputsService);
 
 // Mapeamento dinâmico de resources para data providers
 const providersMap: Record<string, DataProvider> = {
@@ -56,8 +56,8 @@ const providersMap: Record<string, DataProvider> = {
   searchInputs: SearchInputsProvider,
   selectInputs: SelectInputsProvider,
   textInputs: TextInputsProvider,
-//   timeInputs: TimeInputsProvider,
-//   translatableInputs: TranslatableInputsProvider,
+  timeInputs: TimeInputsProvider,
+  translatableInputs: TranslatableInputsProvider,
 };
 
 const getProvider = (resource: string): DataProvider => {

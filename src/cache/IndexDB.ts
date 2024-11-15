@@ -151,8 +151,8 @@ export class DB extends Dexie {
     searchInputs!: Table<ISearchInputProps>;
     selectInputs!: Table<ISelectInputProps>;
     textInputs!: Table<ITextInputProps>;
-    // timeInputs!: Table<ITimeInputProps>;
-    // translatableInputs!: Table<ITranslatableInputsProps>;
+    timeInputs!: Table<ITimeInputProps>;
+    translatableInputs!: Table<ITranslatableInputsProps>;
 
     platformService!: CRUDService<IPlatform>;
     appService!: CRUDService<IApp>;
@@ -178,8 +178,8 @@ export class DB extends Dexie {
     searchInputsService!: CRUDService<ISearchInputProps>;
     selectInputsService!: CRUDService<ISelectInputProps>;
     textInputsService!: CRUDService<ITextInputProps>;
-    // timeInputsService!: CRUDService<ITimeInputProps>;
-    // translatableInputsService!: CRUDService<ITranslatableInputsProps>;
+    timeInputsService!: CRUDService<ITimeInputProps>;
+    translatableInputsService!: CRUDService<ITranslatableInputsProps>;
 
     constructor() {
         super("DB");
@@ -209,8 +209,8 @@ export class DB extends Dexie {
             searchInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, alwaysOn, placeholder, resettable",
             selectInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, choices, createLabel, disableValue, emptyText, emptyValue, isPending, onCreate, optionValue, resettable, translateChoice",
             textInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, type, resettable, multiline, placeholder",
-            // timeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label",
-            // translatableInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locales defaultLocale fullWidth groupKey selector stackProps sx",
+            timeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label",
+            translatableInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locales, defaultLocale, groupKey",
         });
         
         // Instanciando CRUDService para cada tabela
@@ -238,8 +238,8 @@ export class DB extends Dexie {
         this.searchInputsService = new CRUDService(this.searchInputs);
         this.selectInputsService = new CRUDService(this.selectInputs);
         this.textInputsService = new CRUDService(this.textInputs);
-        // this.timeInputsService = new CRUDService(this.timeInputs);
-        // this.translatableInputsService   = new CRUDService(this.translatableInputs);
+        this.timeInputsService = new CRUDService(this.timeInputs);
+        this.translatableInputsService   = new CRUDService(this.translatableInputs);
         
         // Executar inicialização após o construtor
         this.initializeDatabase();
@@ -278,6 +278,8 @@ export class DB extends Dexie {
         await this.searchInputs.clear();
         await this.selectInputs.clear();
         await this.textInputs.clear();
+        await this.timeInputs.clear();
+        await this.translatableInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -814,6 +816,87 @@ export class DB extends Dexie {
             multiline: false,
             placeholder: '********',
         });
+
+        await this.timeInputs.put({
+            id: 1,
+            source: 'startTime',
+            className: 'time-input',
+            defaultValue: '08:00',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Escolha o horário de início do expediente',
+            label: 'Horário de Início'
+        });
+    
+        await this.timeInputs.put({
+            id: 2,
+            source: 'endTime',
+            className: 'time-input',
+            defaultValue: '18:00',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Escolha o horário de término do expediente',
+            label: 'Horário de Término'
+        });
+    
+        await this.timeInputs.put({
+            id: 3,
+            source: 'lunchBreak',
+            className: 'time-input',
+            defaultValue: '12:00',
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,
+            helperText: 'Horário reservado para almoço',
+            label: 'Horário de Almoço'
+        });
+
+        await this.translatableInputs.put({
+            id: 1,
+            source: 'description',
+            className: 'translatable-input',
+            defaultValue: 'Descrição padrão',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Forneça a descrição em diversos idiomas',
+            label: 'Descrição',
+            locales: ['en', 'pt-BR', 'es'],
+            defaultLocale: 'en',
+            groupKey: 'productDescription'
+        });
+    
+        await this.translatableInputs.put({
+            id: 2,
+            source: 'title',
+            className: 'translatable-input',
+            defaultValue: 'Título padrão',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Título do produto em diferentes idiomas',
+            label: 'Título',
+            locales: ['en', 'fr', 'de', 'es'],
+            defaultLocale: 'en',
+            groupKey: 'productTitle'
+        });
+    
+        await this.translatableInputs.put({
+            id: 3,
+            source: 'summary',
+            className: 'translatable-input',
+            defaultValue: 'Resumo padrão',
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,
+            helperText: 'Resumo breve do conteúdo',
+            label: 'Resumo',
+            locales: ['en', 'pt-BR', 'fr'],
+            defaultLocale: 'pt-BR',
+            groupKey: 'contentSummary'
+        });
     }
 
     // async seedData() {
@@ -968,8 +1051,8 @@ export class DB extends Dexie {
         await db.searchInputs.bulkDelete(await db.searchInputs.toCollection().primaryKeys());
         await db.selectInputs.bulkDelete(await db.selectInputs.toCollection().primaryKeys());
         await db.textInputs.bulkDelete(await db.textInputs.toCollection().primaryKeys());
-        // await db.timeInputs.bulkDelete(await db.timeInputs.toCollection().primaryKeys());
-        // await db.translatableInputs.bulkDelete(await db.translatableInputs.toCollection().primaryKeys());
+        await db.timeInputs.bulkDelete(await db.timeInputs.toCollection().primaryKeys());
+        await db.translatableInputs.bulkDelete(await db.translatableInputs.toCollection().primaryKeys());
     }
 
 }

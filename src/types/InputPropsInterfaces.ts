@@ -229,9 +229,5 @@ export interface ITimeInputProps extends CommonInputProps {
 export interface ITranslatableInputsProps extends CommonInputProps {
     locales: string[]; // Lista de códigos de idioma, ex: ['en', 'fr', 'de']
     defaultLocale?: string; // Locale padrão usado para a entrada (ex.: 'en')
-    fullWidth?: boolean; // Se verdadeiro, o input ocupará toda a largura do container
     groupKey?: string; // Opcional: chave de grupo para sincronizar translações de diferentes campos
-    selector?: ReactNode; // Componente React para selecionar o idioma
-    stackProps?: StackProps; // Propriedades do Stack do Material UI
-    sx?: SxProps<Theme>; // Material UI shortcut for defining custom styles
 }
