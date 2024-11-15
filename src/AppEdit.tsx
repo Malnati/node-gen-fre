@@ -5,7 +5,7 @@ import { CheckboxGroupInput, ChipField, Edit, ReferenceArrayField, ReferenceArra
 export const AppEdit = () => (
     <Edit>
         <SimpleForm>
-            <ReferenceInput label="Author" source="platformId" reference="platforms">
+            <ReferenceInput label="Platform" source="platformId" reference="platforms">
                 <SelectInput optionText='name' createLabel="Add a Platform"/>
             </ReferenceInput>
             <TextInput source="name" helperText="Name of the application."/>

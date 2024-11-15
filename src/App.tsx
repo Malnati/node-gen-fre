@@ -54,6 +54,9 @@ import { SelectInputList } from "./SelectInputList";
 import { TextInputList } from "./TextInputList";
 import { TimeInputList } from "./TimeInputList";
 import { TranslatableInputList } from "./TranslatableInputList";
+import { BooleanInputEdit } from "./BooleanInputEdit";
+import { BooleanInputCreate } from "./BooleanInputCreate";
+import { BooleanInputShow } from "./BooleanInputShow";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -112,6 +115,9 @@ export const App = () => {
         <Resource
           name="booleanInputs"
           list={BooleanInputList}
+          edit={BooleanInputEdit}
+          create={BooleanInputCreate}
+          show={BooleanInputShow}
           icon={InputIcon}
         />
 

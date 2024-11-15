@@ -1,13 +1,9 @@
 // src/types/InputPropsInterfaces.ts
 
-import { Component, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { InputProps } from 'react-admin';
-import { StackProps, SxProps } from '@mui/system';
-import { Theme } from '@mui/material/styles';  
 import { AlignmentButtons, ClearButtons, FormatButtons, LevelSelect, LinkButtons, ListButtons, QuoteButtons, RichTextInputToolbar } from 'ra-input-rich-text';
-import { EditorOptions } from '@tiptap/core';
 import { SwitchProps } from '@mui/material/Switch';
-import { DropzoneOptions } from 'react-dropzone';
 import { IId } from './IMetadata';
 
 interface CommonInputProps extends Omit<InputProps<any>, 'id' | 'sx' | 'format' | 'parse' >, IId {
