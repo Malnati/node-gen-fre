@@ -2,6 +2,7 @@
 
 import Dexie, { Table } from 'dexie';
 import CRUDService from './CRUDService';
+import EditAttributesIcon from '@mui/icons-material/EditAttributes';
 import { IBooleanInputProps, ICheckboxGroupInputProps, IDateInputProps, IDateTimeInputProps, IFileInputProps, IImageInputProps, INumberInputProps, IPasswordInputProps, IReferenceInputProps, IRichTextInputProps, ISearchInputProps, ISelectInputProps, ITextInputProps, ITimeInputProps, ITranslatableInputsProps } from '../types/InputPropsInterfaces';
 import { IId, IMetadata } from '../types/IMetadata';
 
@@ -196,7 +197,8 @@ export class DB extends Dexie {
             fields: "++id, screenId, name, label, type, max, *specifications",
             specifications: "++id, type, referenceId, key",
             attributes: "++id, type, referenceId, key", 
-            booleanInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label", 
+
+            booleanInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, options", 
             checkboxInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, labelPlacement, optionValue, translateChoice", 
             dateInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
             dateTimeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
@@ -294,6 +296,10 @@ export class DB extends Dexie {
             fullWidth: true,
             helperText: 'Indica se inativo',
             label: 'Usuário Ativo',
+            options: {
+                checkedIcon: 'EditAttributesIcon', // Ícone personalizado para o estado marcado
+                color: 'primary' // Define a cor do switch
+            },
         });
 
         await this.booleanInputs.put({
@@ -306,6 +312,10 @@ export class DB extends Dexie {
             fullWidth: false,
             helperText: 'Permite que receba boletins informativos',
             label: 'Receber Newsletter',
+            options: {
+                checkedIcon: 'EditAttributesIcon', // Ícone personalizado para o estado marcado
+                color: 'primary' // Define a cor do switch
+            },
         });
 
         await this.checkboxInputs.put({
