@@ -150,12 +150,12 @@ export const App = () => {
           list={PasswordInputList}
           icon={InputIcon}
         />
-
+{/* 
         <Resource
           name="referenceInputs"
           list={ReferenceInputList}
           icon={InputIcon}
-        />
+        /> */}
 
       </Admin>
     </GoogleOAuthProvider>

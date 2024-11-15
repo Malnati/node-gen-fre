@@ -23,7 +23,7 @@ const FileInputsProvider=DataProviderFactory(db.fileInputsService);
 const ImageInputsProvider=DataProviderFactory(db.imageInputsService);
 const NumberInputsProvider=DataProviderFactory(db.numberInputsService);
 const PasswordInputsProvider=DataProviderFactory(db.passwordInputsService);
-const ReferenceInputsProvider=DataProviderFactory(db.referenceInputsService);
+// const ReferenceInputsProvider=DataProviderFactory(db.referenceInputsService);
 // const RichTextInputsProvider=DataProviderFactory(db.richTextInputsService);
 // const SearchInputsProvider=DataProviderFactory(db.searchInputsService);
 // const SelectInputsProvider=DataProviderFactory(db.selectInputsService);
@@ -51,7 +51,7 @@ const providersMap: Record<string, DataProvider> = {
   imageInputs: ImageInputsProvider,
   numberInputs: NumberInputsProvider,
   passwordInputs: PasswordInputsProvider,
-  referenceInputs: ReferenceInputsProvider,
+//   referenceInputs: ReferenceInputsProvider,
 //   richTextInputs: RichTextInputsProvider,
 //   searchInputs: SearchInputsProvider,
 //   selectInputs: SelectInputsProvider,

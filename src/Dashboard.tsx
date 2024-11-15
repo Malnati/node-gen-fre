@@ -29,7 +29,7 @@ export const Dashboard = () => {
                         variant="contained"
                         color="primary"
                         startIcon={<AddCircleOutlineIcon />}
-                        onClick={() => navigate("/fronts/create")}
+                        // onClick={() => navigate("/fronts/create")}
                         style={{ marginRight: "10px" }}
                     >
                         Front-end
@@ -47,15 +47,6 @@ export const Dashboard = () => {
                 <Box mt={3}>
                     <Typography variant="h6" align="center" gutterBottom>
                         Funcionalidades Disponíveis
-                    </Typography>
-                    <Typography variant="body2" align="center" paragraph>
-                        <ul style={{ listStyleType: "none", padding: 0 }}>
-                            <li>🔹 Inserir dados para criar uma nova aplicação</li>
-                            <li>🔹 Configurar banco de dados PostgreSQL ou MySQL</li>
-                            <li>🔹 Gerar código-fonte para back-end com estrutura de produção</li>
-                            <li>🔹 Gerar front-end dinâmico com React Admin</li>
-                            <li>🔹 Editar e visualizar aplicativos existentes</li>
-                        </ul>
                     </Typography>
                 </Box>
             </CardContent>
