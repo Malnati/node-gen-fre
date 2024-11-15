@@ -24,7 +24,7 @@ const ImageInputsProvider=DataProviderFactory(db.imageInputsService);
 const NumberInputsProvider=DataProviderFactory(db.numberInputsService);
 const PasswordInputsProvider=DataProviderFactory(db.passwordInputsService);
 const ReferenceInputsProvider=DataProviderFactory(db.referenceInputsService);
-// const RichTextInputsProvider=DataProviderFactory(db.richTextInputsService);
+const RichTextInputsProvider=DataProviderFactory(db.richTextInputsService);
 // const SearchInputsProvider=DataProviderFactory(db.searchInputsService);
 // const SelectInputsProvider=DataProviderFactory(db.selectInputsService);
 // const TextInputsProvider=DataProviderFactory(db.textInputsService);
@@ -52,7 +52,7 @@ const providersMap: Record<string, DataProvider> = {
   numberInputs: NumberInputsProvider,
   passwordInputs: PasswordInputsProvider,
   referenceInputs: ReferenceInputsProvider,
-//   richTextInputs: RichTextInputsProvider,
+  richTextInputs: RichTextInputsProvider,
 //   searchInputs: SearchInputsProvider,
 //   selectInputs: SelectInputsProvider,
 //   textInputs: TextInputsProvider,

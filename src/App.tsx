@@ -48,6 +48,7 @@ import { ImageInputList } from "./ImageInputsList";
 import { NumberInputList } from "./NumberInputList";
 import { PasswordInputList } from "./PasswordInputList";
 import { ReferenceInputList } from "./ReferenceInputList";
+import { RichTextInputList } from "./RichTextInputList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -154,6 +155,12 @@ export const App = () => {
         <Resource
           name="referenceInputs"
           list={ReferenceInputList}
+          icon={InputIcon}
+        />
+
+        <Resource
+          name="richTextInputs"
+          list={RichTextInputList}
           icon={InputIcon}
         />
 

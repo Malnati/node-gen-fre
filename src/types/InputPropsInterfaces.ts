@@ -181,7 +181,6 @@ type ToolbarComponent =
 
 export interface IRichTextInputProps extends CommonInputProps {
     toolbar?: ToolbarComponent | ToolbarComponent[]; // Define os botões a serem exibidos na barra de ferramentas
-    editorOptions?: EditorOptions; // Opções adicionais para o editor de texto
 }
 
 export interface ISearchInputProps extends CommonInputProps {

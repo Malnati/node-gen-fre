@@ -147,12 +147,12 @@ export class DB extends Dexie {
     numberInputs!: Table<INumberInputProps>;
     passwordInputs!: Table<IPasswordInputProps>;
     referenceInputs!: Table<IReferenceInputProps>;
-    // richTextInputProps!: Table<IRichTextInputProps>;
-    // searchInputProps!: Table<ISearchInputProps>;
-    // selectInputProps!: Table<ISelectInputProps>;
-    // textInputProps!: Table<ITextInputProps>;
-    // timeInputProps!: Table<ITimeInputProps>;
-    // translatableInputProps!: Table<ITranslatableInputsProps>;
+    richTextInputs!: Table<IRichTextInputProps>;
+    // searchInputs!: Table<ISearchInputProps>;
+    // selectInputs!: Table<ISelectInputProps>;
+    // textInputs!: Table<ITextInputProps>;
+    // timeInputs!: Table<ITimeInputProps>;
+    // translatableInputs!: Table<ITranslatableInputsProps>;
 
     platformService!: CRUDService<IPlatform>;
     appService!: CRUDService<IApp>;
@@ -174,12 +174,12 @@ export class DB extends Dexie {
     numberInputsService!: CRUDService<INumberInputProps>;
     passwordInputsService!: CRUDService<IPasswordInputProps>;
     referenceInputsService!: CRUDService<IReferenceInputProps>;
-    // richTextInputPropsService!: CRUDService<IRichTextInputProps>;
-    // searchInputPropsService!: CRUDService<ISearchInputProps>;
-    // selectInputPropsService!: CRUDService<ISelectInputProps>;
-    // textInputPropsService!: CRUDService<ITextInputProps>;
-    // timeInputPropsService!: CRUDService<ITimeInputProps>;
-    // translatableInputPropsService!: CRUDService<ITranslatableInputsProps>;
+    richTextInputsService!: CRUDService<IRichTextInputProps>;
+    // searchInputsService!: CRUDService<ISearchInputProps>;
+    // selectInputsService!: CRUDService<ISelectInputProps>;
+    // textInputsService!: CRUDService<ITextInputProps>;
+    // timeInputsService!: CRUDService<ITimeInputProps>;
+    // translatableInputsService!: CRUDService<ITranslatableInputsProps>;
 
     constructor() {
         super("DB");
@@ -205,7 +205,7 @@ export class DB extends Dexie {
             numberInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, step, min, max", 
             passwordInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, autoComplete", 
             referenceInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, reference, perPage, allowEmpty, optionValue", 
-            // richTextInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, toolbar, editorOptions", 
+            richTextInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, toolbar", 
             // searchInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, alwaysOn placeholder, resettable",
             // selectInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, choices, create createLabel, disableValue, emptyText, emptyValue, isPending, onCreate, optionText, optionValue, resettable, translateChoice",
             // textInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, type, resettable, multiline, placeholder",
@@ -234,12 +234,12 @@ export class DB extends Dexie {
         this.numberInputsService = new CRUDService(this.numberInputs);
         this.passwordInputsService = new CRUDService(this.passwordInputs);
         this.referenceInputsService = new CRUDService(this.referenceInputs);
-        // this.richTextInputPropsService = new CRUDService(this.richTextInputProps);
-        // this.searchInputPropsService = new CRUDService(this.searchInputProps);
-        // this.selectInputPropsService = new CRUDService(this.selectInputProps);
-        // this.textInputPropsService = new CRUDService(this.textInputProps);
-        // this.timeInputPropsService = new CRUDService(this.timeInputProps);
-        // this.translatableInputPropsService   = new CRUDService(this.translatableInputProps);
+        this.richTextInputsService = new CRUDService(this.richTextInputs);
+        // this.searchInputsService = new CRUDService(this.searchInputs);
+        // this.selectInputsService = new CRUDService(this.selectInputs);
+        // this.textInputsService = new CRUDService(this.textInputs);
+        // this.timeInputsService = new CRUDService(this.timeInputs);
+        // this.translatableInputsService   = new CRUDService(this.translatableInputs);
         
         // Executar inicialização após o construtor
         this.initializeDatabase();
@@ -274,6 +274,7 @@ export class DB extends Dexie {
         await this.numberInputs.clear();
         await this.passwordInputs.clear();
         await this.referenceInputs.clear();
+        await this.richTextInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -587,6 +588,45 @@ export class DB extends Dexie {
             allowEmpty: true,                      // Permite valor vazio
             optionValue: 'code'                    // Usa o campo `code` como valor
         });
+
+        await this.richTextInputs.put({
+            id: 1,
+            source: 'postContent',                  // Nome da propriedade no formulário
+            className: 'content-editor',            // Classe CSS para personalização
+            defaultValue: '<p>Texto inicial...</p>', // Conteúdo inicial em HTML
+            readOnly: false,                        // Campo editável
+            disabled: false,                        // Campo habilitado
+            fullWidth: true,                        // Ocupa largura total
+            helperText: 'Digite o conteúdo da postagem', // Texto auxiliar abaixo do campo
+            label: 'Conteúdo da Postagem',          // Rótulo do campo
+            toolbar: ['bold', 'italic', 'link'],    // Barra de ferramentas com botões básicos
+        });
+    
+        await this.richTextInputs.put({
+            id: 2,
+            source: 'commentBody',                  // Nome da propriedade de comentários
+            className: 'comment-editor',            // Classe CSS para o campo de comentários
+            defaultValue: '',                       // Conteúdo inicial vazio
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,                       // Largura parcial
+            helperText: 'Escreva seu comentário',   // Texto auxiliar
+            label: 'Comentário',                    // Rótulo do campo de comentário
+            toolbar: ['bold', 'italic', 'underline', 'quote'], // Toolbar com negrito, itálico, sublinhado e citação
+        });
+    
+        await this.richTextInputs.put({
+            id: 3,
+            source: 'bio',                           // Propriedade para uma biografia ou descrição pessoal
+            className: 'bio-editor',                 // Classe CSS para o campo de biografia
+            defaultValue: '<p>Adicione sua biografia aqui.</p>',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Adicione uma breve biografia', 
+            label: 'Biografia',                      // Rótulo do campo
+            toolbar: ['bold', 'italic', 'link', 'image'], // Toolbar com imagem
+        });
     }
 
     // async seedData() {
@@ -737,7 +777,7 @@ export class DB extends Dexie {
         await db.numberInputs.bulkDelete(await db.numberInputs.toCollection().primaryKeys());
         await db.passwordInputs.bulkDelete(await db.passwordInputs.toCollection().primaryKeys());
         await db.referenceInputs.bulkDelete(await db.referenceInputs.toCollection().primaryKeys());
-        // await db.richTextInputs.bulkDelete(await db.richTextInputs.toCollection().primaryKeys());
+        await db.richTextInputs.bulkDelete(await db.richTextInputs.toCollection().primaryKeys());
         // await db.searchInputs.bulkDelete(await db.searchInputs.toCollection().primaryKeys());
         // await db.selectInputs.bulkDelete(await db.selectInputs.toCollection().primaryKeys());
         // await db.textInputs.bulkDelete(await db.textInputs.toCollection().primaryKeys());
