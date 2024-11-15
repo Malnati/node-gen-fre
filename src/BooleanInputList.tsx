@@ -19,11 +19,7 @@ export const BooleanInputList = () => (
             }>
             <TextField source="id" label="Id" />
             <TextField source="source" label="Source" />
-            <TextField source="className" label="ClassName" />
             <TextField source="defaultValue" label="DefaultValue" />
-            <TextField source="readOnly" label="ReadOnly" />
-            <TextField source="disabled" label="Disabled" />
-            <TextField source="fullWidth" label="FullWidth" />
             <TextField source="helperText" label="HelperText" />
             <TextField source="label" label="Label" />
             <EditButton />
