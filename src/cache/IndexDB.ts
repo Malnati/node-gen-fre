@@ -248,7 +248,7 @@ export class DB extends Dexie {
     // Método async separado para garantir que o banco está inicializado antes de manipulação
     async initializeDatabase() {
         // await this.deleteDatabase();
-        // await this.clearDatabase();
+        await this.clearDatabase();
         // await this.seedData();
         await this.seedInputPropsData();
     }
