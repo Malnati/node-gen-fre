@@ -8,7 +8,7 @@ import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, Edit
 
 const BooleanInputRenderer = () => {
     const record = useRecordContext();
-    const [update, { isLoading }] = useUpdate();
+    const [update] = useUpdate();
 
     if (!record) {
         return null;
