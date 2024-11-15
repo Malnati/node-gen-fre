@@ -2,7 +2,6 @@
 
 import Dexie, { Table } from 'dexie';
 import CRUDService from './CRUDService';
-import EditAttributesIcon from '@mui/icons-material/EditAttributes';
 import { IBooleanInputProps, ICheckboxGroupInputProps, IDateInputProps, IDateTimeInputProps, IFileInputProps, IImageInputProps, INumberInputProps, IPasswordInputProps, IReferenceInputProps, IRichTextInputProps, ISearchInputProps, ISelectInputProps, ITextInputProps, ITimeInputProps, ITranslatableInputsProps } from '../types/InputPropsInterfaces';
 import { IId, IMetadata } from '../types/IMetadata';
 
@@ -199,7 +198,7 @@ export class DB extends Dexie {
             attributes: "++id, type, referenceId, key", 
 
             booleanInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, options", 
-            checkboxInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, labelPlacement, optionValue, translateChoice", 
+            checkboxInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, labelPlacement, optionValue, translateChoice, choices", 
             dateInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
             dateTimeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
             fileInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, minSize, maxSize, multiple, placeholder", 
@@ -330,7 +329,10 @@ export class DB extends Dexie {
             label: 'Aceitar Termos',           // Rótulo exibido ao lado do checkbox
             labelPlacement: 'end',             // Rótulo exibido à direita do checkbox
             optionValue: 'terms',              // Valor que será enviado ao banco de dados
-            translateChoice: true              // Rótulo será traduzido com base na configuração de idioma
+            translateChoice: true,              // Rótulo será traduzido com base na configuração de idioma
+            choices: [
+                { id: '1', name: 'Aceitar Termos' },
+            ]                         // Opções disponíveis para o usuário
         });
     
         await this.checkboxInputs.put({
@@ -343,9 +345,12 @@ export class DB extends Dexie {
             fullWidth: false,
             helperText: 'Selecione para receber nossos boletins semanais',
             label: 'Inscrever-se no Boletim Informativo',
-            labelPlacement: 'start',           // Rótulo exibido à esquerda do checkbox
+            labelPlacement: 'end',           // Rótulo exibido à esquerda do checkbox
             optionValue: 'newsletter',         // Valor representando a escolha do usuário
-            translateChoice: false             // Não traduz o rótulo; usa o texto diretamente
+            translateChoice: false,             // Não traduz o rótulo; usa o texto diretamente
+            choices: [
+                { id: '1', name: 'Inscrever-se no Boletim Informativo' },
+            ]                         // Opções disponíveis para o usuário
         });
 
         await this.dateInputs.put({

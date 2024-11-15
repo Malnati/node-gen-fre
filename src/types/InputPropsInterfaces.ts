@@ -25,6 +25,7 @@ export interface ICheckboxGroupInputProps extends CommonInputProps {
     labelPlacement?: 'end' | 'start' | 'top' | 'bottom';   // Posição do label em relação ao grupo de checkboxes
     optionValue?: string;                                  // Valor da opção, que será usado como `id` no form state
     translateChoice?: boolean;                             // Define se o texto da opção será traduzido
+    choices: Object[];                                     // Array de objetos contendo `id` e `name` para cada opção
 }
 
 // Definindo o tipo de locais aceitos
