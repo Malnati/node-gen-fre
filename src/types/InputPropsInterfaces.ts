@@ -193,14 +193,11 @@ export interface ISelectInputProps extends CommonInputProps {
     choices: Array<     | { id: string | number; name: string }  // Opção com `id` e `name`
                         | { id: string | number; key: string | number }  // Opção com `id` e `key`
                     >; // Array de objetos contendo `id` e `name` para cada opção
-    create?: Element; // Um Elemento React para renderizar quando os usuários quiserem criar uma nova escolha
     createLabel: string; // Rótulo para a opção de criação
     disableValue?: boolean; // Campo personalizado usado nas opções para desativar algumas opções, padrão é 'disabled'
     emptyText?: string; // Texto exibido quando não há nenhuma opção selecionada
     emptyValue?: any; // Valor a ser considerado para a opção vazia
     isPending?: boolean; // Se verdadeiro, o componente exibirá um indicador de carregamento.
-    onCreate?: (value: any) => void; // Função chamada quando o usuário cria uma nova opção
-    optionText?: string | ((choice: any) => string) | Component; // Texto a exibir para cada opção
     optionValue?: string; // Valor a ser usado como valor real (ex.: 'id')
     resettable?: boolean; // Permite que o campo seja resetado para o valor inicial
     translateChoice?: boolean; // Habilita ou desabilita a tradução automática das opções

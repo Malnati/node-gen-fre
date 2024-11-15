@@ -148,8 +148,8 @@ export class DB extends Dexie {
     passwordInputs!: Table<IPasswordInputProps>;
     referenceInputs!: Table<IReferenceInputProps>;
     richTextInputs!: Table<IRichTextInputProps>;
-    // searchInputs!: Table<ISearchInputProps>;
-    // selectInputs!: Table<ISelectInputProps>;
+    searchInputs!: Table<ISearchInputProps>;
+    selectInputs!: Table<ISelectInputProps>;
     // textInputs!: Table<ITextInputProps>;
     // timeInputs!: Table<ITimeInputProps>;
     // translatableInputs!: Table<ITranslatableInputsProps>;
@@ -175,8 +175,8 @@ export class DB extends Dexie {
     passwordInputsService!: CRUDService<IPasswordInputProps>;
     referenceInputsService!: CRUDService<IReferenceInputProps>;
     richTextInputsService!: CRUDService<IRichTextInputProps>;
-    // searchInputsService!: CRUDService<ISearchInputProps>;
-    // selectInputsService!: CRUDService<ISelectInputProps>;
+    searchInputsService!: CRUDService<ISearchInputProps>;
+    selectInputsService!: CRUDService<ISelectInputProps>;
     // textInputsService!: CRUDService<ITextInputProps>;
     // timeInputsService!: CRUDService<ITimeInputProps>;
     // translatableInputsService!: CRUDService<ITranslatableInputsProps>;
@@ -206,11 +206,11 @@ export class DB extends Dexie {
             passwordInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, autoComplete", 
             referenceInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, reference, perPage, allowEmpty, optionValue", 
             richTextInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, toolbar", 
-            // searchInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, alwaysOn placeholder, resettable",
-            // selectInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, choices, create createLabel, disableValue, emptyText, emptyValue, isPending, onCreate, optionText, optionValue, resettable, translateChoice",
-            // textInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, type, resettable, multiline, placeholder",
-            // timeInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label",
-            // translatableInputProps: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locales defaultLocale fullWidth groupKey selector stackProps sx",
+            searchInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, alwaysOn, placeholder, resettable",
+            selectInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, choices, createLabel, disableValue, emptyText, emptyValue, isPending, onCreate, optionValue, resettable, translateChoice",
+            // textInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, type, resettable, multiline, placeholder",
+            // timeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label",
+            // translatableInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locales defaultLocale fullWidth groupKey selector stackProps sx",
         });
         
         // Instanciando CRUDService para cada tabela
@@ -235,8 +235,8 @@ export class DB extends Dexie {
         this.passwordInputsService = new CRUDService(this.passwordInputs);
         this.referenceInputsService = new CRUDService(this.referenceInputs);
         this.richTextInputsService = new CRUDService(this.richTextInputs);
-        // this.searchInputsService = new CRUDService(this.searchInputs);
-        // this.selectInputsService = new CRUDService(this.selectInputs);
+        this.searchInputsService = new CRUDService(this.searchInputs);
+        this.selectInputsService = new CRUDService(this.selectInputs);
         // this.textInputsService = new CRUDService(this.textInputs);
         // this.timeInputsService = new CRUDService(this.timeInputs);
         // this.translatableInputsService   = new CRUDService(this.translatableInputs);
@@ -275,6 +275,8 @@ export class DB extends Dexie {
         await this.passwordInputs.clear();
         await this.referenceInputs.clear();
         await this.richTextInputs.clear();
+        await this.searchInputs.clear();
+        await this.selectInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -627,6 +629,126 @@ export class DB extends Dexie {
             label: 'Biografia',                      // Rótulo do campo
             toolbar: ['bold', 'italic', 'link', 'image'], // Toolbar com imagem
         });
+
+        await this.searchInputs.put({
+            id: 1,
+            source: 'productSearch',               // Nome da propriedade de pesquisa
+            className: 'product-search-input',     // Classe CSS personalizada
+            defaultValue: '',                      // Valor inicial vazio
+            readOnly: false,                       // Campo editável
+            disabled: false,                       // Campo habilitado
+            fullWidth: true,                       // Largura total
+            helperText: 'Pesquise produtos pelo nome ou código', // Texto auxiliar para orientação
+            label: 'Buscar Produtos',              // Rótulo do campo
+            alwaysOn: true,                        // Campo sempre visível
+            placeholder: 'Digite o nome do produto...', // Placeholder para orientação
+            resettable: true                       // Campo pode ser resetado ao valor inicial
+        });
+    
+        await this.searchInputs.put({
+            id: 2,
+            source: 'userSearch',                  // Nome da propriedade de pesquisa para usuários
+            className: 'user-search-input',        // Classe CSS personalizada
+            defaultValue: '',                      // Valor inicial vazio
+            readOnly: false,
+            disabled: false,
+            fullWidth: false,                      // Largura parcial
+            helperText: 'Digite o nome ou e-mail do usuário', // Texto auxiliar
+            label: 'Buscar Usuário',               // Rótulo para o campo de busca
+            alwaysOn: false,                       // Não exibido por padrão, pode aparecer em filtros
+            placeholder: 'Nome ou e-mail...',      // Placeholder para o campo
+            resettable: true                       // Campo resetável
+        });
+    
+        await this.searchInputs.put({
+            id: 3,
+            source: 'orderSearch',                 // Nome da propriedade de pesquisa para pedidos
+            className: 'order-search-input',       // Classe CSS personalizada
+            defaultValue: '12345',                 // Valor inicial padrão (exemplo)
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Pesquise pedidos pelo número ou cliente',
+            label: 'Buscar Pedido',
+            alwaysOn: true,                        // Campo de pesquisa sempre visível
+            placeholder: 'Número do pedido ou nome do cliente...',
+            resettable: true                       // Campo resetável ao valor padrão
+        });
+
+        await this.selectInputs.put({
+            id: 1,
+            source: 'category',
+            className: 'category-select-input',
+            defaultValue: 'electronics',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Selecione uma categoria',
+            label: 'Categoria',
+            choices: [
+                { id: 'electronics', name: 'Eletrônicos' },
+                { id: 'fashion', name: 'Moda' },
+                { id: 'home', name: 'Casa' },
+            ],
+            createLabel: 'Adicionar Nova Categoria',
+            disableValue: false,
+            emptyText: 'Nenhuma categoria selecionada',
+            emptyValue: '',
+            isPending: false,
+            optionValue: 'id',
+            resettable: true,
+            translateChoice: true,
+        });
+        
+        await this.selectInputs.put({
+            id: 2,
+            source: 'status',
+            className: 'status-select-input',
+            defaultValue: 'active',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Selecione o status do item',
+            label: 'Status',
+            choices: [
+                { id: 'active', name: 'Ativo' },
+                { id: 'inactive', name: 'Inativo' },
+                { id: 'pending', name: 'Pendente' },
+            ],
+            createLabel: 'Adicionar Nova Categoria',
+            disableValue: false,
+            emptyText: 'Nenhum status selecionado',
+            emptyValue: '',
+            isPending: false,
+            optionValue: 'id',
+            resettable: true,
+            translateChoice: true,
+        });
+
+        await this.selectInputs.put({
+            id: 3,
+            source: 'country',
+            className: 'country-select-input',
+            defaultValue: '',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Selecione o país de origem',
+            label: 'País',
+            choices: [
+                { id: 'BR', name: 'Brasil' },
+                { id: 'US', name: 'Estados Unidos' },
+                { id: 'FR', name: 'França' },
+            ],
+            createLabel: 'Adicionar Nova Categoria',
+            disableValue: false,
+            emptyText: 'Selecione um país',
+            emptyValue: '',
+            isPending: false,
+            optionValue: 'id',
+            resettable: true,
+            translateChoice: true,
+        });
     }
 
     // async seedData() {
@@ -778,8 +900,8 @@ export class DB extends Dexie {
         await db.passwordInputs.bulkDelete(await db.passwordInputs.toCollection().primaryKeys());
         await db.referenceInputs.bulkDelete(await db.referenceInputs.toCollection().primaryKeys());
         await db.richTextInputs.bulkDelete(await db.richTextInputs.toCollection().primaryKeys());
-        // await db.searchInputs.bulkDelete(await db.searchInputs.toCollection().primaryKeys());
-        // await db.selectInputs.bulkDelete(await db.selectInputs.toCollection().primaryKeys());
+        await db.searchInputs.bulkDelete(await db.searchInputs.toCollection().primaryKeys());
+        await db.selectInputs.bulkDelete(await db.selectInputs.toCollection().primaryKeys());
         // await db.textInputs.bulkDelete(await db.textInputs.toCollection().primaryKeys());
         // await db.timeInputs.bulkDelete(await db.timeInputs.toCollection().primaryKeys());
         // await db.translatableInputs.bulkDelete(await db.translatableInputs.toCollection().primaryKeys());
