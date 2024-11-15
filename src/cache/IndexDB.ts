@@ -150,7 +150,7 @@ export class DB extends Dexie {
     richTextInputs!: Table<IRichTextInputProps>;
     searchInputs!: Table<ISearchInputProps>;
     selectInputs!: Table<ISelectInputProps>;
-    // textInputs!: Table<ITextInputProps>;
+    textInputs!: Table<ITextInputProps>;
     // timeInputs!: Table<ITimeInputProps>;
     // translatableInputs!: Table<ITranslatableInputsProps>;
 
@@ -177,7 +177,7 @@ export class DB extends Dexie {
     richTextInputsService!: CRUDService<IRichTextInputProps>;
     searchInputsService!: CRUDService<ISearchInputProps>;
     selectInputsService!: CRUDService<ISelectInputProps>;
-    // textInputsService!: CRUDService<ITextInputProps>;
+    textInputsService!: CRUDService<ITextInputProps>;
     // timeInputsService!: CRUDService<ITimeInputProps>;
     // translatableInputsService!: CRUDService<ITranslatableInputsProps>;
 
@@ -208,7 +208,7 @@ export class DB extends Dexie {
             richTextInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, toolbar", 
             searchInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, alwaysOn, placeholder, resettable",
             selectInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, choices, createLabel, disableValue, emptyText, emptyValue, isPending, onCreate, optionValue, resettable, translateChoice",
-            // textInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, type, resettable, multiline, placeholder",
+            textInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, type, resettable, multiline, placeholder",
             // timeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label",
             // translatableInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locales defaultLocale fullWidth groupKey selector stackProps sx",
         });
@@ -237,7 +237,7 @@ export class DB extends Dexie {
         this.richTextInputsService = new CRUDService(this.richTextInputs);
         this.searchInputsService = new CRUDService(this.searchInputs);
         this.selectInputsService = new CRUDService(this.selectInputs);
-        // this.textInputsService = new CRUDService(this.textInputs);
+        this.textInputsService = new CRUDService(this.textInputs);
         // this.timeInputsService = new CRUDService(this.timeInputs);
         // this.translatableInputsService   = new CRUDService(this.translatableInputs);
         
@@ -277,6 +277,7 @@ export class DB extends Dexie {
         await this.richTextInputs.clear();
         await this.searchInputs.clear();
         await this.selectInputs.clear();
+        await this.textInputs.clear();
     }
 
     // Adiciona os dados usando `put`
@@ -749,6 +750,70 @@ export class DB extends Dexie {
             resettable: true,
             translateChoice: true,
         });
+
+        await this.textInputs.put({
+            id: 1,
+            source: 'username',
+            className: 'username-input',
+            defaultValue: '',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Digite seu nome de usuário',
+            label: 'Nome de Usuário',
+            type: 'text',
+            resettable: true,
+            multiline: false,
+            placeholder: 'Ex.: usuario123',
+        });
+    
+        await this.textInputs.put({
+            id: 2,
+            source: 'email',
+            className: 'email-input',
+            defaultValue: '',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Digite seu endereço de e-mail',
+            label: 'E-mail',
+            type: 'email',
+            resettable: true,
+            multiline: false,
+            placeholder: 'Ex.: exemplo@dominio.com',
+        });
+    
+        await this.textInputs.put({
+            id: 3,
+            source: 'bio',
+            className: 'bio-textarea',
+            defaultValue: '',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Fale um pouco sobre você',
+            label: 'Biografia',
+            type: 'text',
+            resettable: true,
+            multiline: true,
+            placeholder: 'Ex.: Sou um desenvolvedor apaixonado por tecnologia...',
+        });
+    
+        await this.textInputs.put({
+            id: 4,
+            source: 'password',
+            className: 'password-input',
+            defaultValue: '',
+            readOnly: false,
+            disabled: false,
+            fullWidth: true,
+            helperText: 'Digite uma senha segura',
+            label: 'Senha',
+            type: 'password',
+            resettable: false,
+            multiline: false,
+            placeholder: '********',
+        });
     }
 
     // async seedData() {
@@ -902,7 +967,7 @@ export class DB extends Dexie {
         await db.richTextInputs.bulkDelete(await db.richTextInputs.toCollection().primaryKeys());
         await db.searchInputs.bulkDelete(await db.searchInputs.toCollection().primaryKeys());
         await db.selectInputs.bulkDelete(await db.selectInputs.toCollection().primaryKeys());
-        // await db.textInputs.bulkDelete(await db.textInputs.toCollection().primaryKeys());
+        await db.textInputs.bulkDelete(await db.textInputs.toCollection().primaryKeys());
         // await db.timeInputs.bulkDelete(await db.timeInputs.toCollection().primaryKeys());
         // await db.translatableInputs.bulkDelete(await db.translatableInputs.toCollection().primaryKeys());
     }

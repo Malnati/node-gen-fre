@@ -27,7 +27,7 @@ const ReferenceInputsProvider=DataProviderFactory(db.referenceInputsService);
 const RichTextInputsProvider=DataProviderFactory(db.richTextInputsService);
 const SearchInputsProvider=DataProviderFactory(db.searchInputsService);
 const SelectInputsProvider=DataProviderFactory(db.selectInputsService);
-// const TextInputsProvider=DataProviderFactory(db.textInputsService);
+const TextInputsProvider=DataProviderFactory(db.textInputsService);
 // const TimeInputsProvider=DataProviderFactory(db.timeInputsService);
 // const TranslatableInputsProvider=DataProviderFactory(db.translatableInputsService);
 
@@ -55,7 +55,7 @@ const providersMap: Record<string, DataProvider> = {
   richTextInputs: RichTextInputsProvider,
   searchInputs: SearchInputsProvider,
   selectInputs: SelectInputsProvider,
-//   textInputs: TextInputsProvider,
+  textInputs: TextInputsProvider,
 //   timeInputs: TimeInputsProvider,
 //   translatableInputs: TranslatableInputsProvider,
 };

@@ -51,6 +51,7 @@ import { ReferenceInputList } from "./ReferenceInputList";
 import { RichTextInputList } from "./RichTextInputList";
 import { SearchInputList } from "./SearchInputList";
 import { SelectInputList } from "./SelectInputList";
+import { TextInputList } from "./TextInputList";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -175,6 +176,12 @@ export const App = () => {
         <Resource
           name="selectInputs"
           list={SelectInputList}
+          icon={InputIcon}
+        />
+
+        <Resource
+          name="textInputs"
+          list={TextInputList}
           icon={InputIcon}
         />
 
