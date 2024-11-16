@@ -1,16 +1,13 @@
 // src/App.tsx
 
-import { useEffect } from "react";
 
 import {
   Admin,
-  defaultDarkTheme,
   radiantLightTheme, 
   radiantDarkTheme,
   Resource,
 } from "react-admin";
 
-import { db } from "./cache/IndexDB";
 import { Layout } from "./Layout";
 import { GoogleAuthProvider } from "./GoogleAuthProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -21,7 +18,6 @@ import TvIcon from '@mui/icons-material/Tv';
 import { Dashboard } from "./Dashboard";
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import SettingsSystemDaydreamIcon from '@mui/icons-material/SettingsSystemDaydream';
-import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import InputIcon from '@mui/icons-material/Input';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { FrontendList } from "./FrontendList";
@@ -56,7 +52,6 @@ import { TimeInputList } from "./TimeInputList";
 import { TranslatableInputList } from "./TranslatableInputList";
 import { BooleanInputEdit } from "./BooleanInputEdit";
 import { BooleanInputCreate } from "./BooleanInputCreate";
-import { BooleanInputShow } from "./BooleanInputShow";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -117,7 +112,7 @@ export const App = () => {
           list={BooleanInputList}
           edit={BooleanInputEdit}
           create={BooleanInputCreate}
-          show={BooleanInputShow}
+          // show={BooleanInputShow}
           icon={InputIcon}
         />
 

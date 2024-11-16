@@ -1,65 +1,222 @@
 // src/BooleanInputEdit.tsx
 
-import { Form, useRecordContext, useUpdate , BooleanInput, Datagrid, DateField, DateInput, Edit, EditButton, minValue, number, NumberInput, ReferenceManyField, required, SimpleForm, TabbedForm, TextField, TextInput } from 'react-admin';
+import { useState, useEffect, SetStateAction } from 'react';
+import { Edit, SimpleForm, TextInput, BooleanInput, useUpdate, Form, useRecordContext } from 'react-admin';
+import { Box, Paper } from '@mui/material';
 
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
 
-const BooleanInputRenderer = () => {
+const Preview = ({ watchedFields }: { watchedFields: any }) => {
+
     const record = useRecordContext();
+    const [current, setCurrent] = useState(record);
     const [update] = useUpdate();
-
-    if (!record) {
-        return null;
-    }
-
+    
     const handleSubmit = (data: any) => {
-        update('booleanInputs', { id: record.id, data });
+        update('booleanInputs', { id: current?.id, data });
     };
+    
+    useEffect(() => {
+        setCurrent(watchedFields);
+    }, [watchedFields]);
+
+    if (!current) return null;
 
     return (
-        <Form
-            onSubmit={handleSubmit}
-            defaultValues={{
-                customBoolean: record.customBoolean || false,
-            }}
-        >
-            <Box display="flex" alignItems="center" gap={2}>
-                <BooleanInput
-                    source="customBoolean"
-                    label={record.label || 'Default Label'}
-                    defaultValue={record.defaultValue}
-                    disabled={record.disabled}
-                    fullWidth={record.fullWidth}
-                    helperText={record.helperText || 'Helper text'}
-                />
-            </Box>
-        </Form>
+        <>
+            <span>Preview</span>
+            <Paper elevation={3} sx={{ padding: '15px', width: '100%' }}>
+                <Form
+                    onSubmit={handleSubmit}
+                    defaultValues={{
+                        booleanInputs: current?.booleanInputs || false,
+                    }}
+                >
+                    <Box display="flex" alignItems="center" gap={2}>
+                        <BooleanInput
+                            source="booleanInputs"
+                            label={current?.label || 'Default Label'}
+                            defaultValue={current?.defaultValue}
+                            disabled={current?.disabled}
+                            fullWidth={current?.fullWidth}
+                            helperText={current?.helperText || 'Helper text'}
+                        />
+                    </Box>
+                </Form>
+            </Paper>
+        </>
     );
 };
 
-export const BooleanInputEdit = () => (
-    <>
-        <Edit>
-            <SimpleForm >
-                <Stack direction="row" spacing={2} sx={{ padding: '5px', width: '100%' }}>
-                    <Paper elevation={3} sx={{ padding: '15px', width: '50%' }}>
-                        <TextInput source="id" label="Id" />
-                        <TextInput source="source" label="Source" />
-                        <TextInput source="className" label="ClassName" />
-                        <BooleanInput source="defaultValue" label="Default Value" />
-                        <BooleanInput source="readOnly" label="Read Only" />
-                        <BooleanInput source="disabled" label="Disabled" />
-                        <BooleanInput source="fullWidth" label="Full Width" />
-                        <TextInput source="helperText" label="Helper Text" />
-                        <TextInput source="label" label="Label" />
-                    </Paper>
-                    <Paper elevation={3} sx={{ padding: '15px', width: '50%' }}>
-                        <BooleanInputRenderer />
-                    </Paper>
-                </Stack>
-            </SimpleForm>
-        </Edit>
-    </>
-);
+import { ReactNode } from 'react';
+
+export const BooleanInputEdit = ({ children }: { children?: ReactNode }) => {
+
+    const record = useRecordContext();
+    const [watchedFields, setWatchedFields] = useState(record);
+    const [id, setId] = useState('');
+    const [source, setSource] = useState('');
+    const [className, setClassName] = useState('');
+    const [defaultValue, setDefaultValue] = useState('');
+    const [readOnly, setReadOnly] = useState('');
+    const [disabled, setDisabled] = useState('');
+    const [fullWidth, setFullWidth] = useState('');
+    const [helperText, setHelperText] = useState('');
+    const [label, setLabel] = useState('');
+
+    const handleOnChangeId = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setId(e.target.value);
+        const newObject = {
+            id: e.target.value,
+            source,
+            className,
+            defaultValue,
+            readOnly,
+            disabled,
+            fullWidth,
+            helperText,
+            label
+        };
+        setWatchedFields(newObject);
+    };
+    const handleOnChangeSource = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setSource(e.target.value);
+        const newObject = {
+            id,
+            source: e.target.value,
+            className,
+            defaultValue,
+            readOnly,
+            disabled,
+            fullWidth,
+            helperText,
+            label
+        };
+        setWatchedFields(newObject);
+    };
+    const handleOnChangeClassName = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setClassName(e.target.value);
+        const newObject = {
+            id,
+            source,
+            className: e.target.value,
+            defaultValue,
+            readOnly,
+            disabled,
+            fullWidth,
+            helperText,
+            label
+        };
+        setWatchedFields(newObject);
+    };
+    const handleOnChangeDefaultValue = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setDefaultValue(e.target.value);
+        const newObject = {
+            id,
+            source,
+            className,
+            defaultValue: e.target.value,
+            readOnly,
+            disabled,
+            fullWidth,
+            helperText,
+            label
+        };
+        setWatchedFields(newObject);
+    };
+    const handleOnChangeReadOnly = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setReadOnly(e.target.value);
+        const newObject = {
+            id,
+            source,
+            className,
+            defaultValue,
+            readOnly: e.target.value,
+            disabled,
+            fullWidth,
+            helperText,
+            label
+        };
+        setWatchedFields(newObject);
+    };
+    const handleOnChangeDisabled = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setDisabled(e.target.value);
+        const newObject = {
+            id,
+            source,
+            className,
+            defaultValue,
+            readOnly,
+            disabled: e.target.value,
+            fullWidth,
+            helperText,
+            label
+        };
+        setWatchedFields(newObject);
+    };
+    const handleOnChangeFullWidth = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setFullWidth(e.target.value);
+        const newObject = {
+            id,
+            source,
+            className,
+            defaultValue,
+            readOnly,
+            disabled,
+            fullWidth: e.target.value,
+            helperText,
+            label
+        };
+        setWatchedFields(newObject);
+    };
+    const handleOnChangeHelperText = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setHelperText(e.target.value);
+        const newObject = {
+            id,
+            source,
+            className,
+            defaultValue,
+            readOnly,
+            disabled,
+            fullWidth,
+            helperText: e.target.value,
+            label
+        };
+        setWatchedFields(newObject);
+    };
+    const handleOnChangeLabel = (e: { target: { value: SetStateAction<string>; }; }) => {
+        setLabel(e.target.value);
+        const newObject = {
+            id,
+            source,
+            className,
+            defaultValue,
+            readOnly,
+            disabled,
+            fullWidth,
+            helperText,
+            label: e.target.value
+        };
+        setWatchedFields(newObject);
+    };
+
+    return (
+        <>
+            <Preview watchedFields={watchedFields} />
+            <Edit>
+                <SimpleForm title='TESTE'>
+                    <TextInput source="id" label="Id" disabled onChange={handleOnChangeId} />
+                    <TextInput source="source" label="Source" onChange={handleOnChangeSource} />
+                    <TextInput source="className" label="ClassName" onChange={handleOnChangeClassName} />
+                    <BooleanInput source="defaultValue" label="Default Value" onChange={handleOnChangeDefaultValue} />
+                    <BooleanInput source="readOnly" label="Read Only" onChange={handleOnChangeReadOnly} />
+                    <BooleanInput source="disabled" label="Disabled" onChange={handleOnChangeDisabled} />
+                    <BooleanInput source="fullWidth" label="Full Width" onChange={handleOnChangeFullWidth} />
+                    <TextInput source="helperText" label="Helper Text" onChange={handleOnChangeHelperText} />
+                    <TextInput source="label" label="Label" onChange={handleOnChangeLabel}/>
+                    {children}
+                </SimpleForm>
+            </Edit>
+        </>
+    );
+};
+

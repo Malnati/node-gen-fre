@@ -1,10 +1,48 @@
 // src/BooleanInputPropsList.tsx
 
-import { Fragment } from 'react';
 import { Box } from '@mui/material';
+import { VisibilityOff } from '@mui/icons-material';
 
-import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, BulkDeleteButton, BulkExportButton, DeleteButton, BooleanInput, Form, useRecordContext, SaveButton, Toolbar, useUpdate } from 'react-admin';
+import {
+  Datagrid,
+  List,
+  ReferenceInput,
+  TextField,
+  TextInput,
+  EditButton,
+  ShowButton,
+  BulkDeleteButton,
+  BulkExportButton,
+  DeleteButton,
+  BooleanInput,
+  Form,
+  useRecordContext,
+  useUpdate,
+  BulkUpdateButton,
+  CreateButton,
+  ExportButton,
+  FilterButton,
+  SelectColumnsButton,
+  TopToolbar,
+} from "react-admin";
 
+const PostBulkActionButtons = () => (
+    <>
+        <BulkUpdateButton label="Reset Views" data={{ views: 0 }} icon={<VisibilityOff/>} />
+        <BulkDeleteButton />
+        <BulkExportButton />
+    </>
+);
+
+const CustomListActions = () => (
+    <TopToolbar>
+        <SelectColumnsButton />
+        <FilterButton/>
+        <CreateButton/>
+        <ExportButton/>
+        <DeleteButton />
+    </TopToolbar>
+);
 
 const BooleanInputRenderer = () => {
     const record = useRecordContext();
@@ -45,13 +83,8 @@ const filters = [
 ];
 
 export const BooleanInputList = () => (
-    <List emptyWhileLoading filters={filters} actions={<ListActions hasCreate/>}>
-        <Datagrid bulkActionButtons={
-            <Fragment>
-                    <BulkExportButton />
-                    <BulkDeleteButton mutationMode="pessimistic"/>
-                </Fragment>
-            }>
+    <List emptyWhileLoading filters={filters} actions={<CustomListActions />}>
+        <Datagrid bulkActionButtons={<PostBulkActionButtons />} >
             <TextField source="id" label="Id" />
             <BooleanInputRenderer />
             <TextField source="source" label="Source" />

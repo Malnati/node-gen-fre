@@ -1,8 +1,8 @@
 // src/CheckboxInputPropsList.tsx
 
-import { Fragment } from 'react';
 import { Box } from '@mui/material';
-import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, BulkDeleteButton, BulkExportButton, DeleteButton, BooleanInput, Form, useRecordContext, useUpdate, CheckboxGroupInput } from 'react-admin';
+import { VisibilityOff } from '@mui/icons-material';
+import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, BulkDeleteButton, BulkExportButton, DeleteButton, BooleanInput, Form, useRecordContext, useUpdate, CheckboxGroupInput, TopToolbar, CreateButton, ExportButton, FilterButton, SelectColumnsButton, BulkUpdateButton } from 'react-admin';
 
 const CheckboxInputRenderer = () => {
     const record = useRecordContext();
@@ -46,14 +46,27 @@ const filters = [
     <ReferenceInput source="id" label="CheckboxInput" reference="checkboxInputs" />,
 ];
 
+const PostBulkActionButtons = () => (
+    <>
+        <BulkUpdateButton label="Reset Views" data={{ views: 0 }} icon={<VisibilityOff/>} />
+        <BulkDeleteButton />
+        <BulkExportButton />
+    </>
+);
+
+const CustomListActions = () => (
+    <TopToolbar>
+        <SelectColumnsButton />
+        <FilterButton/>
+        <CreateButton/>
+        <ExportButton/>
+        <DeleteButton />
+    </TopToolbar>
+);
+
 export const CheckboxInputList = () => (
-    <List emptyWhileLoading filters={filters} actions={<ListActions hasCreate/>}>
-        <Datagrid bulkActionButtons={
-            <Fragment>
-                    <BulkExportButton />
-                    <BulkDeleteButton mutationMode="pessimistic"/>
-                </Fragment>
-            }>
+    <List emptyWhileLoading filters={filters} actions={<CustomListActions />}>
+        <Datagrid bulkActionButtons={<PostBulkActionButtons />}>
             <TextField source="id" label="Id" />
             <CheckboxInputRenderer />
             <TextField source="source" label="Source" />
