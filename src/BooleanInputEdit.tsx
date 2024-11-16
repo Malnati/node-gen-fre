@@ -1,19 +1,38 @@
 // src/BooleanInputEdit.tsx
 
 import { useState, useEffect, SetStateAction } from 'react';
-import { Edit, SimpleForm, TextInput, BooleanInput, useUpdate, Form, useRecordContext } from 'react-admin';
+import { Edit, SimpleForm, TextInput, BooleanInput, useRecordContext } from 'react-admin';
 import { Box, Paper, Typography } from '@mui/material';
+import { ReactNode } from 'react';
 
+interface GenericInputProps {
+    component: React.ElementType;
+    source: string;
+    current: any;
+}
 
-const Preview = ({ watchedFields }: { watchedFields: any }) => {
+const GenericInput = ({ component: Component, source, current }: GenericInputProps) => {
+    return (
+        <Component
+            source={source}
+            label={current?.label || ''}
+            defaultValue={current?.defaultValue}
+            disabled={current?.disabled}
+            fullWidth={current?.fullWidth}
+            helperText={current?.helperText || ''}
+        />
+    );
+};
+
+interface PreviewProps {
+    component: React.ElementType;
+    watchedFields: any;
+}
+
+const Preview = ({ component: Component, watchedFields }: PreviewProps) => {
 
     const record = useRecordContext();
     const [current, setCurrent] = useState(record);
-    const [update] = useUpdate();
-    
-    const handleSubmit = (data: any) => {
-        update('genericInputs', { id: current?.id, data });
-    };
     
     useEffect(() => {
         setCurrent(watchedFields);
@@ -25,29 +44,13 @@ const Preview = ({ watchedFields }: { watchedFields: any }) => {
         <>
             <Paper elevation={3} sx={{ padding: '15px', margin: '15px', width: '98%' }}>
             <Typography variant="h6" sx={{ padding: '15px' }}>Changes view</Typography>
-                <Form
-                    onSubmit={handleSubmit}
-                    defaultValues={{
-                        genericInputs: current?.genericInputs || false,
-                    }}
-                >
-                    <Box display="flex" alignItems="center" gap={2}>
-                        <BooleanInput
-                            source="genericInputs"
-                            label={current?.label || ''}
-                            defaultValue={current?.defaultValue}
-                            disabled={current?.disabled}
-                            fullWidth={current?.fullWidth}
-                            helperText={current?.helperText || ''}
-                        />
-                    </Box>
-                </Form>
+                <Box display="flex" alignItems="center" gap={2}>
+                    <GenericInput source="genericInputs" component={Component} current={current} />
+                </Box>
             </Paper>
         </>
     );
 };
-
-import { ReactNode } from 'react';
 
 export const BooleanInputEdit = ({ children }: { children?: ReactNode }) => {
 
@@ -202,7 +205,7 @@ export const BooleanInputEdit = ({ children }: { children?: ReactNode }) => {
         <>
             <Edit>
                 <SimpleForm>
-            <Preview watchedFields={watchedFields} />
+                    <Preview watchedFields={watchedFields} component={BooleanInput}/>
                     <TextInput source="id" label="Id" disabled onChange={handleOnChangeId} />
                     <TextInput source="helperText" label="Helper Text" onChange={handleOnChangeHelperText} />
                     <TextInput source="label" label="Label" onChange={handleOnChangeLabel}/>
