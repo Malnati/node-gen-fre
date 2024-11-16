@@ -21,7 +21,7 @@ export interface IBooleanInputProps extends CommonInputProps {
     options?: SwitchProps; // Use o suporte de opções para passar qualquer opção suportada pelos componentes Switch da UI do Material. Por exemplo, aqui está como definir um ícone marcado personalizado
 }
 
-export interface ICheckboxGroupInputProps extends CommonInputProps {
+export interface ICheckboxGroupInputProps extends Omit<CommonInputProps, 'defaultValue' > {
     labelPlacement?: 'end' | 'start' | 'top' | 'bottom';   // Posição do label em relação ao grupo de checkboxes
     optionValue?: string;                                  // Valor da opção, que será usado como `id` no form state
     translateChoice?: boolean;                             // Define se o texto da opção será traduzido
