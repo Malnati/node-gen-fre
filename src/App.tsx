@@ -9,9 +9,9 @@ import {
 } from "react-admin";
 
 import { Layout } from "./Layout";
-import { GoogleAuthProvider } from "./GoogleAuthProvider";
+import { GoogleAuthProvider } from "./security/GoogleAuthProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import CustomLogin from "./CustomLogin";
+import CustomLogin from "./security/CustomLogin";
 import { FrontCreate } from "./FrontendCreate";
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import TvIcon from '@mui/icons-material/Tv';
