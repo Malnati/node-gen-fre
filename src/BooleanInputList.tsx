@@ -26,7 +26,7 @@ import {
   TopToolbar,
 } from "react-admin";
 
-const PostBulkActionButtons = () => (
+const CommonBulkActionButtons = () => (
     <>
         <BulkUpdateButton label="Reset Views" data={{ views: 0 }} icon={<VisibilityOff/>} />
         <BulkDeleteButton />
@@ -34,7 +34,7 @@ const PostBulkActionButtons = () => (
     </>
 );
 
-const CustomListActions = () => (
+const CommonListActions = () => (
     <TopToolbar>
         <SelectColumnsButton />
         <FilterButton/>
@@ -83,8 +83,8 @@ const filters = [
 ];
 
 export const BooleanInputList = () => (
-    <List emptyWhileLoading filters={filters} actions={<CustomListActions />}>
-        <Datagrid bulkActionButtons={<PostBulkActionButtons />} >
+    <List emptyWhileLoading filters={filters} actions={<CommonListActions />}>
+        <Datagrid bulkActionButtons={<CommonBulkActionButtons />} >
             <TextField source="id" label="Id" />
             <BooleanInputRenderer />
             <TextField source="source" label="Source" />

@@ -3,7 +3,7 @@
 import { ReactNode } from 'react';
 import { useState, SetStateAction } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput } from 'react-admin';
-import PreviewInput from './PreviewInput';
+import PreviewInput from './PreviewEditInput';
 
 interface CommonInputEditProps {
     children?: ReactNode;

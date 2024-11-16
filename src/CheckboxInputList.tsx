@@ -2,7 +2,7 @@
 
 import { Box } from '@mui/material';
 import { VisibilityOff } from '@mui/icons-material';
-import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, BulkDeleteButton, BulkExportButton, DeleteButton, BooleanInput, Form, useRecordContext, useUpdate, CheckboxGroupInput, TopToolbar, CreateButton, ExportButton, FilterButton, SelectColumnsButton, BulkUpdateButton } from 'react-admin';
+import { Datagrid, List, ReferenceInput, TextField, TextInput, EditButton, ShowButton, BulkDeleteButton, BulkExportButton, DeleteButton, Form, useRecordContext, useUpdate, CheckboxGroupInput, TopToolbar, CreateButton, ExportButton, FilterButton, SelectColumnsButton, BulkUpdateButton } from 'react-admin';
 
 const CheckboxInputRenderer = () => {
     const record = useRecordContext();
