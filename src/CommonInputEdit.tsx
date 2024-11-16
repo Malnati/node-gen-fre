@@ -10,7 +10,7 @@ interface CommonInputEditProps {
     component: React.ElementType;
 }
 
-export const CommonInputEdit = ({ children, component: Component }: CommonInputEditProps) => {
+export const useCommonInputProps = () => {
 
     const [watchedFields, setWatchedFields] = useState({});
     const [id, setId] = useState('');
@@ -158,6 +158,35 @@ export const CommonInputEdit = ({ children, component: Component }: CommonInputE
         };
         setWatchedFields(newObject);
     };
+
+    return {
+        watchedFields,
+        handleOnChangeId,
+        handleOnChangeSource,
+        handleOnChangeClassName,
+        handleOnChangeDefaultValue,
+        handleOnChangeReadOnly,
+        handleOnChangeDisabled,
+        handleOnChangeFullWidth,
+        handleOnChangeHelperText,
+        handleOnChangeLabel
+    };
+};
+
+export const CommonInputEdit = ({ children, component: Component }: CommonInputEditProps) => {
+
+    const {
+        watchedFields,
+        handleOnChangeId,
+        handleOnChangeSource,
+        handleOnChangeClassName,
+        handleOnChangeDefaultValue,
+        handleOnChangeReadOnly,
+        handleOnChangeDisabled,
+        handleOnChangeFullWidth,
+        handleOnChangeHelperText,
+        handleOnChangeLabel
+    } = useCommonInputProps();
 
     return (
         <>
