@@ -1,9 +1,10 @@
 // src/CommonInputEdit.tsx
 
 import { ReactNode } from 'react';
-import { Edit, SimpleForm, TextInput, BooleanInput } from 'react-admin';
+import { Edit, SimpleForm, TextInput, BooleanInput, CheckboxGroupInput } from 'react-admin';
 import PreviewInput from './PreviewEditInput';
 import useInputChanges from './hooks/useInputChanges';
+import PreviewEditCheckboxInput from './PreviewEditCheckboxInput';
 
 interface CommonInputEditProps {
     children?: ReactNode;
@@ -21,11 +22,15 @@ export const CommonInputEdit = ({ children, component: Component }: CommonInputE
         <>
             <Edit>
                 <SimpleForm>
-                    <PreviewInput watchedFields={changedFields} component={Component} />
+                    {Component === CheckboxGroupInput && 
+                        <PreviewEditCheckboxInput watchedFields={changedFields} />}
+                    {Component !== CheckboxGroupInput && 
+                        <PreviewInput watchedFields={changedFields} component={Component} />}
                     <TextInput source="id" label="Id" disabled onChange={(e) => handleOnChange('id', e.target.value)} />
                     <TextInput source="helperText" label="Helper Text" onChange={(e) => handleOnChange('helperText', e.target.value)} />
                     <TextInput source="label" label="Label" onChange={(e) => handleOnChange('label', e.target.value)}/>
-                    <BooleanInput source="defaultValue" label="Default Value" onChange={(e) => handleOnChange('defaultValue', e.target.value)} />
+                    {Component !== CheckboxGroupInput && 
+                        <BooleanInput source="defaultValue" label="Default Value" onChange={(e) => handleOnChange('defaultValue', e.target.value)} />}
                     <BooleanInput source="readOnly" label="Read Only" onChange={(e) => handleOnChange('readOnly', e.target.value)} />
                     <BooleanInput source="disabled" label="Disabled" onChange={(e) => handleOnChange('disabled', e.target.value)} />
                     <BooleanInput source="fullWidth" label="Full Width" onChange={(e) => handleOnChange('fullWidth', e.target.value)} />
