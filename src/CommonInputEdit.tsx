@@ -5,11 +5,13 @@ import { useState, useEffect, SetStateAction } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput, useUpdate, Form, useRecordContext } from 'react-admin';
 import { Box, Paper, Typography } from '@mui/material';
 
-const GenericInput = ({ Component, source, current }: { 
-    Component: React.ElementType; 
-    source: string; 
-    current: any; 
-}) => {
+interface GenericInputProps {
+    component: React.ElementType;
+    source: string;
+    current: any;
+}
+
+const GenericInput = ({ component: Component, source, current }: GenericInputProps) => {
     return (
         <Component
             source={source}
@@ -22,7 +24,12 @@ const GenericInput = ({ Component, source, current }: {
     );
 };
 
-const Preview = ({ watchedFields }: { watchedFields: any }) => {
+interface PreviewProps {
+    component: React.ElementType;
+    watchedFields: any;
+}
+
+const Preview = ({ component: Component, watchedFields }: PreviewProps) => {
 
     const record = useRecordContext();
     const [current, setCurrent] = useState(record);
@@ -49,7 +56,7 @@ const Preview = ({ watchedFields }: { watchedFields: any }) => {
                     }}
                 >
                     <Box display="flex" alignItems="center" gap={2}>
-                        <GenericInput source="genericInputs" Component={BooleanInput} current={current} />
+                        <GenericInput source="genericInputs" component={Component} current={current} />
                     </Box>
                 </Form>
             </Paper>
@@ -211,7 +218,7 @@ export const CommonInputEdit = ({ children }: { children?: ReactNode }) => {
         <>
             <Edit>
                 <SimpleForm>
-            <Preview watchedFields={watchedFields} />
+            <Preview watchedFields={watchedFields} component={BooleanInput} />
                     <TextInput source="id" label="Id" disabled onChange={handleOnChangeId} />
                     <TextInput source="helperText" label="Helper Text" onChange={handleOnChangeHelperText} />
                     <TextInput source="label" label="Label" onChange={handleOnChangeLabel}/>
