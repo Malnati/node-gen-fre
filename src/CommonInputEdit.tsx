@@ -1,7 +1,6 @@
 // src/CommonInputEdit.tsx
 
 import { ReactNode } from 'react';
-import { useState, SetStateAction } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput } from 'react-admin';
 import PreviewInput from './PreviewEditInput';
 import useCommonInputProps from './hooks/useCommonInputProps';
@@ -15,15 +14,7 @@ export const CommonInputEdit = ({ children, component: Component }: CommonInputE
 
     const {
         watchedFields,
-        handleOnChangeId,
-        handleOnChangeSource,
-        handleOnChangeClassName,
-        handleOnChangeDefaultValue,
-        handleOnChangeReadOnly,
-        handleOnChangeDisabled,
-        handleOnChangeFullWidth,
-        handleOnChangeHelperText,
-        handleOnChangeLabel,
+        handleOnChange
     } = useCommonInputProps();
 
     return (
@@ -31,15 +22,15 @@ export const CommonInputEdit = ({ children, component: Component }: CommonInputE
             <Edit>
                 <SimpleForm>
                     <PreviewInput watchedFields={watchedFields} component={Component} />
-                    <TextInput source="id" label="Id" disabled onChange={handleOnChangeId} />
-                    <TextInput source="helperText" label="Helper Text" onChange={handleOnChangeHelperText} />
-                    <TextInput source="label" label="Label" onChange={handleOnChangeLabel}/>
-                    <BooleanInput source="defaultValue" label="Default Value" onChange={handleOnChangeDefaultValue} />
-                    <BooleanInput source="readOnly" label="Read Only" onChange={handleOnChangeReadOnly} />
-                    <BooleanInput source="disabled" label="Disabled" onChange={handleOnChangeDisabled} />
-                    <BooleanInput source="fullWidth" label="Full Width" onChange={handleOnChangeFullWidth} />
-                    <TextInput source="source" label="Source" onChange={handleOnChangeSource} />
-                    <TextInput source="className" label="ClassName" onChange={handleOnChangeClassName} />
+                    <TextInput source="id" label="Id" disabled onChange={(e) => handleOnChange('id', e.target.value)} />
+                    <TextInput source="helperText" label="Helper Text" onChange={(e) => handleOnChange('helperText', e.target.value)} />
+                    <TextInput source="label" label="Label" onChange={(e) => handleOnChange('label', e.target.value)}/>
+                    <BooleanInput source="defaultValue" label="Default Value" onChange={(e) => handleOnChange('defaultValue', e.target.value)} />
+                    <BooleanInput source="readOnly" label="Read Only" onChange={(e) => handleOnChange('readOnly', e.target.value)} />
+                    <BooleanInput source="disabled" label="Disabled" onChange={(e) => handleOnChange('disabled', e.target.value)} />
+                    <BooleanInput source="fullWidth" label="Full Width" onChange={(e) => handleOnChange('fullWidth', e.target.value)} />
+                    <TextInput source="source" label="Source" onChange={(e) => handleOnChange('source', e.target.value)} />
+                    <TextInput source="className" label="ClassName" onChange={(e) => handleOnChange('className', e.target.value)} />
                     {children}
                 </SimpleForm>
             </Edit>
