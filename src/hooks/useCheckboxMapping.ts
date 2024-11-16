@@ -1,6 +1,6 @@
-// src/hooks/useCheckboxKeys.ts
+// src/hooks/useCheckboxMapping.ts
 
-const useCheckboxKeys = () => {
+const useCheckboxMapping = () => {
 
     const useKey = (data: any) => {
         const key = Object.keys(data).find(key => (key === 'key'));
@@ -59,4 +59,4 @@ const useCheckboxKeys = () => {
     };
 };
 
-export default useCheckboxKeys;
+export default useCheckboxMapping;

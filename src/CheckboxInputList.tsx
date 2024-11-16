@@ -24,17 +24,16 @@ import {
   CheckboxGroupInput,
 } from "react-admin";
 
-import useCheckboxKeys from "./hooks/useCheckboxKeys";
+import useCheckboxMapping from "./hooks/useCheckboxMapping";
 
 const CheckboxInputRenderer = () => {
 
     const record = useRecordContext();
     const { 
         checkboxMapping,
-     } = useCheckboxKeys();
+     } = useCheckboxMapping();
 
      const checkbox = checkboxMapping(record);
-     console.log(`Checkbox: ${JSON.stringify(checkbox, null, 1)}`);
 
     return (
         <Form
@@ -47,7 +46,6 @@ const CheckboxInputRenderer = () => {
             <CheckboxGroupInput 
                 key={checkbox.key}
                 source="qualquer" 
-                // defaultValue={checkbox.defaultValue}
                 label={checkbox.label || 'Default Label'}
                 helperText={checkbox.helperText || 'Helper text'}
                 labelPlacement={checkbox.labelPlacement}

@@ -198,7 +198,7 @@ export class DB extends Dexie {
             attributes: "++id, type, referenceId, key", 
 
             booleanInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, options", 
-            checkboxInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, labelPlacement, optionValue, translateChoice, choices", 
+            checkboxInputs: "++id, source, className, readOnly, disabled, fullWidth, helperText, label, labelPlacement, optionValue, translateChoice, choices", 
             dateInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
             dateTimeInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, locale, placeholder", 
             fileInputs: "++id, source, className, defaultValue, readOnly, disabled, fullWidth, helperText, label, accept, minSize, maxSize, multiple, placeholder", 
@@ -321,7 +321,6 @@ export class DB extends Dexie {
             id: 1,
             source: 'acceptTerms',             // Identificador do campo, relacionado à aceitação de termos
             className: 'terms-checkbox',       // Classe CSS para customização
-            defaultValue: false,               // Valor padrão (não selecionado)
             readOnly: false,                   // Checkbox é editável
             disabled: false,                   // Não desabilitado
             fullWidth: false,                  // Não ocupa largura total do formulário
@@ -339,7 +338,6 @@ export class DB extends Dexie {
             id: 2,
             source: 'subscribeNewsletter',     // Identificador do campo, relacionado à inscrição em boletins
             className: 'newsletter-checkbox',  // Classe CSS para customização
-            defaultValue: true,                // Valor padrão (selecionado)
             readOnly: false,
             disabled: false,
             fullWidth: false,
