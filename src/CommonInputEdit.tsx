@@ -5,7 +5,12 @@ import { useState, SetStateAction } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput } from 'react-admin';
 import PreviewInput from './PreviewInput';
 
-export const CommonInputEdit = ({ children }: { children?: ReactNode }) => {
+interface CommonInputEditProps {
+    children: ReactNode;
+    component: React.ElementType;
+}
+
+export const CommonInputEdit = ({ children, component: Component }: CommonInputEditProps) => {
 
     const [watchedFields, setWatchedFields] = useState({});
     const [id, setId] = useState('');
@@ -158,7 +163,7 @@ export const CommonInputEdit = ({ children }: { children?: ReactNode }) => {
         <>
             <Edit>
                 <SimpleForm>
-            <PreviewInput watchedFields={watchedFields} component={BooleanInput} />
+                    <PreviewInput watchedFields={watchedFields} component={Component} />
                     <TextInput source="id" label="Id" disabled onChange={handleOnChangeId} />
                     <TextInput source="helperText" label="Helper Text" onChange={handleOnChangeHelperText} />
                     <TextInput source="label" label="Label" onChange={handleOnChangeLabel}/>
