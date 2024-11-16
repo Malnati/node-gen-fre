@@ -1,41 +1,60 @@
 // src/CheckboxInputPropsList.tsx
 
-import { Box } from '@mui/material';
-import { VisibilityOff } from '@mui/icons-material';
-import { Datagrid, List, ReferenceInput, TextField, TextInput, EditButton, ShowButton, BulkDeleteButton, BulkExportButton, DeleteButton, Form, useRecordContext, useUpdate, CheckboxGroupInput, TopToolbar, CreateButton, ExportButton, FilterButton, SelectColumnsButton, BulkUpdateButton } from 'react-admin';
+import { Box } from "@mui/material";
+import { VisibilityOff } from "@mui/icons-material";
+import {
+  Datagrid,
+  List,
+  ReferenceInput,
+  TextField,
+  TextInput,
+  EditButton,
+  ShowButton,
+  BulkDeleteButton,
+  BulkExportButton,
+  DeleteButton,
+  Form,
+  useRecordContext,
+  TopToolbar,
+  CreateButton,
+  ExportButton,
+  FilterButton,
+  SelectColumnsButton,
+  BulkUpdateButton,
+  CheckboxGroupInput,
+} from "react-admin";
+
+import useCheckboxKeys from "./hooks/useCheckboxKeys";
 
 const CheckboxInputRenderer = () => {
+
     const record = useRecordContext();
-    const [update] = useUpdate();
+    const { 
+        checkboxMapping,
+     } = useCheckboxKeys();
 
-    if (!record) {
-        return null;
-    }
-
-    const handleSubmit = (data: any) => {
-        update('booleanInputs', { id: record.id, data });
-    };
+     const checkbox = checkboxMapping(record);
+     console.log(`Checkbox: ${JSON.stringify(checkbox, null, 1)}`);
 
     return (
         <Form
-            onSubmit={handleSubmit}
+            onSubmit={(e: any) => { console.log(`onSubmit: ${JSON.stringify(e, null, 1)}`); }}
             defaultValues={{
-                customCheckbox: record.customBoolean || false,
+                customCheckbox: record || false,
             }}
         >
             <Box display="flex" alignItems="center" gap={2}>
-                <CheckboxGroupInput
-                    source="customCheckbox"
-                    label={record.label || 'Default Label'}
-                    defaultValue={record.defaultValue}
-                    disabled={record.disabled}
-                    fullWidth={record.fullWidth}
-                    helperText={record.helperText || 'Helper text'}
-                    labelPlacement={record.labelPlacement}
-                    optionValue={record.optionValue}
-                    translateChoice={record.translateChoice}
-                    choices={record.choices}
-                />
+            <CheckboxGroupInput 
+                key={checkbox.key}
+                source="qualquer" 
+                // defaultValue={checkbox.defaultValue}
+                label={checkbox.label || 'Default Label'}
+                helperText={checkbox.helperText || 'Helper text'}
+                labelPlacement={checkbox.labelPlacement}
+                disabled={checkbox.disabled}
+                fullWidth={checkbox.fullWidth}
+                choices={checkbox.choices} 
+                translateChoice={checkbox.translateChoice} />
             </Box>
         </Form>
     );
