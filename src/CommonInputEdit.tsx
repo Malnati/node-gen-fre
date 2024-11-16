@@ -1,9 +1,26 @@
-// src/BooleanInputEdit.tsx
+// src/CommonInputEdit.tsx
 
+import { ReactNode } from 'react';
 import { useState, useEffect, SetStateAction } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput, useUpdate, Form, useRecordContext } from 'react-admin';
 import { Box, Paper, Typography } from '@mui/material';
 
+const GenericInput = ({ Component, source, current }: { 
+    Component: React.ElementType; 
+    source: string; 
+    current: any; 
+}) => {
+    return (
+        <Component
+            source={source}
+            label={current?.label || ''}
+            defaultValue={current?.defaultValue}
+            disabled={current?.disabled}
+            fullWidth={current?.fullWidth}
+            helperText={current?.helperText || ''}
+        />
+    );
+};
 
 const Preview = ({ watchedFields }: { watchedFields: any }) => {
 
@@ -12,7 +29,7 @@ const Preview = ({ watchedFields }: { watchedFields: any }) => {
     const [update] = useUpdate();
     
     const handleSubmit = (data: any) => {
-        update('genericInputs', { id: current?.id, data });
+        update('booleanInputs', { id: current?.id, data });
     };
     
     useEffect(() => {
@@ -32,14 +49,7 @@ const Preview = ({ watchedFields }: { watchedFields: any }) => {
                     }}
                 >
                     <Box display="flex" alignItems="center" gap={2}>
-                        <BooleanInput
-                            source="genericInputs"
-                            label={current?.label || ''}
-                            defaultValue={current?.defaultValue}
-                            disabled={current?.disabled}
-                            fullWidth={current?.fullWidth}
-                            helperText={current?.helperText || ''}
-                        />
+                        <GenericInput source="genericInputs" Component={BooleanInput} current={current} />
                     </Box>
                 </Form>
             </Paper>
@@ -47,9 +57,8 @@ const Preview = ({ watchedFields }: { watchedFields: any }) => {
     );
 };
 
-import { ReactNode } from 'react';
 
-export const BooleanInputEdit = ({ children }: { children?: ReactNode }) => {
+export const CommonInputEdit = ({ children }: { children?: ReactNode }) => {
 
     const [watchedFields, setWatchedFields] = useState({});
     const [id, setId] = useState('');
