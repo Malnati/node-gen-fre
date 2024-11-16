@@ -31,8 +31,30 @@ export const GoogleAuthProvider: AuthProvider = {
 
   checkError: () => Promise.resolve(),
 
-  checkAuth: () =>
-    localStorage.getItem("user") ? Promise.resolve() : Promise.reject(),
+  checkAuth: async () => {
+    const persistedUser = localStorage.getItem("user");
+    const user = persistedUser ? JSON.parse(persistedUser) : null;
+  
+    if (user && user.access_token) {
+      try {
+        const response = await fetch(
+          `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${user.access_token}`
+        );
+  
+        if (!response.ok) {
+          throw new Error("Token expired or invalid");
+        }
+  
+        return Promise.resolve();
+      } catch {
+        googleLogout();
+        localStorage.removeItem("user");
+        return Promise.reject(new HttpError("Session expired", 401));
+      }
+    }
+  
+    return Promise.reject(new HttpError("No user authenticated", 401));
+  },
 
   getPermissions: () => Promise.resolve(),
 
