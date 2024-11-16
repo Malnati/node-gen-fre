@@ -6,7 +6,7 @@ import { Edit, SimpleForm, TextInput, BooleanInput } from 'react-admin';
 import PreviewInput from './PreviewInput';
 
 interface CommonInputEditProps {
-    children: ReactNode;
+    children?: ReactNode;
     component: React.ElementType;
 }
 
