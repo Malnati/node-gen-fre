@@ -1,18 +1,10 @@
 // src/hooks/useCheckboxMapping.ts
 
+import useKeys from './useKeys';
+
 const useCheckboxMapping = () => {
 
-    const useKey = (data: any) => {
-        const key = Object.keys(data).find(key => (key === 'key'));
-        if (key) return data;
-        return { key: Date.now().valueOf(), ...data };
-    };
-
-    const useKeyOrId = (data: any) => {
-        const key = Object.keys(data).find(key => (key === 'key' || key === 'id'));
-        if (key) return data;
-        return { key: Date.now().valueOf(), ...data };
-    };
+    const { useKey, useKeyOrId } = useKeys();
 
     const choicesMapping = (data: Array<any>) => {
         return data.map((item: any) => { 
