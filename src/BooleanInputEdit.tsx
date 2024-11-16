@@ -2,7 +2,7 @@
 
 import { useState, useEffect, SetStateAction } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput, useUpdate, Form, useRecordContext } from 'react-admin';
-import { Box, Paper } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 
 
 const Preview = ({ watchedFields }: { watchedFields: any }) => {
@@ -23,8 +23,8 @@ const Preview = ({ watchedFields }: { watchedFields: any }) => {
 
     return (
         <>
-            <span>Preview</span>
-            <Paper elevation={3} sx={{ padding: '15px', width: '100%' }}>
+            <Paper elevation={3} sx={{ padding: '15px', margin: '15px', width: '98%' }}>
+            <Typography variant="h6" sx={{ padding: '15px' }}>Changes view</Typography>
                 <Form
                     onSubmit={handleSubmit}
                     defaultValues={{
@@ -34,11 +34,11 @@ const Preview = ({ watchedFields }: { watchedFields: any }) => {
                     <Box display="flex" alignItems="center" gap={2}>
                         <BooleanInput
                             source="booleanInputs"
-                            label={current?.label || 'Default Label'}
+                            label={current?.label || ''}
                             defaultValue={current?.defaultValue}
                             disabled={current?.disabled}
                             fullWidth={current?.fullWidth}
-                            helperText={current?.helperText || 'Helper text'}
+                            helperText={current?.helperText || ''}
                         />
                     </Box>
                 </Form>
@@ -201,18 +201,18 @@ export const BooleanInputEdit = ({ children }: { children?: ReactNode }) => {
 
     return (
         <>
-            <Preview watchedFields={watchedFields} />
             <Edit>
-                <SimpleForm title='TESTE'>
+                <SimpleForm>
+            <Preview watchedFields={watchedFields} />
                     <TextInput source="id" label="Id" disabled onChange={handleOnChangeId} />
-                    <TextInput source="source" label="Source" onChange={handleOnChangeSource} />
-                    <TextInput source="className" label="ClassName" onChange={handleOnChangeClassName} />
+                    <TextInput source="helperText" label="Helper Text" onChange={handleOnChangeHelperText} />
+                    <TextInput source="label" label="Label" onChange={handleOnChangeLabel}/>
                     <BooleanInput source="defaultValue" label="Default Value" onChange={handleOnChangeDefaultValue} />
                     <BooleanInput source="readOnly" label="Read Only" onChange={handleOnChangeReadOnly} />
                     <BooleanInput source="disabled" label="Disabled" onChange={handleOnChangeDisabled} />
                     <BooleanInput source="fullWidth" label="Full Width" onChange={handleOnChangeFullWidth} />
-                    <TextInput source="helperText" label="Helper Text" onChange={handleOnChangeHelperText} />
-                    <TextInput source="label" label="Label" onChange={handleOnChangeLabel}/>
+                    <TextInput source="source" label="Source" onChange={handleOnChangeSource} />
+                    <TextInput source="className" label="ClassName" onChange={handleOnChangeClassName} />
                     {children}
                 </SimpleForm>
             </Edit>
