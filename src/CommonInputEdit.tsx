@@ -3,7 +3,7 @@
 import { ReactNode } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput } from 'react-admin';
 import PreviewInput from './PreviewEditInput';
-import useCommonInputProps from './hooks/useCommonInputProps';
+import useInputChanges from './hooks/useInputChanges';
 
 interface CommonInputEditProps {
     children?: ReactNode;
@@ -13,15 +13,15 @@ interface CommonInputEditProps {
 export const CommonInputEdit = ({ children, component: Component }: CommonInputEditProps) => {
 
     const {
-        watchedFields,
+        changedFields,
         handleOnChange
-    } = useCommonInputProps();
+    } = useInputChanges();
 
     return (
         <>
             <Edit>
                 <SimpleForm>
-                    <PreviewInput watchedFields={watchedFields} component={Component} />
+                    <PreviewInput watchedFields={changedFields} component={Component} />
                     <TextInput source="id" label="Id" disabled onChange={(e) => handleOnChange('id', e.target.value)} />
                     <TextInput source="helperText" label="Helper Text" onChange={(e) => handleOnChange('helperText', e.target.value)} />
                     <TextInput source="label" label="Label" onChange={(e) => handleOnChange('label', e.target.value)}/>
