@@ -79,17 +79,3 @@ export const App = () => {
   );
 }
 ```
-
-Conclusão
-Este documento explicou como definir o dataTableProvidersMap usando as constantes de banco de dados e interfaces. Com isso, você pode manipular dados em diferentes tabelas do banco de dados Dexie de forma organizada e eficiente.
-
-
-### Explicação
-
-1. **Introdução**: Uma breve introdução sobre o que é o [dataTableProvidersMap](http://_vscodecontentref_/2).
-2. **Definindo as Constantes de Banco de Dados**: Explicação e exemplo de como definir as constantes de banco de dados para cada tipo de dados.
-3. **Definindo o Mapa de Data Providers**: Explicação e exemplo de como definir o [dataTableProvidersMap](http://_vscodecontentref_/3) que associa cada recurso ao seu respectivo `DataProvider`.
-4. **Uso do Mapa de Data Providers**: Exemplo de como usar o [dataTableProvidersMap](http://_vscodecontentref_/4) para acessar os `DataProviders` e realizar operações CRUD.
-5. **Conclusão**: Resumo do que foi explicado no documento.
-
-Isso deve fornecer uma documentação clara e útil para definir e usar o [dataTableProvidersMap](http://_vscodecontentref_/5).
