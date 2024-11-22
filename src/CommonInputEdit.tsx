@@ -3,7 +3,7 @@
 import { ReactNode } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput, CheckboxGroupInput } from 'react-admin';
 import PreviewInput from './PreviewEditInput';
-import useObserveChanges from './hooks/useObserveChanges';
+import { useObserveChanges } from 'react-use-observe-changes'
 import PreviewEditCheckboxInput from './PreviewEditCheckboxInput';
 
 interface CommonInputEditProps {
