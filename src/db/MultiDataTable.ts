@@ -30,7 +30,6 @@ import {
 } from "../types/entities";
 
 import { DataTable } from "./DataTable";
-import { DataProvider } from "react-admin";
 
 // Definindo as instâncias de DataTable para cada tipo de dados
 export const platformsDB = new DataTable<IPlatform>(
