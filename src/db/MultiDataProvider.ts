@@ -1,7 +1,7 @@
 // src/cache/MultiDataProvider.ts
 
 import { DataProvider } from 'react-admin';
-import { dataTableProvidersMap } from '../db/MultiDataTable';
+import { dataTableProvidersMap } from './MultiDataTable';
 
 const getProvider = (resource: string): DataProvider => {
     const provider = dataTableProvidersMap[resource];
