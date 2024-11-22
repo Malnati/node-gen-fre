@@ -12,10 +12,12 @@ Primeiro, defina as constantes de banco de dados para cada tipo de dados. Cada c
 
 ```typescript
 import DataTable from './DataTable';
-import { IApp, IPlatform, IMicroService, IStore, IFrontend, IDatabase, IField, IScreen, IDashboard, ILogin, ISpecification, IBooleanInput, ICheckboxInput, IDateInput, IDateTimeInput, IFileInput, IImageInput, INumberInput, IPasswordInput, IReferenceInput, IRichTextInput, ISearchInput, ISelectInput, ITextInput, ITimeInput, ITranslatableInput } from './interfaces';
+import { IBook, IAuthor } from './interfaces';
 
 // Definindo as instâncias de DataTable para cada tipo de dados
-export const platformsDB = new DataTable<IPlatform>('tb_platforms', "++id, name, *apps, *specifications", []);
+export const booksDB = new DataTable<IBook>('tb_books', "++id, title, authorId, *genres", []);
+export const authorsDB = new DataTable<IAuthor>('tb_authors', '++id, name, *books', []);
+
 ```
 
 ## Definindo o Mapa de Data Providers
@@ -29,24 +31,53 @@ import { IDataTableProvidersMap } from './IDataTableProvidersMap';
 
 // Mapeamento dinâmico de resources para data providers
 export const dataTableProvidersMap: IDataTableProvidersMap = {
-    'platforms': DataProviderFactory(new DataTableService<IPlatform>(platformsDB.getResorceTable())),
-    'apps': DataProviderFactory(new DataTableService<IApp>(appsDB.getResorceTable())),
+    'books': DataProviderFactory(new DataTableService<IBook>(booksDB.getResorceTable())),
+    'authors': DataProviderFactory(new DataTableService<IAuthor>(authorsDB.getResorceTable())),
+};
 ```
 
 ## Uso do Mapa de Data Providers
 
-Agora você pode usar o `dataTableProvidersMap` para acessar os `DataProviders` e realizar operações *CRUD* em diferentes tabelas do banco de dados *Dexie*.
+Agora você pode usar o `dataTableProvidersMap` com o hook `useMultiDataProvides` e realizar operações *CRUD* em diferentes tabelas do banco de dados *Dexie*.
 
 ```typescript
-import { dataTableProvidersMap } from './MultiDataTable';
 
-// Exemplo de uso
-const platformsProvider = dataTableProvidersMap['platforms'];
-const appsProvider = dataTableProvidersMap['apps'];
+...
 
-// Obter uma lista de registros
-const { data: platforms, total: platformsTotal } = await platformsProvider.getList('platforms', { pagination: { page: 1, perPage: 10 }, sort: { field: 'id', order: 'ASC' }, filter: {} });
-const { data: apps, total: appsTotal } = await appsProvider.getList('apps', { pagination: { page: 1, perPage: 10 }, sort: { field: 'id', order: 'ASC' }, filter: {} });
+import { useMultiDataProvides } from "./hooks/useMultiDataProvides";
+import { dataTableProvidersMap } from "./db/MultiDataTable";
+
+...
+
+export const App = () => {
+
+  return (
+      <GoogleOAuthProvider clientId={clientId}>
+        <Admin
+          layout={Layout}
+          dataProvider={useMultiDataProvides(dataTableProvidersMap)}
+          authProvider={GoogleAuthProvider}
+          loginPage={<CustomLogin />} 
+          dashboard={Dashboard}
+          theme={radiantLightTheme}
+          darkTheme={radiantDarkTheme}
+        >
+        
+        <Resource
+          name="books"
+          list={BooksList}
+          create={BooksCreate}
+          edit={BooksEdit}
+          show={BooksShow}
+          icon={SettingsSystemDaydreamIcon}
+        />
+        
+        ...
+
+      </Admin>
+    </GoogleOAuthProvider>
+  );
+}
 ```
 
 Conclusão
