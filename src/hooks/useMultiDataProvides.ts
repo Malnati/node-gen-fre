@@ -1,4 +1,4 @@
-import { defaultDataProvider } from "react-admin";
+import { DataProvider } from "react-admin";
 import { IDataTableProvidersMap } from "../db/IDataTableProvidersMap";
 
 /**
@@ -12,8 +12,38 @@ import { IDataTableProvidersMap } from "../db/IDataTableProvidersMap";
  * @returns A Proxy object that provides access to the keys of the original map.
  */
 export const useMultiDataProvides = (_map: IDataTableProvidersMap) => {
+
+    const getProvider = (resource: string): DataProvider => {
+        const provider = _map[resource];
+        if (!provider) {
+            throw new Error(`DataProvider para o recurso "${resource}" não encontrado`);
+        }
+        return provider;
+    };
+    
+    const defaultDataProvider: DataProvider = {
+        getList: (resource, params) => getProvider(resource).getList(resource, params),
+        getOne: (resource, params) => getProvider(resource).getOne(resource, params),
+        getMany: (resource, params) => getProvider(resource).getMany(resource, params),
+        getManyReference: (resource, params) => getProvider(resource).getManyReference(resource, params),
+        create: (resource, params) => getProvider(resource).create(resource, params),
+        update: (resource, params) => getProvider(resource).update(resource, params),
+        updateMany: (resource, params) => getProvider(resource).updateMany(resource, params),
+        delete: (resource, params) => getProvider(resource).delete(resource, params),
+        deleteMany: (resource, params) => getProvider(resource).deleteMany(resource, params),
+        supportAbortSignal: false, 
+    };
+
     return new Proxy(defaultDataProvider, {
         get: function(target: any, name: string) {
-            return Object.keys(_map).find((key: string) => key === name);
-    }});
+            const key = Object.keys(_map).find((key: string) => key === name);
+            if (!key) {
+                if (name in target) {
+                    return target[name];
+                }
+                throw new Error(`Key ${name} not found in the data provider map.`);
+            }
+            return _map[key];
+        }
+    });
 };
