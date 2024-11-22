@@ -23,7 +23,7 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import { FrontendList } from "./FrontendList";
 import { FieldList } from "./FieldList";
 import { ScreenList } from "./ScreensList";
-import MultiDataProvider from "./cache/MultiDataProvider";
+import MultiDataProvider from "./db/MultiDataTable";
 import { AppList } from "./AppList";
 import { AppCreate } from "./AppCreate";
 import { AppEdit } from "./AppEdit";

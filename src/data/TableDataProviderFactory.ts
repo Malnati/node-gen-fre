@@ -24,9 +24,9 @@ import {
     UpdateResult,
     QueryFunctionContext,
 } from 'react-admin';
-import CRUDService from './CRUDService';
+import CRUDService from '../cache/CRUDService';
 
-const DataProviderFactory = <T extends RaRecord>(service: CRUDService<T>): DataProvider => ({
+const TableDataProviderFactory = <T extends RaRecord>(service: CRUDService<T>): DataProvider => ({
     getList: async function <RecordType extends RaRecord = T>(resource: string, params: GetListParams & QueryFunctionContext): Promise<GetListResult<RecordType>> {
         const items = await service.getAll();
         return { data: items as unknown as RecordType[], total: items.length };
@@ -75,4 +75,4 @@ const DataProviderFactory = <T extends RaRecord>(service: CRUDService<T>): DataP
     }
 });
 
-export default DataProviderFactory;
+export default TableDataProviderFactory;
