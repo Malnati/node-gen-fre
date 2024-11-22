@@ -23,7 +23,6 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import { FrontendList } from "./FrontendList";
 import { FieldList } from "./FieldList";
 import { ScreenList } from "./ScreensList";
-import MultiDataProvider from "./cache/MultiDataProvider";
 import { AppList } from "./AppList";
 import { AppCreate } from "./AppCreate";
 import { AppEdit } from "./AppEdit";
@@ -35,7 +34,7 @@ import { PlatformList } from "./PlatformList";
 import { PlatformCreate } from "./PlatformCreate";
 import { PlatformEdit } from "./PlatformEdit";
 import { PlatformShow } from "./PlatformShow";
-import { BooleanInputList as BooleanInputList } from "./BooleanInputList";
+import { BooleanInputList } from "./BooleanInputList";
 import { CheckboxInputList } from "./CheckboxInputList";
 import { CheckboxInputEdit } from "./CheckboxInputEdit";
 import { DateInputList } from "./DateInputList";
@@ -53,6 +52,8 @@ import { TimeInputList } from "./TimeInputList";
 import { TranslatableInputList } from "./TranslatableInputList";
 import { BooleanInputEdit } from "./BooleanInputEdit";
 import { BooleanInputCreate } from "./BooleanInputCreate";
+import { useMultiDataProvides } from "./hooks/useMultiDataProvides";
+import { dataTableProvidersMap } from "./db/MultiDataTable";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -62,7 +63,7 @@ export const App = () => {
       <GoogleOAuthProvider clientId={clientId}>
         <Admin
           layout={Layout}
-          dataProvider={MultiDataProvider}
+          dataProvider={useMultiDataProvides(dataTableProvidersMap)}
           authProvider={GoogleAuthProvider}
           loginPage={<CustomLogin />} 
           dashboard={Dashboard}
