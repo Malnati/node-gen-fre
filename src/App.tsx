@@ -52,8 +52,8 @@ import { TimeInputList } from "./TimeInputList";
 import { TranslatableInputList } from "./TranslatableInputList";
 import { BooleanInputEdit } from "./BooleanInputEdit";
 import { BooleanInputCreate } from "./BooleanInputCreate";
-import { useMultiDataProvides } from "./hooks/useMultiDataProvides";
 import { dataTableProvidersMap } from "./db/MultiDataTable";
+import { useMultiDataProvides } from "data-table-providers-map";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
