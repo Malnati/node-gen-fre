@@ -53,7 +53,7 @@ import { TranslatableInputList } from "./TranslatableInputList";
 import { BooleanInputEdit } from "./BooleanInputEdit";
 import { BooleanInputCreate } from "./BooleanInputCreate";
 import { dataTableProvidersMap } from "./db/MultiDataTable";
-import { useMultiDataProvides } from "data-table-providers-map";
+import { useMultiDataProvides } from "ra-multi-providers";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 

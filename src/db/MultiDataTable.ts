@@ -1,5 +1,5 @@
 
-import { DataProviderFactory, DataTable, DataTableService } from "data-table-providers-map";
+import { DataProviderFactory, DataTable, DataTableService } from "ra-multi-providers";
 import {
   IApp,
   IPlatform,
@@ -27,7 +27,7 @@ import {
   ICheckboxGroupInputProps,
   ITranslatableInputsProps,
 } from "../types/entities";
-import { IDataTableProvidersMap } from "data-table-providers-map";
+import { IDataTableProvidersMap } from "ra-multi-providers";
 
 // Definindo as instâncias de DataTable para cada tipo de dados
 export const platformsDB = new DataTable<IPlatform>(

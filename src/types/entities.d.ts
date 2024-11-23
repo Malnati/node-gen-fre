@@ -27,7 +27,7 @@ import {
   SpecificationType,
   TextInputAttributeType,
 } from "./types";
-import { IId } from "data-table-providers-map";
+import { IId } from "ra-multi-providers";
 
 export interface IMetadata extends IId {
   referenceId: number; // ID do item relacionado (field, screen, frontend, app)
