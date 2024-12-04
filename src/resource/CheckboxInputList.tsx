@@ -24,7 +24,7 @@ import {
   CheckboxGroupInput,
 } from "react-admin";
 
-import useCheckboxMapping from "./hooks/useCheckboxMapping";
+import useCheckboxMapping from "../hooks/useCheckboxMapping";
 
 const CheckboxInputRenderer = () => {
 
