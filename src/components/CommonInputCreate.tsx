@@ -1,4 +1,4 @@
-// src/CommonInputCreate.tsx
+// src/components/CommonInputCreate.tsx
 
 import { ReactNode } from 'react';
 import { Create, SimpleForm, TextInput, BooleanInput, CheckboxGroupInput } from 'react-admin';

@@ -1,4 +1,4 @@
-// src/BooleanInputPropsList.tsx
+// src/resource/BooleanInputList.tsx
 
 import { Box } from '@mui/material';
 import { VisibilityOff } from '@mui/icons-material';

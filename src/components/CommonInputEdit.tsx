@@ -1,4 +1,4 @@
-// src/CommonInputEdit.tsx
+// src/components/CommonInputEdit.tsx
 
 import { ReactNode } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput, CheckboxGroupInput } from 'react-admin';

@@ -1,4 +1,4 @@
-// src/CheckboxInputPropsList.tsx
+// src/resource/CheckboxInputList.tsx
 
 import { Box } from "@mui/material";
 import { VisibilityOff } from "@mui/icons-material";

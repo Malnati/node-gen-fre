@@ -1,4 +1,4 @@
-// src/BooleanInputCreate.tsx
+// src/resource/BooleanInputCreate.tsx
 
 import { BooleanInput, Create, SimpleForm, TextInput } from 'react-admin';
 

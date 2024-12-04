@@ -1,4 +1,4 @@
-// src/BooleanInputEdit.tsx
+// src/resource/BooleanInputEdit.tsx
 
 import { BooleanInput } from 'react-admin';
 import { CommonInputEdit } from '../components/CommonInputEdit';
