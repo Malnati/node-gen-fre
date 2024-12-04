@@ -51,7 +51,7 @@ import { TextInputList } from "./TextInputList";
 import { TimeInputList } from "./TimeInputList";
 import { TranslatableInputList } from "./TranslatableInputList";
 import { BooleanInputEdit } from "./BooleanInputEdit";
-import { BooleanInputCreate } from "./BooleanInputCreate";
+import { BooleanInputCreate } from "./resource/BooleanInputCreate";
 import { dataTableProvidersMap } from "./db/MultiDataTable";
 import { useMultiDataProvides } from "ra-multi-providers";
 
