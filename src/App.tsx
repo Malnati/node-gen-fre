@@ -37,6 +37,7 @@ import { PlatformShow } from "./PlatformShow";
 import { BooleanInputList } from "./resource/BooleanInputList";
 import { CheckboxInputList } from "./resource/CheckboxInputList";
 import { CheckboxInputEdit } from "./resource/CheckboxInputEdit";
+import { CheckboxInputCreate } from "./resource/CheckboxInputCreate";
 import { DateInputList } from "./DateInputList";
 import { DateTimeInputList } from "./DateTimeInput";
 import { FileInputList } from "./FileInputsList";
@@ -122,6 +123,7 @@ export const App = () => {
           name="checkboxInputs"
           list={CheckboxInputList}
           edit={CheckboxInputEdit}
+          create={CheckboxInputCreate}
           icon={InputIcon}
         />
 

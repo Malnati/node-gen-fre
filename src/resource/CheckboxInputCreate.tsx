@@ -3,7 +3,7 @@
 import { CheckboxGroupInput } from 'react-admin';
 import { CommonInputCreate } from '../components/CommonInputCreate';
 
-export const CheckboxInputEdit = () => {
+export const CheckboxInputCreate = () => {
 
     return (
         <CommonInputCreate component={CheckboxGroupInput} />
