@@ -35,7 +35,7 @@ import { PlatformCreate } from "./PlatformCreate";
 import { PlatformEdit } from "./PlatformEdit";
 import { PlatformShow } from "./PlatformShow";
 import { BooleanInputList } from "./resource/BooleanInputList";
-import { CheckboxInputList } from "./CheckboxInputList";
+import { CheckboxInputList } from "./resource/CheckboxInputList";
 import { CheckboxInputEdit } from "./resource/CheckboxInputEdit";
 import { DateInputList } from "./DateInputList";
 import { DateTimeInputList } from "./DateTimeInput";
