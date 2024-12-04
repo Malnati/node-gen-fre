@@ -1,7 +1,7 @@
 // src/CheckboxInputEdit.tsx
 
 import { CheckboxGroupInput } from 'react-admin';
-import { CommonInputEdit } from './CommonInputEdit';
+import { CommonInputEdit } from './components/CommonInputEdit';
 
 export const CheckboxInputEdit = () => {
 
