@@ -1,7 +1,7 @@
 // src/BooleanInputEdit.tsx
 
 import { BooleanInput } from 'react-admin';
-import { CommonInputEdit } from './components/CommonInputEdit';
+import { CommonInputEdit } from '../components/CommonInputEdit';
 
 export const BooleanInputEdit = () => {
 
