@@ -1,14 +1,14 @@
-// src/PreviewEditCheckboxInput.tsx
+// src/components/CheckboxInputPreview.tsx
 
 import { useState, useEffect } from 'react';
 import { CheckboxGroupInput, useRecordContext } from 'react-admin';
 import { Box, Paper, Typography } from '@mui/material';
 
-interface PreviewEditCheckboxInputProps {
+interface CheckboxInputPreviewProps {
     watchedFields: any;
 }
 
-const PreviewEditCheckboxInput = ({ watchedFields }: PreviewEditCheckboxInputProps) => {
+const CheckboxInputPreview = ({ watchedFields }: CheckboxInputPreviewProps) => {
 
     const record = useRecordContext();
     const [current, setCurrent] = useState(record);
@@ -40,4 +40,4 @@ const PreviewEditCheckboxInput = ({ watchedFields }: PreviewEditCheckboxInputPro
     );
 };
 
-export default PreviewEditCheckboxInput;
+export default CheckboxInputPreview;

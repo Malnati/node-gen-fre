@@ -2,9 +2,9 @@
 
 import { ReactNode } from 'react';
 import { Create, SimpleForm, TextInput, BooleanInput, CheckboxGroupInput } from 'react-admin';
-import PreviewInput from './PreviewEditInput';
+import ComponentInputPreview from './ComponentInputPreview';
 import { useObserveChanges } from 'react-use-observe-changes';
-import PreviewEditCheckboxInput from './PreviewEditCheckboxInput';
+import PreviewCheckboxInput from './CheckboxInputPreview';
 
 interface CommonInputCreateProps {
     children?: ReactNode;
@@ -23,9 +23,9 @@ export const CommonInputCreate = ({ children, component: Component }: CommonInpu
             <Create>
                 <SimpleForm>
                     {Component === CheckboxGroupInput && 
-                        <PreviewEditCheckboxInput watchedFields={observedFields} />}
+                        <PreviewCheckboxInput watchedFields={observedFields} />}
                     {Component !== CheckboxGroupInput && 
-                        <PreviewInput watchedFields={observedFields} component={Component} />}
+                        <ComponentInputPreview watchedFields={observedFields} component={Component} />}
                     <TextInput source="id" label="Id" disabled onChange={(e) => observeIt('id', e.target.value)} />
                     <TextInput source="helperText" label="Helper Text" onChange={(e) => observeIt('helperText', e.target.value)} />
                     <TextInput source="label" label="Label" onChange={(e) => observeIt('label', e.target.value)}/>
