@@ -45,7 +45,7 @@ import { ImageInputList } from "./todo/ImageInputsList";
 import { NumberInputList } from "./todo/NumberInputList";
 import { PasswordInputList } from "./todo/PasswordInputList";
 import { ReferenceInputList } from "./todo/ReferenceInputList";
-import { RichTextInputList } from "./RichTextInputList";
+import { RichTextInputList } from "./todo/RichTextInputList";
 import { SearchInputList } from "./SearchInputList";
 import { SelectInputList } from "./SelectInputList";
 import { TextInputList } from "./TextInputList";
