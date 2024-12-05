@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { Create, SimpleForm, TextInput, BooleanInput, CheckboxGroupInput } from 'react-admin';
 import ComponentInputPreview from './ComponentInputPreview';
 import { useObserveChanges } from 'react-use-observe-changes';
-import PreviewCheckboxInput from './CheckboxInputPreview';
+import PreviewCheckboxInput from '../resource/input/CheckboxInputPreview';
 
 interface CommonInputCreateProps {
     children?: ReactNode;
