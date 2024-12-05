@@ -32,7 +32,6 @@ const CheckboxInputRenderer = () => {
     const { 
         checkboxMapping,
      } = useCheckboxMapping();
-
      const checkbox = checkboxMapping(record);
 
     return (

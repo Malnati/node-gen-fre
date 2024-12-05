@@ -45,6 +45,10 @@ const useCheckboxMapping = () => {
      * @returns The mapped data with unique keys or IDs.
      */
     const choicesMapping = (data: Array<any>) => {
+        if (!data) {
+            console.warn('choicesMapping: data is undefined or null');
+            return [];
+        }
         return data.map((item: any) => { 
             return useKeyOrId(item);
         });
