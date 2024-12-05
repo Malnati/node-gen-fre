@@ -1,7 +1,7 @@
 // src/components/TextFieldPreview.tsx
 
 import { TextField } from '@mui/material';
-import ComponentInputPreview from './ComponentInputPreview';
+import ComponentInputPreview from '../../components/ComponentInputPreview';
 
 const TextFieldPreview = ({ watchedFields }: { watchedFields: any }) => {
     return (
