@@ -49,7 +49,7 @@ import { RichTextInputList } from "./todo/RichTextInputList";
 import { SearchInputList } from "./todo/SearchInputList";
 import { SelectInputList } from "./todo/SelectInputList";
 import { TextInputList } from "./todo/TextInputList";
-import { TimeInputList } from "./TimeInputList";
+import { TimeInputList } from "./todo/TimeInputList";
 import { TranslatableInputList } from "./TranslatableInputList";
 import { BooleanInputEdit } from "./resource/BooleanInputEdit";
 import { BooleanInputCreate } from "./resource/BooleanInputCreate";
