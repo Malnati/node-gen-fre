@@ -46,7 +46,7 @@ import { NumberInputList } from "./todo/NumberInputList";
 import { PasswordInputList } from "./todo/PasswordInputList";
 import { ReferenceInputList } from "./todo/ReferenceInputList";
 import { RichTextInputList } from "./todo/RichTextInputList";
-import { SearchInputList } from "./SearchInputList";
+import { SearchInputList } from "./todo/SearchInputList";
 import { SelectInputList } from "./SelectInputList";
 import { TextInputList } from "./TextInputList";
 import { TimeInputList } from "./TimeInputList";
