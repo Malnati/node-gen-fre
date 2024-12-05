@@ -42,7 +42,7 @@ import { DateInputList } from "./todo/DateInputList";
 import { DateTimeInputList } from "./todo/DateTimeInput";
 import { FileInputList } from "./todo/FileInputsList";
 import { ImageInputList } from "./todo/ImageInputsList";
-import { NumberInputList } from "./NumberInputList";
+import { NumberInputList } from "./todo/NumberInputList";
 import { PasswordInputList } from "./PasswordInputList";
 import { ReferenceInputList } from "./ReferenceInputList";
 import { RichTextInputList } from "./RichTextInputList";
