@@ -1,8 +1,8 @@
 // src/backlog/wip/TextInputEdit.tsx
 
 import { TextInput } from 'react-admin';
-import { CommonInputEdit } from '../../components/CommonInputEdit';
+import { ComponentInputEdit } from '../../components/ComponentInputEdit';
 
 export const TextInputEdit = () => (
-    <CommonInputEdit component={TextInput} />
+    <ComponentInputEdit component={TextInput} />
 );

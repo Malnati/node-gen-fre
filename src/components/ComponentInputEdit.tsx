@@ -1,17 +1,16 @@
-// src/components/CommonInputEdit.tsx
+// src/components/ComponentInputEdit.tsx
 
 import { ReactNode } from 'react';
 import { Edit, SimpleForm, TextInput, BooleanInput, CheckboxGroupInput } from 'react-admin';
 import ComponentInputPreview from './ComponentInputPreview';
 import { useObserveChanges } from 'react-use-observe-changes';
-import PreviewCheckboxInput from './CheckboxInputPreview';
 
-interface CommonInputEditProps {
+interface ComponentInputEditProps {
     children?: ReactNode;
     component: React.ElementType;
 }
 
-export const CommonInputEdit = ({ children, component: Component }: CommonInputEditProps) => {
+export const ComponentInputEdit = ({ children, component: Component }: ComponentInputEditProps) => {
 
     const {
         observedFields,
@@ -22,8 +21,6 @@ export const CommonInputEdit = ({ children, component: Component }: CommonInputE
         <>
             <Edit>
                 <SimpleForm>
-                    {Component === CheckboxGroupInput && 
-                        <PreviewCheckboxInput watchedFields={observedFields} />}
                     {Component !== CheckboxGroupInput && 
                         <ComponentInputPreview watchedFields={observedFields} component={Component} />}
                     <TextInput source="id" label="Id" disabled onChange={(e) => observeIt('id', e.target.value)} />

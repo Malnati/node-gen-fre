@@ -1,12 +1,20 @@
 // src/resource/CheckboxInputEdit.tsx
 
-import { CheckboxGroupInput } from 'react-admin';
-import { CommonInputEdit } from '../../components/CommonInputEdit';
+import { ReactNode } from 'react';
+import { CheckboxInputEdit as CheckboxInputEditComponent } from '../../components/CheckboxInputEdit';
 
-export const CheckboxInputEdit = () => {
+interface CheckboxInputEditProps {
+    children?: ReactNode;
+}
+
+export const CheckboxInputEdit = ({ children }: CheckboxInputEditProps) => {
 
     return (
-        <CommonInputEdit component={CheckboxGroupInput} />
+        <>
+            <CheckboxInputEditComponent >
+                {children}
+            </CheckboxInputEditComponent>
+        </>
     );
 };
 
