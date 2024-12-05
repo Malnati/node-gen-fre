@@ -1,7 +1,10 @@
-// src/resource/CheckboxInputEdit.tsx
+// src/components/CheckboxInputEdit.tsx
 
 import { ReactNode } from 'react';
-import { CheckboxInputEdit as CheckboxInputEditComponent } from '../../components/CheckboxInputEdit';
+import { CheckboxGroupInput } from 'react-admin';
+import { useObserveChanges } from 'react-use-observe-changes';
+import PreviewCheckboxInput from '../../components/CheckboxInputPreview';
+import { CommonFormInputEdit } from '../../components/CommonFormInputEdit';
 
 interface CheckboxInputEditProps {
     children?: ReactNode;
@@ -9,12 +12,19 @@ interface CheckboxInputEditProps {
 
 export const CheckboxInputEdit = ({ children }: CheckboxInputEditProps) => {
 
+    const {
+        observedFields,
+    } = useObserveChanges();
+
     return (
         <>
-            <CheckboxInputEditComponent >
+            <PreviewCheckboxInput watchedFields={observedFields} />
+            <CommonFormInputEdit component={CheckboxGroupInput}>
                 {children}
-            </CheckboxInputEditComponent>
+            </CommonFormInputEdit>
         </>
     );
 };
+
+
 
