@@ -40,7 +40,7 @@ import { CheckboxInputEdit } from "./resource/CheckboxInputEdit";
 import { CheckboxInputCreate } from "./resource/CheckboxInputCreate";
 import { DateInputList } from "./todo/DateInputList";
 import { DateTimeInputList } from "./todo/DateTimeInput";
-import { FileInputList } from "./FileInputsList";
+import { FileInputList } from "./todo/FileInputsList";
 import { ImageInputList } from "./ImageInputsList";
 import { NumberInputList } from "./NumberInputList";
 import { PasswordInputList } from "./PasswordInputList";
