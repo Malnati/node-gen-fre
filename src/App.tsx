@@ -41,7 +41,7 @@ import { CheckboxInputCreate } from "./resource/CheckboxInputCreate";
 import { DateInputList } from "./todo/DateInputList";
 import { DateTimeInputList } from "./todo/DateTimeInput";
 import { FileInputList } from "./todo/FileInputsList";
-import { ImageInputList } from "./ImageInputsList";
+import { ImageInputList } from "./todo/ImageInputsList";
 import { NumberInputList } from "./NumberInputList";
 import { PasswordInputList } from "./PasswordInputList";
 import { ReferenceInputList } from "./ReferenceInputList";
