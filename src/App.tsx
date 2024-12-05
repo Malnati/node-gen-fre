@@ -55,6 +55,9 @@ import { TimeInputList } from "./backlog/TimeInputList";
 import { TranslatableInputList } from "./backlog/TranslatableInputList";
 import { dataTableProvidersMap } from "./db/MultiDataTable";
 import { useMultiDataProvides } from "ra-multi-providers";
+import { TextInputCreate } from "./backlog/wip/TextInputCreate";
+import { CommonInputEdit } from "./components/CommonInputEdit";
+import { TextInputEdit } from "./backlog/wip/TextInputEdit";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -75,6 +78,8 @@ export const App = () => {
         <Resource
           name="textInputs"
           list={TextInputList}
+          create={TextInputCreate}
+          edit={TextInputEdit}
           icon={FormatAlignJustifyIcon}
         />
 
