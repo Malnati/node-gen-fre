@@ -11,6 +11,8 @@ import {
 import { Layout } from "./Layout";
 import { GoogleAuthProvider } from "./security/GoogleAuthProvider";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { dataTableProvidersMap } from "./db/MultiDataTable";
+import { useMultiDataProvides } from "ra-multi-providers";
 import CustomLogin from "./security/CustomLogin";
 import { FrontCreate } from "./backlog/FrontendCreate";
 import WidgetsIcon from '@mui/icons-material/Widgets';
@@ -26,11 +28,9 @@ import { BooleanInputCreate } from "./resource/input/BooleanInputCreate";
 import { CheckboxInputList } from "./resource/input/CheckboxInputList";
 import { CheckboxInputEdit } from "./resource/input/CheckboxInputEdit";
 import { CheckboxInputCreate } from "./resource/input/CheckboxInputCreate";
-// import { FieldList } from "./backlog/wip/FieldList";
-// import { FieldEdit } from "./backlog/wip/FieldEdit";
-// import { FieldShow } from "./backlog/wip/FieldShow";
-// import { FieldCreate } from "./backlog/wip/FieldCreate";
-import { TextInputList } from "./backlog/wip/TextInputList";
+import { TextInputCreate } from "./backlog/to_add_specs/TextInputCreate";
+import { TextInputEdit } from "./backlog/to_add_specs/TextInputEdit";
+import { TextInputList } from "./backlog/to_add_specs/TextInputList";
 import { FrontendList } from "./backlog/FrontendList";
 import { ScreenList } from "./backlog/ScreensList";
 import { AppList } from "./backlog/AppList";
@@ -53,11 +53,6 @@ import { SearchInputList } from "./backlog/SearchInputList";
 import { SelectInputList } from "./backlog/SelectInputList";
 import { TimeInputList } from "./backlog/TimeInputList";
 import { TranslatableInputList } from "./backlog/TranslatableInputList";
-import { dataTableProvidersMap } from "./db/MultiDataTable";
-import { useMultiDataProvides } from "ra-multi-providers";
-import { TextInputCreate } from "./backlog/wip/TextInputCreate";
-import { CommonInputEdit } from "./components/CommonInputEdit";
-import { TextInputEdit } from "./backlog/wip/TextInputEdit";
 
 const clientId = "178353359157-3m13s46p97pdgl35pfmri5a5g6737qpp.apps.googleusercontent.com";
 
@@ -83,20 +78,11 @@ export const App = () => {
           icon={FormatAlignJustifyIcon}
         />
 
-        {/* <Resource name="fields" 
-          list={FieldList}
-          create={FieldCreate}
-          edit={FieldEdit}
-          show={FieldShow}
-          icon={FormatAlignJustifyIcon}
-        /> */}
-
         <Resource
           name="booleanInputs"
           list={BooleanInputList}
           edit={BooleanInputEdit}
           create={BooleanInputCreate}
-          // show={BooleanInputShow}
           icon={InputIcon}
         />
 
