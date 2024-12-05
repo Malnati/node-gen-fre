@@ -22,7 +22,7 @@ import InputIcon from '@mui/icons-material/Input';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { FrontendList } from "./todo/FrontendList";
 import { FieldList } from "./todo/FieldList";
-import { ScreenList } from "./ScreensList";
+import { ScreenList } from "./todo/ScreensList";
 import { AppList } from "./todo/AppList";
 import { AppCreate } from "./todo/AppCreate";
 import { AppEdit } from "./todo/AppEdit";
