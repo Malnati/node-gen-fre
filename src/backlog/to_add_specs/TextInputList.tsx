@@ -2,7 +2,9 @@
 
 import { Fragment } from 'react';
 
-import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, BulkDeleteButton, BulkExportButton, DeleteButton } from 'react-admin';
+import { Datagrid, List, ReferenceInput, TextField, TextInput, ListActions, EditButton, ShowButton, BulkDeleteButton, BulkExportButton, DeleteButton, useRecordContext } from 'react-admin';
+
+const record = useRecordContext();
 
 const filters = [
     <TextInput source="q" label="Text" alwaysOn />,
