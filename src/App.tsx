@@ -20,11 +20,18 @@ import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import SettingsSystemDaydreamIcon from '@mui/icons-material/SettingsSystemDaydream';
 import InputIcon from '@mui/icons-material/Input';
 import PreviewIcon from '@mui/icons-material/Preview';
+import { BooleanInputList } from "./resource/input/BooleanInputList";
+import { BooleanInputEdit } from "./resource/input/BooleanInputEdit";
+import { BooleanInputCreate } from "./resource/input/BooleanInputCreate";
+import { CheckboxInputList } from "./resource/input/CheckboxInputList";
+import { CheckboxInputEdit } from "./resource/input/CheckboxInputEdit";
+import { CheckboxInputCreate } from "./resource/input/CheckboxInputCreate";
+// import { FieldList } from "./backlog/wip/FieldList";
+// import { FieldEdit } from "./backlog/wip/FieldEdit";
+// import { FieldShow } from "./backlog/wip/FieldShow";
+// import { FieldCreate } from "./backlog/wip/FieldCreate";
+import { TextInputList } from "./backlog/wip/TextInputList";
 import { FrontendList } from "./backlog/FrontendList";
-import { FieldList } from "./backlog/wip/FieldList";
-import { FieldEdit } from "./backlog/wip/FieldEdit";
-import { FieldShow } from "./backlog/wip/FieldShow";
-import { FieldCreate } from "./backlog/wip/FieldCreate";
 import { ScreenList } from "./backlog/ScreensList";
 import { AppList } from "./backlog/AppList";
 import { AppCreate } from "./backlog/AppCreate";
@@ -34,12 +41,6 @@ import { PlatformList } from "./backlog/PlatformList";
 import { PlatformCreate } from "./backlog/PlatformCreate";
 import { PlatformEdit } from "./backlog/PlatformEdit";
 import { PlatformShow } from "./backlog/PlatformShow";
-import { BooleanInputList } from "./resource/input/BooleanInputList";
-import { BooleanInputEdit } from "./resource/input/BooleanInputEdit";
-import { BooleanInputCreate } from "./resource/input/BooleanInputCreate";
-import { CheckboxInputList } from "./resource/input/CheckboxInputList";
-import { CheckboxInputEdit } from "./resource/input/CheckboxInputEdit";
-import { CheckboxInputCreate } from "./resource/input/CheckboxInputCreate";
 import { DateInputList } from "./backlog/DateInputList";
 import { DateTimeInputList } from "./backlog/DateTimeInput";
 import { FileInputList } from "./backlog/FileInputsList";
@@ -50,7 +51,6 @@ import { ReferenceInputList } from "./backlog/ReferenceInputList";
 import { RichTextInputList } from "./backlog/RichTextInputList";
 import { SearchInputList } from "./backlog/SearchInputList";
 import { SelectInputList } from "./backlog/SelectInputList";
-import { TextInputList } from "./backlog/TextInputList";
 import { TimeInputList } from "./backlog/TimeInputList";
 import { TranslatableInputList } from "./backlog/TranslatableInputList";
 import { dataTableProvidersMap } from "./db/MultiDataTable";
@@ -72,13 +72,19 @@ export const App = () => {
           darkTheme={radiantDarkTheme}
         >
 
-        <Resource name="fields" 
+        <Resource
+          name="textInputs"
+          list={TextInputList}
+          icon={FormatAlignJustifyIcon}
+        />
+
+        {/* <Resource name="fields" 
           list={FieldList}
           create={FieldCreate}
           edit={FieldEdit}
           show={FieldShow}
           icon={FormatAlignJustifyIcon}
-        />
+        /> */}
 
         <Resource
           name="booleanInputs"
@@ -154,12 +160,6 @@ export const App = () => {
         <Resource
           name="selectInputs"
           list={SelectInputList}
-          icon={InputIcon}
-        />
-
-        <Resource
-          name="textInputs"
-          list={TextInputList}
           icon={InputIcon}
         />
 
