@@ -22,14 +22,14 @@ import InputIcon from '@mui/icons-material/Input';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { FrontendList } from "./backlog/FrontendList";
 import { FieldList } from "./backlog/wip/FieldList";
+import { FieldEdit } from "./backlog/wip/FieldEdit";
+import { FieldShow } from "./backlog/wip/FieldShow";
+import { FieldCreate } from "./backlog/wip/FieldCreate";
 import { ScreenList } from "./backlog/ScreensList";
 import { AppList } from "./backlog/AppList";
 import { AppCreate } from "./backlog/AppCreate";
 import { AppEdit } from "./backlog/AppEdit";
 import { AppShow } from "./backlog/AppShow";
-import { FieldCreate } from "./backlog/wip/FieldCreate";
-import { FieldEdit } from "./backlog/wip/FieldEdit";
-import { FieldShow } from "./backlog/wip/FieldShow";
 import { PlatformList } from "./backlog/PlatformList";
 import { PlatformCreate } from "./backlog/PlatformCreate";
 import { PlatformEdit } from "./backlog/PlatformEdit";
@@ -71,37 +71,7 @@ export const App = () => {
           theme={radiantLightTheme}
           darkTheme={radiantDarkTheme}
         >
-        
-        <Resource
-          name="platforms"
-          list={PlatformList}
-          create={PlatformCreate}
-          edit={PlatformEdit}
-          show={PlatformShow}
-          icon={SettingsSystemDaydreamIcon}
-        />
-        
-        <Resource
-          name="apps"
-          list={AppList}
-          create={AppCreate}
-          edit={AppEdit}
-          show={AppShow}
-          icon={WidgetsIcon}
-        />
-        
-        <Resource
-          name="frontends"
-          list={FrontendList}
-          create={FrontCreate}
-          icon={TvIcon}
-        />
-        
-        <Resource name="screens" 
-          list={ScreenList}
-          icon={PreviewIcon}
-        />
-        
+
         <Resource name="fields" 
           list={FieldList}
           create={FieldCreate}
@@ -203,6 +173,36 @@ export const App = () => {
           name="translatableInputs"
           list={TranslatableInputList}
           icon={InputIcon}
+        />
+        
+        <Resource
+          name="platforms"
+          list={PlatformList}
+          create={PlatformCreate}
+          edit={PlatformEdit}
+          show={PlatformShow}
+          icon={SettingsSystemDaydreamIcon}
+        />
+        
+        <Resource
+          name="apps"
+          list={AppList}
+          create={AppCreate}
+          edit={AppEdit}
+          show={AppShow}
+          icon={WidgetsIcon}
+        />
+        
+        <Resource
+          name="frontends"
+          list={FrontendList}
+          create={FrontCreate}
+          icon={TvIcon}
+        />
+        
+        <Resource name="screens" 
+          list={ScreenList}
+          icon={PreviewIcon}
         />
 
       </Admin>
