@@ -40,11 +40,8 @@ const useTextInputMapping = () => {
      * @param data - The data to be mapped.
      * @returns The mapped data with unique keys.
      */
-    const recordsMapping = (data: Array<any>) => {
-        console.log(`data: ${JSON.stringify(data, null, 1)}`);
-        return data.map((item: any) => { 
-            return useKey(item);
-        });
+    const recordsMapping = (data: any) => {
+        return useKey(data);
     };
 
     /**
@@ -73,10 +70,9 @@ const useTextInputMapping = () => {
      * // }
      */
     const textFieldMapping = (data: any) => {
-        console.log(`textFieldMapping data: ${JSON.stringify(data, null, 1)}`);
         let textFieldData = { ...data }; 
         if (textFieldData) {
-            textFieldData.records = recordsMapping(textFieldData.records);
+            textFieldData.records = recordsMapping(textFieldData);
         }
         return textFieldData;
     };

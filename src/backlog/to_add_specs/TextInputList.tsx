@@ -29,12 +29,10 @@ export const TextInputListRender = () => {
     
     const record = useRecordContext();
     const { textFieldMapping } = useTextInputMapping();
-    console.log(`record: ${JSON.stringify(record, null, 1)}`);
 
     let textField;
     if (record) {
         textField = textFieldMapping(record);
-        console.log(`textField: ${JSON.stringify(textField, null, 1)}`);
     }
 
     return (
