@@ -14,20 +14,39 @@ import useKeys from './useKeys';
  * const { textFieldMapping } = useTextInputMapping();
  * 
  * const data = {
- *     records: [
- *         { id: 1, source: 'name', className: 'input-class', defaultValue: 'John Doe', readOnly: false, disabled: false, fullWidth: true, helperText: 'Enter your name', label: 'Name', type: 'text', resettable: true, multiline: false, placeholder: 'Name' },
- *         { id: 2, source: 'email', className: 'input-class', defaultValue: 'john@example.com', readOnly: false, disabled: false, fullWidth: true, helperText: 'Enter your email', label: 'Email', type: 'email', resettable: true, multiline: false, placeholder: 'Email' }
- *     ]
+ *     id: 1,
+ *     source: 'name',
+ *     className: 'input-class',
+ *     defaultValue: 'John Doe',
+ *     readOnly: false,
+ *     disabled: false,
+ *     fullWidth: true,
+ *     helperText: 'Enter your name',
+ *     label: 'Name',
+ *     type: 'text',
+ *     resettable: true,
+ *     multiline: false,
+ *     placeholder: 'Name'
  * };
  * 
  * const transformedData = textFieldMapping(data);
  * 
  * console.log(transformedData);
  * // {
- * //     records: [
- * //         { id: 1, key: 1, source: 'name', className: 'input-class', defaultValue: 'John Doe', readOnly: false, disabled: false, fullWidth: true, helperText: 'Enter your name', label: 'Name', type: 'text', resettable: true, multiline: false, placeholder: 'Name' },
- * //         { id: 2, key: 2, source: 'email', className: 'input-class', defaultValue: 'john@example.com', readOnly: false, disabled: false, fullWidth: true, helperText: 'Enter your email', label: 'Email', type: 'email', resettable: true, multiline: false, placeholder: 'Email' }
- * //     ]
+ * //     id: 1,
+ * //     key: 1,
+ * //     source: 'name',
+ * //     className: 'input-class',
+ * //     defaultValue: 'John Doe',
+ * //     readOnly: false,
+ * //     disabled: false,
+ * //     fullWidth: true,
+ * //     helperText: 'Enter your name',
+ * //     label: 'Name',
+ * //     type: 'text',
+ * //     resettable: true,
+ * //     multiline: false,
+ * //     placeholder: 'Name'
  * // }
  */
 const useTextInputMapping = () => {
@@ -35,51 +54,70 @@ const useTextInputMapping = () => {
     const { useKey } = useKeys();
 
     /**
-     * Maps a list of records, ensuring each record has a unique key.
+     * Maps a record, ensuring it has a unique key.
      * 
      * @param data - The data to be mapped.
-     * @returns The mapped data with unique keys.
+     * @returns The mapped data with a unique key.
      */
-    const recordsMapping = (data: any) => {
+    const recordMapping = (data: any) => {
         return useKey(data);
     };
 
     /**
-     * Transforms an object of data, applying the mapping functions to generate
-     * the records for TextInput components.
+     * Transforms a record of data, applying the mapping functions to generate
+     * the properties for TextInput components.
      * 
      * @param data - The data to be transformed.
-     * @returns The transformed data with records.
+     * @returns The transformed data with a unique key.
      * 
      * @example
      * const data = {
-     *     records: [
-     *         { id: 1, source: 'name', className: 'input-class', defaultValue: 'John Doe', readOnly: false, disabled: false, fullWidth: true, helperText: 'Enter your name', label: 'Name', type: 'text', resettable: true, multiline: false, placeholder: 'Name' },
-     *         { id: 2, source: 'email', className: 'input-class', defaultValue: 'john@example.com', readOnly: false, disabled: false, fullWidth: true, helperText: 'Enter your email', label: 'Email', type: 'email', resettable: true, multiline: false, placeholder: 'Email' }
-     *     ]
+     *     id: 1,
+     *     source: 'name',
+     *     className: 'input-class',
+     *     defaultValue: 'John Doe',
+     *     readOnly: false,
+     *     disabled: false,
+ *     fullWidth: true,
+ *     helperText: 'Enter your name',
+ *     label: 'Name',
+ *     type: 'text',
+ *     resettable: true,
+ *     multiline: false,
+ *     placeholder: 'Name'
      * };
      * 
      * const transformedData = textFieldMapping(data);
      * 
      * console.log(transformedData);
      * // {
-     * //     records: [
-     * //         { id: 1, key: 1, source: 'name', className: 'input-class', defaultValue: 'John Doe', readOnly: false, disabled: false, fullWidth: true, helperText: 'Enter your name', label: 'Name', type: 'text', resettable: true, multiline: false, placeholder: 'Name' },
-     * //         { id: 2, key: 2, source: 'email', className: 'input-class', defaultValue: 'john@example.com', readOnly: false, disabled: false, fullWidth: true, helperText: 'Enter your email', label: 'Email', type: 'email', resettable: true, multiline: false, placeholder: 'Email' }
-     * //     ]
+     * //     id: 1,
+     * //     key: 1,
+     * //     source: 'name',
+     * //     className: 'input-class',
+     * //     defaultValue: 'John Doe',
+     * //     readOnly: false,
+     * //     disabled: false,
+     * //     fullWidth: true,
+     * //     helperText: 'Enter your name',
+     * //     label: 'Name',
+     * //     type: 'text',
+     * //     resettable: true,
+     * //     multiline: false,
+     * //     placeholder: 'Name'
      * // }
      */
     const textFieldMapping = (data: any) => {
         let textFieldData = { ...data }; 
         if (textFieldData) {
-            textFieldData.records = recordsMapping(textFieldData);
+            textFieldData = recordMapping(textFieldData);
         }
         return textFieldData;
     };
 
     return {
         textFieldMapping,
-        recordsMapping,
+        recordMapping,
         useKey
     };
 };
