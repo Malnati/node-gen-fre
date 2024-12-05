@@ -38,7 +38,7 @@ import { BooleanInputList } from "./resource/BooleanInputList";
 import { CheckboxInputList } from "./resource/CheckboxInputList";
 import { CheckboxInputEdit } from "./resource/CheckboxInputEdit";
 import { CheckboxInputCreate } from "./resource/CheckboxInputCreate";
-import { DateInputList } from "./DateInputList";
+import { DateInputList } from "./todo/DateInputList";
 import { DateTimeInputList } from "./DateTimeInput";
 import { FileInputList } from "./FileInputsList";
 import { ImageInputList } from "./ImageInputsList";
