@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 import { SimpleForm } from 'react-admin';
 import { ComponentInputEdit } from './ComponentInputEdit';
 
-interface CommonInputFormProps {
+interface ComponentInputFormProps {
     children?: ReactNode;
     component: React.ElementType;
 }
 
-export const CommonInputForm = ({ children, component }: CommonInputFormProps) => {
+export const ComponentInputForm = ({ children, component }: ComponentInputFormProps) => {
 
     return (
         <>

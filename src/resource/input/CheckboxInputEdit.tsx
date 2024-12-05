@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { CheckboxGroupInput } from 'react-admin';
 import { useObserveChanges } from 'react-use-observe-changes';
 import PreviewCheckboxInput from './CheckboxInputPreview';
-import { CommonFormInputEdit } from '../../components/CommonFormInputEdit';
+import { ComponentFormInputEdit } from '../../components/ComponentFormInputEdit';
 
 interface CheckboxInputEditProps {
     children?: ReactNode;
@@ -19,9 +19,9 @@ export const CheckboxInputEdit = ({ children }: CheckboxInputEditProps) => {
     return (
         <>
             <PreviewCheckboxInput watchedFields={observedFields} />
-            <CommonFormInputEdit component={CheckboxGroupInput}>
+            <ComponentFormInputEdit component={CheckboxGroupInput}>
                 {children}
-            </CommonFormInputEdit>
+            </ComponentFormInputEdit>
         </>
     );
 };
