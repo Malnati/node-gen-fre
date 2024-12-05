@@ -14,12 +14,20 @@ export const CheckboxInputEdit = ({ children }: CheckboxInputEditProps) => {
 
     const {
         observedFields,
+        observeIt
     } = useObserveChanges();
 
     return (
         <>
-            <PreviewCheckboxInput watchedFields={observedFields} />
             <ComponentFormInputEdit component={CheckboxGroupInput}>
+                <PreviewCheckboxInput watchedFields={observedFields} />
+                <CheckboxGroupInput
+                    source="choices"
+                    choices={observedFields.choices || []}
+                    optionText={observedFields.optionText || 'name'}
+                    optionValue={observedFields.optionValue || 'id'}
+                    onChange={(e) => observeIt('choices', e.target.value)}
+                />
                 {children}
             </ComponentFormInputEdit>
         </>

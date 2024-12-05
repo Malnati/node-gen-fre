@@ -14,7 +14,8 @@ const CheckboxInputPreview = ({ watchedFields }: CheckboxInputPreviewProps) => {
     const [current, setCurrent] = useState(record);
     
     useEffect(() => {
-        setCurrent(watchedFields);
+        if (watchedFields)
+            setCurrent(watchedFields);
     }, [watchedFields]);
 
     if (!current) return null;
