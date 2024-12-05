@@ -43,7 +43,7 @@ import { DateTimeInputList } from "./todo/DateTimeInput";
 import { FileInputList } from "./todo/FileInputsList";
 import { ImageInputList } from "./todo/ImageInputsList";
 import { NumberInputList } from "./todo/NumberInputList";
-import { PasswordInputList } from "./PasswordInputList";
+import { PasswordInputList } from "./todo/PasswordInputList";
 import { ReferenceInputList } from "./ReferenceInputList";
 import { RichTextInputList } from "./RichTextInputList";
 import { SearchInputList } from "./SearchInputList";
