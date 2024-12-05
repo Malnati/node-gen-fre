@@ -50,7 +50,7 @@ import { SearchInputList } from "./todo/SearchInputList";
 import { SelectInputList } from "./todo/SelectInputList";
 import { TextInputList } from "./todo/TextInputList";
 import { TimeInputList } from "./todo/TimeInputList";
-import { TranslatableInputList } from "./TranslatableInputList";
+import { TranslatableInputList } from "./todo/TranslatableInputList";
 import { BooleanInputEdit } from "./resource/BooleanInputEdit";
 import { BooleanInputCreate } from "./resource/BooleanInputCreate";
 import { dataTableProvidersMap } from "./db/MultiDataTable";
