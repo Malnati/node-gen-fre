@@ -2,6 +2,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "start": "BROWSER='google chrome'; vite",
+    "incognito": "BROWSER='google chrome'; BROWSER_ARGS='--incognito'; vite",
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
