@@ -26,7 +26,7 @@ import { BooleanInputList } from "./resource/input/BooleanInputList";
 import { BooleanInputEdit } from "./resource/input/BooleanInputEdit";
 import { BooleanInputCreate } from "./resource/input/BooleanInputCreate";
 import { CheckboxInputList } from "./resource/input/CheckboxInputList";
-import { CheckboxInputEdit } from "./resource/input/CheckboxInputEdit";
+import { CheckboxInputEdit } from "./backlog/wip/CheckboxInputEdit";
 import { CheckboxInputCreate } from "./resource/input/CheckboxInputCreate";
 import { TextInputCreate } from "./backlog/to_add_specs/TextInputCreate";
 import { TextInputEdit } from "./backlog/to_add_specs/TextInputEdit";

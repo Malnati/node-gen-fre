@@ -3,7 +3,7 @@
 import { ReactNode } from 'react';
 import { CheckboxGroupInput } from 'react-admin';
 import { useObserveChanges } from 'react-use-observe-changes';
-import PreviewCheckboxInput from './CheckboxInputPreview';
+import PreviewCheckboxInput from '../../resource/input/CheckboxInputPreview';
 import { ComponentFormInputEdit } from '../../components/ComponentFormInputEdit';
 
 interface CheckboxInputEditProps {
@@ -21,13 +21,13 @@ export const CheckboxInputEdit = ({ children }: CheckboxInputEditProps) => {
         <>
             <ComponentFormInputEdit component={CheckboxGroupInput}>
                 <PreviewCheckboxInput watchedFields={observedFields} />
-                <CheckboxGroupInput
+                {/* <CheckboxGroupInput
                     source="choices"
                     choices={observedFields.choices || []}
                     optionText={observedFields.optionText || 'name'}
                     optionValue={observedFields.optionValue || 'id'}
                     onChange={(e) => observeIt('choices', e.target.value)}
-                />
+                /> */}
                 {children}
             </ComponentFormInputEdit>
         </>
