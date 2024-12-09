@@ -15,7 +15,8 @@ export const BooleanInputCreate = ({ children }: BooleanInputCreateProps) => {
     const { observedFields, observeIt } = useObserveChanges();
 
     return (
-            <ComponentInputCreate preview={<ComponentInputPreview watchedFields={observedFields} component={BooleanInput} />} >
+            <ComponentInputCreate preview={<ComponentInputPreview watchedFields={observedFields} component={BooleanInput} />} 
+                                  observedFields={observedFields}>
                 {children}
                 <BooleanInput source="defaultValue" label="Default Value" onChange={(e) => observeIt('defaultValue', e.target.value)} />
             </ComponentInputCreate>

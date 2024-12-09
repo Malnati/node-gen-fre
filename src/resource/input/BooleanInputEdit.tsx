@@ -15,7 +15,8 @@ export const BooleanInputEdit = ({ children }: BooleanInputEditProps) => {
     const { observedFields, observeIt } = useObserveChanges();
 
     return (
-            <ComponentInputEdit preview={<ComponentInputPreview watchedFields={observedFields} component={BooleanInput} />} >
+            <ComponentInputEdit preview={<ComponentInputPreview watchedFields={observedFields} component={BooleanInput} />} 
+                                observedFields={observedFields}>
                 {children}
                 <BooleanInput source="defaultValue" label="Default Value" onChange={(e) => observeIt('defaultValue', e.target.value)} />
             </ComponentInputEdit>

@@ -7,13 +7,14 @@ import { CommonInputForm } from './CommonInputForm';
 interface ComponentInputEditProps {
     children?: ReactNode;
     preview?: ReactNode;
+    observedFields?: {};
 }
 
-export const ComponentInputEdit = ({ children, preview }: ComponentInputEditProps) => {
+export const ComponentInputEdit = ({ children, preview, observedFields }: ComponentInputEditProps) => {
 
     return (
             <Edit>
-                <CommonInputForm preview={preview} >
+                <CommonInputForm preview={preview} observedFields={observedFields}>
                     {children}
                 </CommonInputForm>
             </Edit>

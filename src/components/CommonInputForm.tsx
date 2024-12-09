@@ -7,14 +7,17 @@ import { SimpleForm, TextInput, BooleanInput } from 'react-admin';
 interface CommonInputFormProps {
     children?: ReactNode;
     preview?: ReactNode;
+    observedFields?: {};
 }
 
-export const CommonInputForm = ({ children, preview }: CommonInputFormProps) => {
+export const CommonInputForm = ({ children, preview, observedFields }: CommonInputFormProps) => {
 
     const {
-        observedFields,
-        observeIt
+        observeIt,
+        observeAll
     } = useObserveChanges();
+
+    observeAll(observedFields);
 
     return (
             <SimpleForm>

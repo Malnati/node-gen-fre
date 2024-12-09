@@ -15,15 +15,15 @@
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
     "@types/react-dropzone": "^4.2.2",
-    "ra-multi-providers": "^1.0.0",
     "dexie": "^4.0.9",
     "ra-data-fakerest": "^5.3.0",
     "ra-input-rich-text": "^5.3.3",
+    "ra-multi-providers": "^1.0.0",
     "react": "^18.3.0",
     "react-admin": "^5.3.0",
     "react-dom": "^18.3.0",
     "react-dropzone": "^14.3.5",
-    "react-use-observe-changes": "^1.0.0"
+    "react-use-observe-changes": "^5.0.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
