@@ -11,10 +11,6 @@ export const ComponentInputForm = ({ children, component }: ComponentInputFormPr
 
     return (
         <>
-            <SimpleForm>
-                {children}
-                <ComponentInputEdit component={component} />
-            </SimpleForm>
         </>
     );
 };

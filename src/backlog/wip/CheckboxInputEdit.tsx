@@ -1,10 +1,10 @@
 // src/components/CheckboxInputEdit.tsx
 
 import { ReactNode } from 'react';
-import { CheckboxGroupInput } from 'react-admin';
 import { useObserveChanges } from 'react-use-observe-changes';
-import PreviewCheckboxInput from '../../resource/input/CheckboxInputPreview';
-import { ComponentFormInputEdit } from '../../components/ComponentFormInputEdit';
+import { BooleanInput, CheckboxGroupInput } from 'react-admin';
+import { ComponentInputEdit } from '../../components/ComponentInputEdit';
+import ComponentInputPreview from '../../components/ComponentInputPreview';
 
 interface CheckboxInputEditProps {
     children?: ReactNode;
@@ -18,19 +18,10 @@ export const CheckboxInputEdit = ({ children }: CheckboxInputEditProps) => {
     } = useObserveChanges();
 
     return (
-        <>
-            <ComponentFormInputEdit component={CheckboxGroupInput}>
-                <PreviewCheckboxInput watchedFields={observedFields} />
-                {/* <CheckboxGroupInput
-                    source="choices"
-                    choices={observedFields.choices || []}
-                    optionText={observedFields.optionText || 'name'}
-                    optionValue={observedFields.optionValue || 'id'}
-                    onChange={(e) => observeIt('choices', e.target.value)}
-                /> */}
+            <ComponentInputEdit preview={<ComponentInputPreview watchedFields={observedFields} component={CheckboxGroupInput} />} >
                 {children}
-            </ComponentFormInputEdit>
-        </>
+                <BooleanInput source="defaultValue" label="Default Value" onChange={(e) => observeIt('defaultValue', e.target.value)} />
+            </ComponentInputEdit>
     );
 };
 
