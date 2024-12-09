@@ -1,22 +1,22 @@
-// src/components/ComponentInputEdit.tsx
+// src/components/ComponentInputCreate.tsx
 
 import { ReactNode } from 'react';
-import { Edit } from 'react-admin';
+import { Create } from 'react-admin';
 import { CommonInputForm } from './CommonInputForm';
 
-interface ComponentInputEditProps {
+interface ComponentInputCreateProps {
     children?: ReactNode;
     preview?: ReactNode;
 }
 
-export const ComponentInputEdit = ({ children, preview }: ComponentInputEditProps) => {
+export const ComponentInputCreate = ({ children, preview }: ComponentInputCreateProps) => {
 
     return (
-            <Edit>
+            <Create>
                 <CommonInputForm preview={preview} >
                     {children}
                 </CommonInputForm>
-            </Edit>
+            </Create>
     );
 };
 

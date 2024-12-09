@@ -12,10 +12,7 @@ interface BooleanInputEditProps {
 
 export const BooleanInputEdit = ({ children }: BooleanInputEditProps) => {
 
-    const {
-        observedFields,
-        observeIt
-    } = useObserveChanges();
+    const { observedFields, observeIt } = useObserveChanges();
 
     return (
             <ComponentInputEdit preview={<ComponentInputPreview watchedFields={observedFields} component={BooleanInput} />} >

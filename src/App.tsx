@@ -26,11 +26,8 @@ import { BooleanInputList } from "./resource/input/BooleanInputList";
 import { BooleanInputEdit } from "./resource/input/BooleanInputEdit";
 import { BooleanInputCreate } from "./resource/input/BooleanInputCreate";
 import { CheckboxInputList } from "./resource/input/CheckboxInputList";
-import { CheckboxInputEdit } from "./backlog/wip/CheckboxInputEdit";
+import { CheckboxInputEdit } from "./resource/input/CheckboxInputEdit";
 import { CheckboxInputCreate } from "./resource/input/CheckboxInputCreate";
-import { TextInputCreate } from "./backlog/to_add_specs/TextInputCreate";
-import { TextInputEdit } from "./backlog/to_add_specs/TextInputEdit";
-import { TextInputList } from "./backlog/to_add_specs/TextInputList";
 import { FrontendList } from "./backlog/FrontendList";
 import { ScreenList } from "./backlog/ScreensList";
 import { AppList } from "./backlog/AppList";
@@ -69,14 +66,14 @@ export const App = () => {
           theme={radiantLightTheme}
           darkTheme={radiantDarkTheme}
         >
-
+{/* 
         <Resource
           name="textInputs"
           list={TextInputList}
           create={TextInputCreate}
           edit={TextInputEdit}
           icon={FormatAlignJustifyIcon}
-        />
+        /> */}
 
         <Resource
           name="booleanInputs"
