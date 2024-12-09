@@ -17,7 +17,8 @@ export const CommonInputForm = ({ children, preview, observedFields }: CommonInp
         observeAll
     } = useObserveChanges();
 
-    observeAll(observedFields);
+    if (observedFields)
+        observeAll(observedFields);
 
     return (
             <SimpleForm>
