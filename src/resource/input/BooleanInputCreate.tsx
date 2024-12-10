@@ -1,6 +1,6 @@
 // src/resource/BooleanInputCreate.tsx
 
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 import { BooleanInput } from 'react-admin';
 import ComponentInputPreview from '../../components/ComponentInputPreview';
 import { ComponentInputCreate } from '../../components/ComponentInputCreate';
@@ -18,13 +18,17 @@ export const BooleanInputCreate = ({ children }: BooleanInputCreateProps) => {
         observeFieldOf
     } = useRegistryContext();
 
+    function onChangeHandler(e: any) {
+        return observeFieldOf(INSTANCE_NAME, 'defaultValue', e.target.value === 'on' ? true : e.target.value);
+    }
+
     return (
             <ComponentInputCreate preview={<ComponentInputPreview observedFields={INSTANCE_NAME} component={BooleanInput} />} 
                                 observedFields={INSTANCE_NAME}>
                 {children}
                 <BooleanInput source="defaultValue" 
                                 label="Default Value" 
-                                onChange={(e) => observeFieldOf(INSTANCE_NAME, 'defaultValue', e.target.value === 'on'? true : e.target.value)} />
+                                onChange={(e) => onChangeHandler(e)} />
             </ComponentInputCreate>
     );
 }

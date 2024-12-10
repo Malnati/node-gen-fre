@@ -1,6 +1,6 @@
 // src/resource/BooleanInputEdit.tsx
 
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import { BooleanInput } from 'react-admin';
 import { ComponentInputEdit } from '../../components/ComponentInputEdit';
 import ComponentInputPreview from '../../components/ComponentInputPreview';
