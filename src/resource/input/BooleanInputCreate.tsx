@@ -15,13 +15,8 @@ export const INSTANCE_NAME = 'CURRENT_BOOLEANINPUT';
 export const BooleanInputCreate = ({ children }: BooleanInputCreateProps) => {
 
     const { 
-        observeInstance,
         observeFieldOf
     } = useRegistryContext();
-
-    useEffect(() => {
-        observeInstance(INSTANCE_NAME, {});
-    }, [observeInstance]);
 
     return (
             <ComponentInputCreate preview={<ComponentInputPreview observedFields={INSTANCE_NAME} component={BooleanInput} />} 

@@ -15,30 +15,16 @@ export const INSTANCE_NAME: string = 'CURRENT_BOOLEANINPUT';
 export const BooleanInputEdit = ({ children }: BooleanInputEditProps) => {
 
     const { 
-        observeInstance,
         observeFieldOf,
-        getInstance
     } = useRegistryContext();
-    const [isInstanceReady, setIsInstanceReady] = useState(false);
-
-    useEffect(() => {
-        observeInstance('CURRENT_BOOLEANINPUT', {});
-        setIsInstanceReady(true);
-    }, []);
-
-    if (!isInstanceReady) {
-        const instance = getInstance('CURRENT_BOOLEANINPUT');
-        console.log(`Instance ${'CURRENT_BOOLEANINPUT'} is not ready yet.`, JSON.stringify(instance, null, 2));
-        return <div>Loading...</div>;
-    }
 
     return (
-            <ComponentInputEdit preview={<ComponentInputPreview observedFields={'CURRENT_BOOLEANINPUT'} component={BooleanInput} />} 
-                                observedFields={'CURRENT_BOOLEANINPUT'}>
+            <ComponentInputEdit preview={<ComponentInputPreview observedFields={INSTANCE_NAME} component={BooleanInput} />} 
+                                observedFields={INSTANCE_NAME}>
                 {children}
                 <BooleanInput source="defaultValue" 
                                 label="Default Value" 
-                                onChange={(e) => observeFieldOf('CURRENT_BOOLEANINPUT', 'defaultValue', e.target.value === 'on'? true : e.target.value)} />
+                                onChange={(e) => observeFieldOf(INSTANCE_NAME, 'defaultValue', e.target.value === 'on'? true : e.target.value)} />
             </ComponentInputEdit>
     );
 };

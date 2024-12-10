@@ -10,16 +10,17 @@ interface ComponentInputPreviewProps {
 }
 
 const ComponentInputPreview = ({ component: Component, observedFields }: ComponentInputPreviewProps) => {
-    
     const { getInstance } = useRegistryContext();
     const instance = getInstance(observedFields);
 
-    if (!instance) throw new Error('ComponentInputPreview: instance not found');
+    if (!instance || Object.keys(instance).length === 0) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <>
             <Paper elevation={3} sx={{ padding: '15px', margin: '15px', width: '98%' }}>
-            <Typography variant="h6" sx={{ padding: '15px' }}>Changes view</Typography>
+                <Typography variant="h6" sx={{ padding: '15px' }}>Changes view</Typography>
                 <Box display="flex" alignItems="center" gap={2}>
                     <ComponentInput source="genericInputs" component={Component} current={instance} />
                 </Box>
