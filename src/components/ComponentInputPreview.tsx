@@ -3,6 +3,7 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { ComponentInput } from './ComponentInput';
 import { useRegistryContext } from "../hooks/useRegistryContext";
+import { useEffect } from 'react';
 
 interface ComponentInputPreviewProps {
     component: React.ElementType;
@@ -13,10 +14,11 @@ const ComponentInputPreview = ({ component: Component, observedFields }: Compone
     const { getInstance, observeFieldOf } = useRegistryContext();
     const instance = getInstance(observedFields);
 
-    if (!instance || instance === undefined || Object.keys(instance).length === 0) {
-        observeFieldOf(observedFields, 'forcing', observedFields);
-        return <div>Loading...</div>;
-    }
+    useEffect(() => {
+        if (!instance || instance === undefined) {
+            observeFieldOf(observedFields, 'forcing', observedFields);
+        }
+    }, []);
 
     return (
         <>

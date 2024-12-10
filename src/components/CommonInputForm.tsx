@@ -14,8 +14,9 @@ export const CommonInputForm = ({ children, preview, observedFields }: CommonInp
 
     const { observeFieldOf } = useRegistryContext();
 
-    if (!observedFields)
+    if (!observedFields) {
         throw new Error("observedFields is required, please create a new instance of useObserveChanges by observeInstance('myThing') before, then provide it to CommonInputForm using props.");
+    }
 
     return (
             <SimpleForm>
