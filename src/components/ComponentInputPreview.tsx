@@ -13,8 +13,8 @@ const ComponentInputPreview = ({ component: Component, observedFields }: Compone
     const { getInstance, observeFieldOf } = useRegistryContext();
     const instance = getInstance(observedFields);
 
-    if (!instance || Object.keys(instance).length === 0) {
-        observeFieldOf(observedFields, observedFields, observedFields);
+    if (!instance || instance === undefined || Object.keys(instance).length === 0) {
+        observeFieldOf(observedFields, 'forcing', observedFields);
         return <div>Loading...</div>;
     }
 
