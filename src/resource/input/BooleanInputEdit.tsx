@@ -18,13 +18,18 @@ export const BooleanInputEdit = ({ children }: BooleanInputEditProps) => {
         observeFieldOf,
     } = useRegistryContext();
 
+    function onChangeHandler(e: any) {
+        return observeFieldOf(INSTANCE_NAME, 'defaultValue', e.target.value === 'on' ? true : e.target.value);
+    }
+
     return (
-            <ComponentInputEdit preview={<ComponentInputPreview observedFields={INSTANCE_NAME} component={BooleanInput} />} 
+            <ComponentInputEdit preview={<ComponentInputPreview observedFields={INSTANCE_NAME} 
+                                component={BooleanInput} />} 
                                 observedFields={INSTANCE_NAME}>
                 {children}
                 <BooleanInput source="defaultValue" 
                                 label="Default Value" 
-                                onChange={(e) => observeFieldOf(INSTANCE_NAME, 'defaultValue', e.target.value === 'on'? true : e.target.value)} />
+                                onChange={(e) => onChangeHandler(e)} />
             </ComponentInputEdit>
     );
 };

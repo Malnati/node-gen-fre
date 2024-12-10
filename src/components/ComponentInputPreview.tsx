@@ -10,10 +10,11 @@ interface ComponentInputPreviewProps {
 }
 
 const ComponentInputPreview = ({ component: Component, observedFields }: ComponentInputPreviewProps) => {
-    const { getInstance } = useRegistryContext();
+    const { getInstance, observeFieldOf } = useRegistryContext();
     const instance = getInstance(observedFields);
 
     if (!instance || Object.keys(instance).length === 0) {
+        observeFieldOf(observedFields, observedFields, observedFields);
         return <div>Loading...</div>;
     }
 
