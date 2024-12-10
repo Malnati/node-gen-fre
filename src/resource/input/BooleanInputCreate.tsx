@@ -18,17 +18,13 @@ export const BooleanInputCreate = ({ children }: BooleanInputCreateProps) => {
         observeFieldOf
     } = useRegistryContext();
 
-    function onChangeHandler(e: any) {
-        return observeFieldOf(INSTANCE_NAME, 'defaultValue', e.target.value === 'on' ? true : e.target.value);
-    }
-
     return (
             <ComponentInputCreate preview={<ComponentInputPreview observedFields={INSTANCE_NAME} component={BooleanInput} />} 
                                 observedFields={INSTANCE_NAME}>
                 {children}
                 <BooleanInput source="defaultValue" 
                                 label="Default Value" 
-                                onChange={(e) => onChangeHandler(e)} />
+                                onChange={(e) => observeFieldOf(INSTANCE_NAME, 'defaultValue', e.target.value)} />
             </ComponentInputCreate>
     );
 }
