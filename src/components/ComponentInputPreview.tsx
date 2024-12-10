@@ -1,32 +1,27 @@
 // src/components/ComponentInputPreview.tsx
 
-import { useState, useEffect } from 'react';
-import { useRecordContext } from 'react-admin';
 import { Box, Paper, Typography } from '@mui/material';
 import { ComponentInput } from './ComponentInput';
+import { useRegistryContext } from "../hooks/useRegistryContext";
 
 interface ComponentInputPreviewProps {
     component: React.ElementType;
-    watchedFields: any;
+    observedFields: string,
 }
 
-const ComponentInputPreview = ({ component: Component, watchedFields }: ComponentInputPreviewProps) => {
-
-    const record = useRecordContext();
-    const [current, setCurrent] = useState(record);
+const ComponentInputPreview = ({ component: Component, observedFields }: ComponentInputPreviewProps) => {
     
-    useEffect(() => {
-        setCurrent(watchedFields);
-    }, [watchedFields]);
+    const { getInstance } = useRegistryContext();
+    const instance = getInstance(observedFields);
 
-    if (!current) return null;
+    if (!instance) throw new Error('ComponentInputPreview: instance not found');
 
     return (
         <>
             <Paper elevation={3} sx={{ padding: '15px', margin: '15px', width: '98%' }}>
             <Typography variant="h6" sx={{ padding: '15px' }}>Changes view</Typography>
                 <Box display="flex" alignItems="center" gap={2}>
-                    <ComponentInput source="genericInputs" component={Component} current={current} />
+                    <ComponentInput source="genericInputs" component={Component} current={instance} />
                 </Box>
             </Paper>
         </>

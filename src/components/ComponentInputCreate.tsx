@@ -7,7 +7,7 @@ import { CommonInputForm } from './CommonInputForm';
 interface ComponentInputCreateProps {
     children?: ReactNode;
     preview?: ReactNode;
-    observedFields?: {};
+    observedFields: string;
 }
 
 export const ComponentInputCreate = ({ children, preview, observedFields }: ComponentInputCreateProps) => {

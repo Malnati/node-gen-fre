@@ -1,25 +1,27 @@
-// src/context/RegistryContextProvider.tsx
 
-import { useState, useEffect, ReactNode } from "react";
-import { RegistryContext, COMMIT_HASH } from "./RegistryContext";
+import { useObserveChanges } from "react-use-observe-changes";
+import { ReactNode } from "react";
+import { RegistryContext } from "./RegistryContext";
 
 interface RegistryContextProviderProps {
-  children: ReactNode;
-}
-
-export const RegistryContextProvider = ({ children }: RegistryContextProviderProps) => {
-  const [commitHash, setCommitHash] = useState<string>("");
-
-  useEffect(() => {
-    const currentCommitHash = COMMIT_HASH || "";
-
-    // Atualiza o estado com os valores recuperados ou padrões
-    setCommitHash(currentCommitHash);
-  }, []);
-
-  const value = {
-    commitHash,
+    children: ReactNode;
+  }
+  
+  export const RegistryContextProvider = ({ children }: RegistryContextProviderProps) => {
+  
+    const { 
+      observeInstance,
+      getInstance,
+      observeFieldOf,
+      unobserveFieldOf,
+      reset
+    } = useObserveChanges('debug');
+  
+    return <RegistryContext.Provider value={{
+      observeInstance,
+      getInstance,
+      observeFieldOf,
+      unobserveFieldOf,
+      reset
+    }}>{children}</RegistryContext.Provider>;
   };
-
-  return <RegistryContext.Provider value={value}>{children}</RegistryContext.Provider>;
-};

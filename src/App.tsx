@@ -68,123 +68,125 @@ export const App = () => {
             theme={radiantLightTheme}
             darkTheme={radiantDarkTheme}
           >
-              <Resource
-                name="booleanInputs"
-                list={BooleanInputList}
-                edit={BooleanInputEdit}
-                create={BooleanInputCreate}
-                icon={InputIcon}
-              />
+            <>
+                <Resource
+                  name="booleanInputs"
+                  list={BooleanInputList}
+                  edit={BooleanInputEdit}
+                  create={BooleanInputCreate}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="checkboxInputs"
-                list={CheckboxInputList}
-                edit={CheckboxInputEdit}
-                create={CheckboxInputCreate}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="checkboxInputs"
+                  list={CheckboxInputList}
+                  edit={CheckboxInputEdit}
+                  create={CheckboxInputCreate}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="dateInputs"
-                list={DateInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="dateInputs"
+                  list={DateInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="dateTimeInputs"
-                list={DateTimeInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="dateTimeInputs"
+                  list={DateTimeInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="fileInputs"
-                list={FileInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="fileInputs"
+                  list={FileInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="imageInputs"
-                list={ImageInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="imageInputs"
+                  list={ImageInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="numberInputs"
-                list={NumberInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="numberInputs"
+                  list={NumberInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="passwordInputs"
-                list={PasswordInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="passwordInputs"
+                  list={PasswordInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="referenceInputs"
-                list={ReferenceInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="referenceInputs"
+                  list={ReferenceInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="richTextInputs"
-                list={RichTextInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="richTextInputs"
+                  list={RichTextInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="searchInputs"
-                list={SearchInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="searchInputs"
+                  list={SearchInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="selectInputs"
-                list={SelectInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="selectInputs"
+                  list={SelectInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="timeInputs"
-                list={TimeInputList}
-                icon={InputIcon}
-              />
+                <Resource
+                  name="timeInputs"
+                  list={TimeInputList}
+                  icon={InputIcon}
+                />
 
-              <Resource
-                name="translatableInputs"
-                list={TranslatableInputList}
-                icon={InputIcon}
-              />
-              
-              <Resource
-                name="platforms"
-                list={PlatformList}
-                create={PlatformCreate}
-                edit={PlatformEdit}
-                show={PlatformShow}
-                icon={SettingsSystemDaydreamIcon}
-              />
-              
-              <Resource
-                name="apps"
-                list={AppList}
-                create={AppCreate}
-                edit={AppEdit}
-                show={AppShow}
-                icon={WidgetsIcon}
-              />
-              
-              <Resource
-                name="frontends"
-                list={FrontendList}
-                create={FrontCreate}
-                icon={TvIcon}
-              />
-              
-              <Resource name="screens" 
-                list={ScreenList}
-                icon={PreviewIcon}
-              />
+                <Resource
+                  name="translatableInputs"
+                  list={TranslatableInputList}
+                  icon={InputIcon}
+                />
+                
+                <Resource
+                  name="platforms"
+                  list={PlatformList}
+                  create={PlatformCreate}
+                  edit={PlatformEdit}
+                  show={PlatformShow}
+                  icon={SettingsSystemDaydreamIcon}
+                />
+                
+                <Resource
+                  name="apps"
+                  list={AppList}
+                  create={AppCreate}
+                  edit={AppEdit}
+                  show={AppShow}
+                  icon={WidgetsIcon}
+                />
+                
+                <Resource
+                  name="frontends"
+                  list={FrontendList}
+                  create={FrontCreate}
+                  icon={TvIcon}
+                />
+                
+                <Resource name="screens" 
+                  list={ScreenList}
+                  icon={PreviewIcon}
+                />
+            </>
           </Admin>
         </RegistryContextProvider>
     </GoogleOAuthProvider>

@@ -2,9 +2,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "BROWSER='google chrome'; vite",
+    "start": "BROWSER='google chrome'; LOG_LEVEL=debug; vite",
     "incognito": "BROWSER='google chrome'; BROWSER_ARGS='--incognito'; vite",
     "dev": "vite",
+    "debug": "BROWSER='google chrome'; LOG_LEVEL=debug; vite",
     "build": "vite build",
     "serve": "vite preview",
     "type-check": "tsc --noEmit",
@@ -23,7 +24,7 @@
     "react-admin": "^5.3.0",
     "react-dom": "^18.3.0",
     "react-dropzone": "^14.3.5",
-    "react-use-observe-changes": "^6.0.0"
+    "react-use-observe-changes": "^12.0.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

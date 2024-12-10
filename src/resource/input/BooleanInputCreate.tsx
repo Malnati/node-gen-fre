@@ -1,24 +1,35 @@
 // src/resource/BooleanInputCreate.tsx
 
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { BooleanInput } from 'react-admin';
-import { useObserveChanges } from 'react-use-observe-changes';
 import ComponentInputPreview from '../../components/ComponentInputPreview';
 import { ComponentInputCreate } from '../../components/ComponentInputCreate';
+import { useRegistryContext } from "../../hooks/useRegistryContext";
 
 interface BooleanInputCreateProps {
     children?: ReactNode;
 }
 
+export const INSTANCE_NAME = 'CURRENT_BOOLEANINPUT';
+
 export const BooleanInputCreate = ({ children }: BooleanInputCreateProps) => {
 
-    const { observedFields, observeIt } = useObserveChanges();
+    const { 
+        observeInstance,
+        observeFieldOf
+    } = useRegistryContext();
+
+    useEffect(() => {
+        observeInstance(INSTANCE_NAME, {});
+    }, [observeInstance]);
 
     return (
-            <ComponentInputCreate preview={<ComponentInputPreview watchedFields={observedFields} component={BooleanInput} />} 
-                                  observedFields={observedFields}>
+            <ComponentInputCreate preview={<ComponentInputPreview observedFields={INSTANCE_NAME} component={BooleanInput} />} 
+                                observedFields={INSTANCE_NAME}>
                 {children}
-                <BooleanInput source="defaultValue" label="Default Value" onChange={(e) => observeIt('defaultValue', e.target.value === 'on'? true : e.target.value)} />
+                <BooleanInput source="defaultValue" 
+                                label="Default Value" 
+                                onChange={(e) => observeFieldOf(INSTANCE_NAME, 'defaultValue', e.target.value === 'on'? true : e.target.value)} />
             </ComponentInputCreate>
     );
 }
